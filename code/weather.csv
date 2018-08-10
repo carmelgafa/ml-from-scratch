@@ -1,0 +1,15 @@
+DAY,WEATHER,TEMP,HUMIDITY,WIND,PLAY
+1,Sunny,85,85,Weak,No
+2,Sunny,80,90,Strong,No
+3,Cloudy,83,90,Weak,Yes
+4,Rainy,70,96,Weak,Yes
+5,Rainy,68,80,Weak,Yes
+6,Rainy,65,70,Strong,No
+7,Cloudy,64,65,Strong,Yes
+8,Sunny,72,95,Weak,No
+9,Sunny,69,70,Weak,Yes
+10,Rainy,75,80,Weak,Yes
+11,Sunny,75,70,Strong,Yes
+12,Cloudy,72,90,Strong,Yes
+13,Cloudy,81,75,Weak,Yes
+14,Rainy,71,85,Strong,No
