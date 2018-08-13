@@ -134,5 +134,13 @@ class ID3Classifier:
                            current_parent)
 
     def infer(self, case):
+        '''
+        goes through the case in hand in the tree and returns the result found
+
+        Arguments:
+        ----------
+
+        case: ductionary containing the case in had in the form 'node:branch'
+        '''
         result = self.result_tree.traverse(case)
         return result

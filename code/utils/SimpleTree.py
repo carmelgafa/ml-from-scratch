@@ -155,7 +155,7 @@ class SimpleTree:
 
     def traverse(self, case):
         '''
-        recsrsivly go through the case in hand whilst traversing 
+        recusisevly go through the case in hand whilst traversing 
         the tree until the result is found
 
         Arguments:
