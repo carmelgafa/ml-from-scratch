@@ -155,13 +155,13 @@ class SimpleTree:
 
     def traverse(self, case):
         '''
-        recusisevly go through the case in hand whilst traversing 
+        recursively go through the case in hand whilst traversing 
         the tree until the result is found
 
         Arguments:
         ----------
 
-        case: ductionary containing the case in had in the form 'node:branch'
+        case: dictionary containing the case in had in the form 'node:branch'
         '''
         return self.__traverse_step(case, self.rootnode)
 

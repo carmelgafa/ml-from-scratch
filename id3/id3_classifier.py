@@ -2,7 +2,7 @@
 classification using ID3 algorithm
 '''
 import numpy as np
-from utils import SimpleTree
+from simple_tree import SimpleTree
 
 
 class ID3Classifier:
@@ -140,7 +140,7 @@ class ID3Classifier:
         Arguments:
         ----------
 
-        case: ductionary containing the case in had in the form 'node:branch'
+        case: dictionary containing the case in had in the form 'node:branch'
         '''
         result = self.result_tree.traverse(case)
         return result

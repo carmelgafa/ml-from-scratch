@@ -5,7 +5,7 @@ simple example demonstrating the operation of the SimpleTree
 2. creates another tree with nodes and edges
 3. appends the second tree to the forst tree 
 '''
-from utils import SimpleTree
+from simple_tree import SimpleTree
 
 a_tree = SimpleTree()
 a_tree.add_node('One')
