@@ -4,7 +4,6 @@ class FuzzyRule():
 	IF [antecedent clauses] THEN [consequent clauses]
 	'''
 
-	# def __init__(self, antecedent_clauses, consequent_clauses):
 	def __init__(self):
 		'''
 		initializes the rule. Two data structures are necessary:
@@ -13,26 +12,6 @@ class FuzzyRule():
 		'''
 		self._antecedent = []
 		self._consequent= []
-		self._degree = 1
-
-	@property
-	def degree(self):
-		return self._degree
-
-	def evaluate_score(self):
-
-		output_control = 1
-
-		center_values={}
-
-		for ante in self._antecedent:
-			output_control= output_control * ante.evaluate_antecedent()
-		
-		for cons in self._consequent:
-			center_values[cons.variable_name] = cons.get_consequent_center_val()
-
-		return output_control, center_values
-
 
 	def __str__(self):
 		'''
@@ -47,10 +26,6 @@ class FuzzyRule():
 		cons = ' and '.join(map(str, self._consequent))
 		return f'If {ante} then {cons}'
 
-	def get_antecedent_str(self):
-		ante = ' and '.join(map(str, self._antecedent))
-		return ante
-
 	def add_antecedent_clause(self, clause):
 		'''
 		adds an antecedent clause to the rule
@@ -60,7 +35,6 @@ class FuzzyRule():
 			clause -- FuzzyClause, the antecedent clause
 		'''
 		self._antecedent.append(clause)
-		self._degree = self._degree * clause.degree
 
 	def add_consequent_clause(self, clause):
 		'''
@@ -71,7 +45,6 @@ class FuzzyRule():
 			clause -- FuzzyClause, the consequent clause
 		'''
 		self._consequent.append(clause)
-		self._degree = self._degree * clause.degree
 
 	def evaluate(self):
 		'''
@@ -105,21 +78,3 @@ class FuzzyRule():
 
 		# return results
 		return rule_consequence
-
-	def get_antecedent_list(self):
-		
-		ret = []
-
-		for ante_clause in self._antecedent:
-			ret.append(ante_clause.set_name)
-
-		return ret
-
-	def get_consequent_list(self):
-		
-		ret = []
-
-		for cons_clause in self._consequent:
-			ret.append(cons_clause.set_name)
-
-		return ret

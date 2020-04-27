@@ -96,7 +96,7 @@ class FuzzyClause():
 		set -- Type1FuzzySet, a set resulting from alpha-cut from
 				the scalar value
 		'''
-		return self._set.fuzzy_alpha_cut(dom)
+		return self._set.alpha_cut(dom)
 
 	def get_consequent_center_val(self):
 

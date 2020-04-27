@@ -2,22 +2,22 @@ from fuzzy_system.fuzzy_variable import FuzzyVariable
 from fuzzy_system.fuzzy_system import FuzzySystem
 from fuzzy_system.fuzzy_clause import FuzzyClause
 
-x1 = FuzzyVariable(0, 100, 100, 'x1')
+x1 = FuzzyVariable('x1', 0, 100, 100)
 x1.add_triangular('S', 0, 25, 50)
 x1.add_triangular('M', 25, 50, 75)
 x1.add_triangular('L', 50, 75, 100)
 
-x2 = FuzzyVariable(0, 100, 100, 'x2')
+x2 = FuzzyVariable('x2', 0, 100, 100)
 x2.add_triangular('S', 0, 25, 50)
 x2.add_triangular('M', 25, 50, 75)
 x2.add_triangular('L', 50, 75, 100)
 
-y = FuzzyVariable(0, 100, 100, 'y')
+y = FuzzyVariable('y', 0, 100, 100)
 y.add_triangular('S', 0, 25, 50)
 y.add_triangular('M', 25, 50, 75)
 y.add_triangular('L', 50, 75, 100)
 
-z = FuzzyVariable(0, 100, 100, 'z')
+z = FuzzyVariable('z', 0, 100, 100)
 z.add_triangular('S', 0, 25, 50)
 z.add_triangular('M', 25, 50, 75)
 z.add_triangular('L', 50, 75, 100)

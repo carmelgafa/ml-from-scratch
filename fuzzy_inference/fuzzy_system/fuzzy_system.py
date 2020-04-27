@@ -74,18 +74,11 @@ class FuzzySystem:
 		self._input_variables[variable.name] = variable
 
 	def add_output_variable(self, variable):
-		'''
-		adds an output variable to the system.
-		note that outputs will also have an entry in the output
-		distributions dict
-
-		Arguments:
-		----------
-		variable -- FuzzyVariable, the output variable
-		'''
 		self._output_variables[variable.name] = variable
-		self._output_distributions[variable.name] = FuzzySet()
 
+		output_dis = FuzzySet(f'output {variable.name}', variable._min_val, variable._max_val, variable._res)
+
+		self._output_distributions[variable.name] = output_dis
 	def get_input_variable(self, name):
 		'''
 		get an input variable given the name
@@ -119,8 +112,8 @@ class FuzzySystem:
 		'''
 		used for each iteration. The fuzzy result is cleared
 		'''
-		for variable_name , output_distribution in self._output_distributions.items():
-			output_distribution.clear_set()
+		map(lambda output_dis: output_dis.clear_set(), self._output_distributions.values())
+
 
 	def add_rule(self, antecedent_clauses, consequent_clauses):
 		'''
@@ -190,13 +183,6 @@ class FuzzySystem:
 		# finally, defuzzify all output distributions to get the crisp outputs
 		output = {}
 		for output_var_name, output_distribution in self._output_distributions.items():
-			
-			fig, ax = plt.subplots(1,1)
-
-			output_distribution.plot_set(ax)
-
-			plt.show()
-
 			output[output_var_name] = output_distribution.cog_defuzzify()
 
 		return output
