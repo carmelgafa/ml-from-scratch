@@ -1,11 +1,10 @@
-from .fuzzy_rule import FuzzyRule
-from .fuzzy_clause import FuzzyClause
-from .fuzzy_variable import FuzzyVariable
-from .fuzzy_variable_output import FuzzyOutputVariable
-from .fuzzy_set import FuzzySet
-
+from fuzzy_system.fuzzy_rule import FuzzyRule
+from fuzzy_system.fuzzy_clause import FuzzyClause
+from fuzzy_system.fuzzy_variable import FuzzyVariable
+from fuzzy_system.fuzzy_set import FuzzySet
 import matplotlib.pyplot as plt
 from matplotlib import rc
+# from type2fuzzy import cog_defuzzify
 import numpy as np
 
 class FuzzySystem:
@@ -80,7 +79,6 @@ class FuzzySystem:
 		output_dis = FuzzySet(f'output {variable.name}', variable._min_val, variable._max_val, variable._res)
 
 		self._output_distributions[variable.name] = output_dis
-
 	def get_input_variable(self, name):
 		'''
 		get an input variable given the name
@@ -207,6 +205,3 @@ class FuzzySystem:
 			self._output_variables[var_name].plot_variable(ax=axs[len(self._input_variables)+idx], show=False)
 
 		plt.show()
-
-if __name__ == "__main__":
-	pass

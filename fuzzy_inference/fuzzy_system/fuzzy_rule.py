@@ -1,5 +1,3 @@
-from .fuzzy_clause import FuzzyClause
-
 class FuzzyRule():
 	'''
 	A fuzzy rule of the type

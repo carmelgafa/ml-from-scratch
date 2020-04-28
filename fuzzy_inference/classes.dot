@@ -1,9 +1,0 @@
-digraph "classes" {
-charset="utf-8"
-rankdir=BT
-"0" [label="{FuzzyClause|set_name\lvariable_name\l|evaluate_antecedent()\levaluate_consequent(dom)\l}", shape="record"];
-"1" [label="{FuzzyRule|\l|add_antecedent_clause(clause)\ladd_consequent_clause(clause)\levaluate()\l}", shape="record"];
-"2" [label="{FuzzySet|empty\llast_dom_value\lname\l|alpha_cut(val)\lclear_set()\lcog_defuzzify()\lcomplement()\lcreate_trapezoidal(cls, name, domain_min, domain_max, res, a, b, c, d)\lcreate_triangular(cls, name, domain_min, domain_max, res, a, b, c)\ldom_elements()\ldomain_elements()\lintersection(f_set)\lplot_set(ax, col)\lunion(f_set)\l}", shape="record"];
-"3" [label="{FuzzySystem|\l|add_input_variable(variable)\ladd_output_variable(variable)\ladd_rule(antecedent_clauses, consequent_clauses)\levaluate_output(input_values)\lget_input_variable(name)\lget_output_variable(name)\lplot_system()\l}", shape="record"];
-"4" [label="{FuzzyVariable|name\l|add_trapezoidal(name, a, b, c, d)\ladd_triangular(name, low, mid, high)\lfuzzify_variable(value)\lget_set(name)\lplot_variable(ax, show)\l}", shape="record"];
-}

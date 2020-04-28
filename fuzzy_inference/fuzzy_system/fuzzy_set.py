@@ -1,12 +1,10 @@
 import numpy as np
 import copy
+from collections import OrderedDict
 import matplotlib.pyplot as plt
 
 
 class FuzzySet:
-
-	_precision: int = 3
-
 	def __init__(self, name, domain_min, domain_max, res):
 		
 		self._domain_min = domain_min
@@ -15,6 +13,7 @@ class FuzzySet:
 
 		self._domain = np.linspace(domain_min, domain_max, res)
 		self._dom = np.zeros(self._domain.shape)
+		self._precision = 3
 		self._name = name
 		self._last_dom_value = 0
 
@@ -43,6 +42,10 @@ class FuzzySet:
 	@property
 	def empty(self):
 		return np.all(self._dom == 0)
+
+	@property
+	def center_value(self):
+		return self._center
 
 	@property
 	def name(self):
