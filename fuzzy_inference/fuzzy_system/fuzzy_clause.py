@@ -28,7 +28,6 @@ class FuzzyClause():
 
 		self._variable = variable
 		self._set = f_set
-		self._degree = degree
 
 	def __str__(self):
 		'''
@@ -40,11 +39,6 @@ class FuzzyClause():
 					A is x
 		'''
 		return f'{self._variable.name} is {self._set.name}'
-
-	@property
-	def degree(self):
-		return self._degree
-
 
 	@property
 	def variable_name(self):
@@ -97,7 +91,3 @@ class FuzzyClause():
 				the scalar value
 		'''
 		return self._set.alpha_cut(dom)
-
-	def get_consequent_center_val(self):
-
-		return self._set.center_value

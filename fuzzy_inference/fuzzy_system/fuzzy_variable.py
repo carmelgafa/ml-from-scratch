@@ -1,4 +1,4 @@
-from fuzzy_system.fuzzy_set import FuzzySet
+from .fuzzy_set import FuzzySet
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -124,3 +124,6 @@ class FuzzyVariable():
 
 		res.append('-----------------------------')
 		return ' '.join(res)
+
+if __name__ == "__main__":
+	pass
