@@ -1,10 +1,13 @@
-from fuzzy_system.fuzzy_rule import FuzzyRule
-from fuzzy_system.fuzzy_clause import FuzzyClause
-from fuzzy_system.fuzzy_variable import FuzzyVariable
-from fuzzy_system.fuzzy_set import FuzzySet
+from .fuzzy_rule import FuzzyRule
+# from .fuzzy_clause import FuzzyClause
+# from .fuzzy_variable import FuzzyVariable
+# from .fuzzy_variable_output import FuzzyOutputVariable
+# from .fuzzy_set import FuzzySet
+from fuzzy_system.fuzzy_variable_output import FuzzyOutputVariable
+from fuzzy_system.fuzzy_variable_input import FuzzyInputVariable
+
 import matplotlib.pyplot as plt
 from matplotlib import rc
-# from type2fuzzy import cog_defuzzify
 import numpy as np
 
 class FuzzySystem:
@@ -32,7 +35,6 @@ class FuzzySystem:
 		self._input_variables = {}
 		self._output_variables = {}
 		self._rules = []
-		self._output_distributions = {}
 
 	def __str__(self):
 		'''
@@ -76,9 +78,7 @@ class FuzzySystem:
 	def add_output_variable(self, variable):
 		self._output_variables[variable.name] = variable
 
-		output_dis = FuzzySet(f'output {variable.name}', variable._min_val, variable._max_val, variable._res)
 
-		self._output_distributions[variable.name] = output_dis
 	def get_input_variable(self, name):
 		'''
 		get an input variable given the name
@@ -112,8 +112,9 @@ class FuzzySystem:
 		'''
 		used for each iteration. The fuzzy result is cleared
 		'''
-		map(lambda output_dis: output_dis.clear_set(), self._output_distributions.values())
+		# map(lambda output_dis: output_dis.clear_set(), self._output_distributions.values())
 
+		map(lambda output_var: output_var.clear_output_distribution(), self._output_variables.values())
 
 	def add_rule(self, antecedent_clauses, consequent_clauses):
 		'''
@@ -135,12 +136,12 @@ class FuzzySystem:
 			# get set by name
 			f_set = var.get_set(set_name)
 			# add clause
-			new_rule.add_antecedent_clause(FuzzyClause(var, f_set))
+			new_rule.add_antecedent_clause(var, f_set)
 
 		for var_name, set_name in consequent_clauses.items():
 			var = self.get_output_variable(var_name)
 			f_set = var.get_set(set_name)
-			new_rule.add_consequent_clause(FuzzyClause(var, f_set))
+			new_rule.add_consequent_clause(var, f_set)
 
 		# add the new rule
 		self._rules.append(new_rule)
@@ -167,23 +168,28 @@ class FuzzySystem:
 		# Fuzzify the inputs. The degree of membership will be stored in
 		# each set
 		for input_name, input_value in input_values.items():
-			self._input_variables[input_name].fuzzify_variable(input_value)
+			self._input_variables[input_name].fuzzify(input_value)
 
 		# evaluate rules
 		# each rule will return a set of consequences, for each
 		# output variable
 		for rule in self._rules:
-			rule_consequences = rule.evaluate()
+			# rule_consequences = rule.evaluate()
+			rule.evaluate()
 
-			# combine each consequence to obtain an output distribution for each
-			# output variable
-			for output_var_name, rule_consequence in rule_consequences.items():
-				self._output_distributions[output_var_name] = self._output_distributions[output_var_name].union(rule_consequence)
+			# # combine each consequence to obtain an output distribution for each
+			# # output variable
+			# for output_var_name, rule_consequence in rule_consequences.items():
+			# 	self._output_distributions[output_var_name] = self._output_distributions[output_var_name].union(rule_consequence)
 
 		# finally, defuzzify all output distributions to get the crisp outputs
 		output = {}
-		for output_var_name, output_distribution in self._output_distributions.items():
-			output[output_var_name] = output_distribution.cog_defuzzify()
+		# for output_var_name, output_distribution in self._output_distributions.items():
+		# 	output[output_var_name] = output_distribution.cog_defuzzify()
+
+		for output_var_name, output_var in self._output_variables.items():
+			output[output_var_name] = output_var.get_crisp_output()
+
 
 		return output
 
@@ -205,3 +211,6 @@ class FuzzySystem:
 			self._output_variables[var_name].plot_variable(ax=axs[len(self._input_variables)+idx], show=False)
 
 		plt.show()
+
+if __name__ == "__main__":
+	pass

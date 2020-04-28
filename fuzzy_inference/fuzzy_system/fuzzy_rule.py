@@ -1,3 +1,5 @@
+from .fuzzy_clause import FuzzyClause
+
 class FuzzyRule():
 	'''
 	A fuzzy rule of the type
@@ -26,7 +28,7 @@ class FuzzyRule():
 		cons = ' and '.join(map(str, self._consequent))
 		return f'If {ante} then {cons}'
 
-	def add_antecedent_clause(self, clause):
+	def add_antecedent_clause(self, var, f_set):
 		'''
 		adds an antecedent clause to the rule
 
@@ -34,9 +36,9 @@ class FuzzyRule():
 		-----------
 			clause -- FuzzyClause, the antecedent clause
 		'''
-		self._antecedent.append(clause)
+		self._antecedent.append(FuzzyClause(var, f_set))
 
-	def add_consequent_clause(self, clause):
+	def add_consequent_clause(self, var, f_set):
 		'''
 		adds an consequent clause to the rule
 
@@ -44,7 +46,7 @@ class FuzzyRule():
 		-----------
 			clause -- FuzzyClause, the consequent clause
 		'''
-		self._consequent.append(clause)
+		self._consequent.append(FuzzyClause(var, f_set))
 
 	def evaluate(self):
 		'''
@@ -69,12 +71,13 @@ class FuzzyRule():
 			rule_strength = min(ante_clause.evaluate_antecedent(), rule_strength)
 
 		# initialize the results dict
-		rule_consequence = {}
+		# rule_consequence = {}
 
 		# execute consequent clauses, adding each result to the results dict using the
 		# variable name as key
 		for consequent_clause in self._consequent:
-			rule_consequence[consequent_clause.variable_name] = consequent_clause.evaluate_consequent(rule_strength)
+			# rule_consequence[consequent_clause.variable_name] = consequent_clause.evaluate_consequent(rule_strength)
+			consequent_clause.evaluate_consequent(rule_strength)
 
 		# return results
-		return rule_consequence
+		# return rule_consequence

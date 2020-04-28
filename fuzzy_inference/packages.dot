@@ -1,0 +1,20 @@
+digraph "packages" {
+charset="utf-8"
+rankdir=BT
+"0" [label="fuzzy_system", shape="box"];
+"1" [label="fuzzy_system.fuzzy_clause", shape="box"];
+"2" [label="fuzzy_system.fuzzy_rule", shape="box"];
+"3" [label="fuzzy_system.fuzzy_set", shape="box"];
+"4" [label="fuzzy_system.fuzzy_system", shape="box"];
+"5" [label="fuzzy_system.fuzzy_variable", shape="box"];
+"6" [label="fuzzy_system.fuzzy_variable_input", shape="box"];
+"7" [label="fuzzy_system.fuzzy_variable_output", shape="box"];
+"2" -> "1" [arrowhead="open", arrowtail="none"];
+"4" -> "2" [arrowhead="open", arrowtail="none"];
+"4" -> "6" [arrowhead="open", arrowtail="none"];
+"4" -> "7" [arrowhead="open", arrowtail="none"];
+"5" -> "3" [arrowhead="open", arrowtail="none"];
+"6" -> "5" [arrowhead="open", arrowtail="none"];
+"7" -> "3" [arrowhead="open", arrowtail="none"];
+"7" -> "5" [arrowhead="open", arrowtail="none"];
+}

@@ -1,4 +1,4 @@
-from fuzzy_system.fuzzy_set import FuzzySet
+from .fuzzy_set import FuzzySet
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -95,32 +95,3 @@ class FuzzyVariable():
 		if show:
 			plt.show()
 
-	def fuzzify_variable(self, value):
-		'''
-		performs fuzzification of the variable. used when the
-		variable is an input one
-
-		Arguments:
-		-----------
-		value -- number, input value for the variable
-
-		'''
-		# get dom for each set and store it - it will be required for each rule
-		for set_name, f_set in self._sets.items():
-			f_set.last_dom_value = f_set[value]
-
-	
-		res = []
-
-		res.append('-----------------------------')
-		res.append('\n')
-		res.append(self._name)
-		res.append('\n')
-
-		for _, f_set in self._sets.items():
-			res.append(f_set.name)
-			res.append(str(f_set.last_dom_value))
-			res.append('\n')
-
-		res.append('-----------------------------')
-		return ' '.join(res)
