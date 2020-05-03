@@ -23,7 +23,6 @@ class FuzzySet:
 
 	def __setitem__(self, x_val, dom):
 		self._dom[np.abs(self._domain-x_val).argmin()] = round(dom, self._precision)
-	
 
 	def __str__(self):
 		return ' + '.join([str(a) + '/' + str(b) for a,b in zip(self._dom, self._domain)])
@@ -130,7 +129,6 @@ class FuzzySet:
 		ax.set_title(self._name)
 		ax.grid(True, which='both', alpha=0.4)
 		ax.set(xlabel='x', ylabel='$\mu(x)$')
-
 
 if __name__ == "__main__":
 	s = FuzzySet.create_trapezoidal('test', 1, 100, 100, 20, 30, 50, 80)

@@ -1,8 +1,4 @@
 from .fuzzy_rule import FuzzyRule
-# from .fuzzy_clause import FuzzyClause
-# from .fuzzy_variable import FuzzyVariable
-# from .fuzzy_variable_output import FuzzyOutputVariable
-# from .fuzzy_set import FuzzySet
 from fuzzy_system.fuzzy_variable_output import FuzzyOutputVariable
 from fuzzy_system.fuzzy_variable_input import FuzzyInputVariable
 
@@ -112,8 +108,6 @@ class FuzzySystem:
 		'''
 		used for each iteration. The fuzzy result is cleared
 		'''
-		# map(lambda output_dis: output_dis.clear_set(), self._output_distributions.values())
-
 		map(lambda output_var: output_var.clear_output_distribution(), self._output_variables.values())
 
 	def add_rule(self, antecedent_clauses, consequent_clauses):
@@ -171,27 +165,60 @@ class FuzzySystem:
 			self._input_variables[input_name].fuzzify(input_value)
 
 		# evaluate rules
-		# each rule will return a set of consequences, for each
-		# output variable
 		for rule in self._rules:
-			# rule_consequences = rule.evaluate()
 			rule.evaluate()
-
-			# # combine each consequence to obtain an output distribution for each
-			# # output variable
-			# for output_var_name, rule_consequence in rule_consequences.items():
-			# 	self._output_distributions[output_var_name] = self._output_distributions[output_var_name].union(rule_consequence)
 
 		# finally, defuzzify all output distributions to get the crisp outputs
 		output = {}
-		# for output_var_name, output_distribution in self._output_distributions.items():
-		# 	output[output_var_name] = output_distribution.cog_defuzzify()
-
 		for output_var_name, output_var in self._output_variables.items():
 			output[output_var_name] = output_var.get_crisp_output()
 
-
 		return output
+
+
+	def evaluate_output_info(self, input_values):
+		'''
+		Executes the fuzzy inference system for a set of inputs
+
+		Arguments:
+		-----------
+		input_values -- dict, containing the inputs to the systems in the form
+							{input_variable_name: value, ...}
+
+		Returns:
+		--------
+		output -- dict, containing the outputs from the systems in the form
+					{output_variable_name: value, ...}
+		'''
+		info = {}
+		# clear the fuzzy consequences as we are evaluating a new set of inputs.
+		# can be optimized by comparing if the inputs have changes from the previous
+		# iteration.
+		self._clear_output_distributions()
+
+		# Fuzzify the inputs. The degree of membership will be stored in
+		# each set
+		fuzzification_info = []
+		for input_name, input_value in input_values.items():
+			fuzzification_info.append(self._input_variables[input_name].fuzzify_info(input_value))
+
+		info['fuzzification'] = '\n'.join(fuzzification_info)
+
+		# evaluate rules
+		rule_info = []
+		for rule in self._rules:
+			rule_info.append(rule.evaluate_info())
+
+		info['rules'] = '\n'.join(rule_info)
+
+
+		# finally, defuzzify all output distributions to get the crisp outputs
+		output = {}
+		for output_var_name, output_var in self._output_variables.items():
+			output[output_var_name], info = output_var.get_crisp_output_info()
+			# info[output_var_name] = info
+		
+		return output, info
 
 	def plot_system(self):
 
@@ -202,7 +229,6 @@ class FuzzySystem:
 		fig, axs = plt.subplots(total_var_count, 1)
 
 		fig.tight_layout(pad=1.0)
-
 
 		for idx, var_name in enumerate(self._input_variables):
 			self._input_variables[var_name].plot_variable(ax=axs[idx], show=False)

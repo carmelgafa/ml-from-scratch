@@ -21,9 +21,6 @@ class FuzzyVariable():
 		self._min_val = min_val
 		self._res = res
 		self._name = name
-		self._delta = (self._max_val - self._min_val) / (self._res - 1)
-
-		self._fuzzification_results = {}
 
 	def __str__(self):
 		return ', '.join(self._sets.keys())
@@ -46,7 +43,6 @@ class FuzzyVariable():
 	def get_set(self, name):
 		'''
 		returns a set given the name
-		TODO ass checks
 		Arguments:
 		----------
 		name -- str, set name
@@ -88,10 +84,8 @@ class FuzzyVariable():
 		ax.set_title(self._name)
 		ax.set(xlabel='x', ylabel='$\mu (x)$')
 
-
 		# Put a legend to the right of the current axis
 		ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 
 		if show:
 			plt.show()
-
