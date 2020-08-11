@@ -70,9 +70,11 @@ system.add_rule(
 
 output = system.evaluate_output({
 				'Temperature':18,
-'Humidity':60
+				'Humidity':60
 		})
 
 print(output)
+# print('fuzzification\n-------------\n', info['fuzzification'])
+# print('rules\n-----\n', info['rules'])
 
 system.plot_system()

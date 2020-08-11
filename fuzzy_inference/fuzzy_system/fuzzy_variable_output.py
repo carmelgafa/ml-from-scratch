@@ -16,5 +16,9 @@ class FuzzyOutputVariable(FuzzyVariable):
     def get_crisp_output(self):
         return self._output_distribution.cog_defuzzify()
 
+    def get_crisp_output_info(self):
+        return self._output_distribution.cog_defuzzify(), self._output_distribution
+
+
 if __name__ == "__main__":
     pass

@@ -78,7 +78,6 @@ class FuzzyClause():
 	def evaluate_consequent(self, dom):
 		'''
 		Used when clause is consequent.
-		returns an alpha-cut fuzzy set given some scalar value
 
 		Arguments:
 		-----------
@@ -86,8 +85,7 @@ class FuzzyClause():
 
 		Returns:
 		--------
-		set -- Type1FuzzySet, a set resulting from alpha-cut from
+		set -- Type1FuzzySet, a set resulting from min operation with
 				the scalar value
 		'''
-		# return self._set.alpha_cut(dom)
-		self._variable.add_rule_contribution(self._set.alpha_cut(dom))
+		self._variable.add_rule_contribution(self._set.min_scalar(dom))

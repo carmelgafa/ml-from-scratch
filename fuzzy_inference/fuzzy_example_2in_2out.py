@@ -1,8 +1,8 @@
 from fuzzy_system.fuzzy_variable_output import FuzzyOutputVariable
 from fuzzy_system.fuzzy_variable_input import FuzzyInputVariable
 
-from fuzzy_system.fuzzy_system import FuzzySystem
 
+from fuzzy_system.fuzzy_system import FuzzySystem
 
 x1 = FuzzyInputVariable('x1', 0, 100, 100)
 x1.add_triangular('S', 0, 25, 50)
@@ -85,8 +85,8 @@ system.add_rule(
 			'z':'M' })
 
 output = system.evaluate_output({
-				'x1':35,
-				'x2':75
+			'x1':35,
+			'x2':75
 		})
 
 

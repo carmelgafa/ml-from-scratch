@@ -23,7 +23,6 @@ class FuzzySet:
 
 	def __setitem__(self, x_val, dom):
 		self._dom[np.abs(self._domain-x_val).argmin()] = round(dom, self._precision)
-	
 
 	def __str__(self):
 		return ' + '.join([str(a) + '/' + str(b) for a,b in zip(self._dom, self._domain)])
@@ -83,9 +82,9 @@ class FuzzySet:
 	def clear_set(self):
 		self._dom.fill(0)
 
-	def alpha_cut(self, val):
+	def min_scalar(self, val):
 		
-		result = FuzzySet(f'({self._name}) alpha ({val})', self._domain_min, self._domain_max, self._res)
+		result = FuzzySet(f'({self._name}) min ({val})', self._domain_min, self._domain_max, self._res)
 		result._dom = np.minimum(self._dom, val)
 
 		return result
@@ -131,7 +130,6 @@ class FuzzySet:
 		ax.grid(True, which='both', alpha=0.4)
 		ax.set(xlabel='x', ylabel='$\mu(x)$')
 
-
 if __name__ == "__main__":
 	s = FuzzySet.create_trapezoidal('test', 1, 100, 100, 20, 30, 50, 80)
 
@@ -145,7 +143,7 @@ if __name__ == "__main__":
 
 	fig, axs = plt.subplots(1, 1)
 
-	s.union(t).complement().intersection(s).alpha_cut(0.2).plot_set(axs)
+	s.union(t).complement().intersection(s).min_scalar(0.2).plot_set(axs)
 
 	plt.show()
 	print(s.cog_defuzzify())
