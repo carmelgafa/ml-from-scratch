@@ -34,5 +34,19 @@ b_tree.add_edge('Tre', 'Quattro', 'Si')
 b_tree.set_root_node('Uno')
 b_tree.display()
 
-a_tree.append_tree('Five', b_tree)
+a_tree.append_tree('Five', b_tree, 'No')
 a_tree.display()
+
+
+
+
+# a_tree = SimpleTree()
+# a_tree.add_node('One')
+# a_tree.add_node('Two')
+# a_tree.add_node('Three')
+# a_tree.add_node('Four')
+# a_tree.add_edge('One', 'Three', 'No')
+
+
+# b_tree = SimpleTree()
+# b_tree.add_node('Uno')

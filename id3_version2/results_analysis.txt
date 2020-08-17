@@ -1,0 +1,13 @@
+            'temp',     'outlook',  'no',       'yes',      'humid',    'windy',    'maybe'
+
+'temp'      0           'cool'      0           0           'mild'      0           0
+'outlook'   'cool'      0           'sunny'     'sunny'     'high'      'rainy'     'sunny'
+'no'        0           'sunny'     'no'        0           0           True        0
+'yes'       0           'sunny'     0           'yes'       'normal'    0           0
+'humid'     'mild'      'high'      0           'normal'    0           0           0
+'windy'     0           'rainy'     True        0           0           0           True
+'maybe'     0           'sunny'     0           0           0           True        'maybe'
+
+
+
+temperature
