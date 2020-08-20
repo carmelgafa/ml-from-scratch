@@ -11,3 +11,11 @@
 
 
 temperature
+
+
+
+0           'sunny'         0           'overcast'          'rainy'
+'sunny'     0               'high'      'normal'            0
+0           'high'          0           0                   True
+'overcast'  'normal'        0           0                   0
+'rainy'     0               True        0                   0

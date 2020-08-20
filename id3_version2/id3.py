@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import math
 import os
-from simple_tree import SimpleTree
+from nary_tree import NAryTree
 
 def calculate_entropy(df_set, output_classes):
     '''
@@ -63,58 +63,62 @@ def calculate_gain(df_set, set_entropy, partition_name, output_classes):
     return gain
 
 
-
 def ID3(input_attribs, output_attrib, training_data):
+    '''
+    '''
+    # get the number of output values
     output_classes = training_data[output_attrib].unique()
 
-
+    # if all records have the same output Value
+    # return a node with that output Value
+    # This will be a leaf node in the tree
     if len(output_classes) == 1:
-        current_node = SimpleTree()
-        print(current_node)
-
+        current_node = NAryTree()
         current_node.add_node(output_classes[0])
-        # current_node.add_edge(output_classes[0], output_classes[0], output_classes[0])
         return current_node
 
+    # if there is no data, return an error node
+    elif len(training_data) == 0:
+        current_node = NAryTree()
+        current_node.add_node('failure')
+        return current_node
+
+    # when we cannot return a single node, recursion ensues
     else:
-        set_entropy = calculate_entropy(training_data, output_classes)[0]
-
-        # print(set_entropy)
-
+        # compute the information gain for each input attribute relative to training set
         information_gains=[]
 
+        set_entropy = calculate_entropy(training_data, output_classes)[0]
+        
         for feature in input_attribs:
             gain = calculate_gain(training_data, set_entropy, feature, output_classes)
             information_gains.append(gain)
 
-        # print(input_attribs)
-        # print(information_gains)
-
+        # get the attribute with the largest gain relative to training set
+        # create a node with that attribute
         largest_gain_attrib = input_attribs[information_gains.index(max(information_gains))]
         largest_gain_attrib_values = training_data[largest_gain_attrib].unique()
 
-        print(largest_gain_attrib_values)
+        current_node = NAryTree()
+        current_node.add_node(largest_gain_attrib)
 
+        # create a copy of input attributes list, removing the selected attribute
         new_input_attributes = input_attribs.copy()
         new_input_attributes.remove(largest_gain_attrib)
 
-        print(new_input_attributes)
-
-        current_node = SimpleTree()
-        current_node.add_node(largest_gain_attrib)
-
+        # for all the values of the selected attribute
+        # partition the data
+        # call ID3 to get a node for that partitioned dataset
+        # append the returned node to the selected attribute node, using the value as edge
         for largest_gain_attrib_value in largest_gain_attrib_values:
-            # print(largest_gain_attrib_value)
+            
             new_training_data = training_data[training_data[largest_gain_attrib] == largest_gain_attrib_value]
             
             new_node = ID3(new_input_attributes, output_attrib, new_training_data)
 
-            print(type(new_node))
-            print(current_node)
-            print(largest_gain_attrib_value)
-
             current_node.append_tree(largest_gain_attrib, new_node, largest_gain_attrib_value)
-            
+
+        # return the attribute node
         return current_node
 
 
@@ -133,10 +137,6 @@ if __name__ == "__main__":
     
     tree = ID3(input_attribs, output_attrib, training_data)
 
-    print(tree.nodes)
-    print(tree.tree)
-    print(tree.rootnode)
+    tree.display()
 
-
-
-    print(tree.display())
+    print(tree.generate_rules())

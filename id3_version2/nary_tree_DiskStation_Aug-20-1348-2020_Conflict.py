@@ -1,45 +1,48 @@
 import numpy as np
 
 
-class SimpleTree:
+class NAryTree:
     '''
-    Simple implementation of a tree structure. The tree uses the following concepts:
+    Simple implementation of an n-ary tree structure. The tree uses the following concepts:
 
     Node: a node in the tree that has edges connecting it to other nodes
-    Tree: the connectivity of the nodes
+    Tree: the connectivity of the nodes. connections are unidirectional.
     Root Node: The tree's parent node
     '''
 
     def __init__(self):
         self.nodes = []
-        # self.leafnodes = []
+        
+        # create tree structure with size (1,1)
         self.tree = np.array([0], dtype=object)
         self.tree = self.tree.reshape((1, 1))
+        
         self.rootnode = None
 
-    def __get_index(self, node):
+        self.rulebase = []
+
+
+
+    def __get_index(self, node) -> int:
         '''
         Gets the index of a node from the nodes list
 
         Arguments:
         ----------
-
         node - node whose index is required
         '''
         idx = self.nodes.index(node)
         return idx
 
-    # def add_leafnode(self, node):
-    #     '''
-    #     Adds a leaf node tp the tree
+    def get_order() -> int:
+        pass
+        
 
-    #     Arguments:
-    #     ----------
 
-    #     node - the leaf node
-    #     '''
-    #     self.leafnodes.append(node)
-    #     self.add_node(node)
+
+    def __str__(self) -> str:
+        return  f'{self.nodes}\n{str(self.tree)}'
+
 
     def add_node(self, node):
         '''
@@ -48,13 +51,11 @@ class SimpleTree:
 
         Arguments:
         ----------
-
         node - the new node
         '''
 
         if node in self.nodes:
             return
-
 
         # a new tree is created with an empty node in the tree array
         # if this is first node, use this node. otherwise extend
@@ -62,8 +63,10 @@ class SimpleTree:
             # create a bigger tree - extend by one in all dims
             tree_c = np.zeros(
                 (self.tree.shape[0]+1, self.tree.shape[1]+1), dtype=object)
-            # assign the old tree into the new tree
+            
+            # copy contents of the old tree into the new tree
             tree_c[0:self.tree.shape[0], 0:self.tree.shape[1]] = self.tree
+            
             self.tree = tree_c
         else:
             self.rootnode = node
@@ -72,7 +75,7 @@ class SimpleTree:
 
     def show(self):
         print('nodes:', self.nodes)
-        print('leaf nodes:', self.leafnodes)
+        # print('leaf nodes:', self.leafnodes)
         print('tree:', self.tree)
         print('root node:', self.rootnode)
 
@@ -82,21 +85,17 @@ class SimpleTree:
 
         Arguments:
         ----------
-
         parent_node - the from node
-
         child_node - the to node
-
         edge_name - name given to this connection, 1 default
         '''
 
-        print(parent_node, '--->', edge_name, '--->', child_node)
-
+        # print(parent_node, '--->', edge_name, '--->', child_node)
 
         p_idx = self.__get_index(parent_node)
         c_idx = self.__get_index(child_node)
-        self.tree[p_idx][c_idx] = edge_name
-        self.tree[c_idx, p_idx] = edge_name
+        self.tree[c_idx][p_idx] = edge_name
+        # self.tree[c_idx, p_idx] = edge_name
 
     def set_root_node(self, root):
         '''
@@ -104,7 +103,6 @@ class SimpleTree:
 
         Arguments:
         ----------
-
         root - the root node
         '''
         self.rootnode = root
@@ -131,11 +129,11 @@ class SimpleTree:
         # now, go again through all the nodes
         for idx, new_node in enumerate(new_tree.nodes):
             # for each node go through rest of nodes
-            for i in range(idx, len(new_tree.tree[idx, :])):
+            for i in range(idx, len(new_tree.tree[:, idx])):
                 # if there is an edge in the new tree create that edge in the current tree
-                if new_tree.tree[idx, i] != 0:
+                if new_tree.tree[i, idx] != 0:
                     self.add_edge(
-                        new_tree.nodes[idx], new_tree.nodes[i], new_tree.tree[idx, i])
+                        new_tree.nodes[idx], new_tree.nodes[i], new_tree.tree[i, idx])
 
         # create an edge between the receipt node and the root node of the new tree
         self.add_edge(receipt_node, new_tree.rootnode, edge_name)
@@ -147,19 +145,49 @@ class SimpleTree:
         self.__display_branch(self.__get_index(self.rootnode))
 
     def __display_branch(self, node_idx, parent_idx=None, tab_idx=0):
+        '''
+        '''        
         if parent_idx == None:
-            print(('\t'*tab_idx), self.nodes[node_idx])
+            print('*', ('\t'*tab_idx), self.nodes[node_idx])
         else:
-            print(('\t'*tab_idx*2), ' - ',
-                  self.tree[parent_idx, node_idx], ' - ', self.nodes[node_idx])
+            print('*',  ('\t'*tab_idx*2), ' - ',
+                  self.tree[node_idx, parent_idx], ' - ', self.nodes[node_idx])
 
-        tree_filter = self.tree[node_idx, :] != 0
-        tree_filter[0:node_idx] = False
+        tree_filter = self.tree[:, node_idx] != 0
 
         filter_idx = np.nonzero(tree_filter)
 
         for child_idx in filter_idx[0]:
             self.__display_branch(child_idx, node_idx, tab_idx+1)
+
+
+    def generate_rules(self):
+        self.__gererate_rule(self.__get_index(self.rootnode), '')
+
+
+    def __gererate_rule(self, node_idx, rule):
+
+        tree_filter = self.tree[:, node_idx] != 0
+        filter_idx = np.nonzero(tree_filter)
+
+        for child_idx in filter_idx[0]:
+
+            # leaf node detection. is child a leaf
+            child_filter = self.tree[:, child_idx] != 0
+            child_filter_idx = np.nonzero(child_filter)
+
+            if len(child_filter_idx[0]) == 0:
+                ante = f'{self.nodes[node_idx]} is  {self.tree[child_idx, node_idx]}'
+                cons = f'output is {self.nodes[child_idx]}''
+
+            else:
+                result = f'{self.nodes[node_idx]} is  {self.tree[child_idx, node_idx]}'
+                print(result)
+                self.__gererate_rule(child_idx, '')
+
+
+
+
 
     def traverse(self, case):
         '''
@@ -169,7 +197,7 @@ class SimpleTree:
         Arguments:
         ----------
 
-        case: dictionary containing the case in had in the form 'node:branch'
+        case: dictionary containing the case in hand in the form 'node:branch'
         '''
         return self.__traverse_step(case, self.rootnode)
 
@@ -186,9 +214,3 @@ class SimpleTree:
         value_idx = np.where(tree_branch == current_value)[0].squeeze()
 
         new_node = self.nodes[value_idx]
-
-        if new_node in self.leafnodes:
-            return new_node
-        else:
-            del case[current_node]
-            return self.__traverse_step(case, new_node)

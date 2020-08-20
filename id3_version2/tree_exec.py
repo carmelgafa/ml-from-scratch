@@ -3,55 +3,21 @@ simple example demonstrating the operation of the SimpleTree
 
 1. creates a tree with nodes and edges
 2. creates another tree with nodes and edges
-3. appends the second tree to the forst tree 
+3. appends the second tree to the first tree 
 '''
-from simple_tree import SimpleTree
+from nary_tree import NAryTree
 
-# a_tree = SimpleTree()
-# a_tree.add_node('One')
-# a_tree.add_node('Two')
-# a_tree.add_node('Three')
-# a_tree.add_node('Four')
-# a_tree.add_edge('One', 'Three', 'No')
-# a_tree.add_node('Five')
-# a_tree.add_edge('One', 'Two', 'Yes')
-# a_tree.add_edge('Two', 'Four', 'Yes')
-# a_tree.add_edge('Four', 'Five', 'Yes')
-# a_tree.add_node('Six')
-# a_tree.add_edge('Four', 'Six', 'No')
+t = NAryTree()
 
-# a_tree.set_root_node('One')
-# a_tree.display()
+t.add_node('a1')
+t.add_node('a2')
+t.add_node('a3')
+t.add_node('a4')
+t.add_node('a5')
 
-# b_tree = SimpleTree()
-# b_tree.add_node('Uno')
-# b_tree.add_node('Due')
-# b_tree.add_node('Tre')
-# b_tree.add_node('Quattro')
-# b_tree.add_edge('Uno', 'Due', 'Si')
-# b_tree.add_edge('Uno', 'Tre', 'No')
-# b_tree.add_edge('Tre', 'Quattro', 'Si')
-# b_tree.set_root_node('Uno')
-# b_tree.display()
+t.add_edge('a1', 'a2', 'aa')
+t.add_edge('a1', 'a3', 'ab')
+t.add_edge('a2', 'a4', 'ac')
+t.add_edge('a2', 'a5', 'ad')
 
-# a_tree.append_tree('Five', b_tree, 'yes')
-# a_tree.display()
-
-
-
-
-a_tree = SimpleTree()
-a_tree.add_node('One')
-a_tree.add_node('Two')
-a_tree.add_node('Three')
-a_tree.add_node('Four')
-a_tree.add_edge('One', 'Three', 'No')
-
-
-b_tree = SimpleTree()
-b_tree.add_node('Uno')
-
-
-a_tree.append_tree('One', b_tree, 'yes')
-
-a_tree.display()
+t.generate_rules()
