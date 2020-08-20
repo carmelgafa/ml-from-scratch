@@ -32,17 +32,17 @@ def calculate_entropy(df_set, output_classes):
     return [entropy, set_size]
 
 
-def calculate_information(part_entrop):
+def calculate_information(part_entropy):
 
-    # part_entrop is a 2D list where each partition is represented by a list
+    # part_entropy is a 2D list where each partition is represented by a list
     # such as [entropy, size of partition]. Adding the sizes of the pertitions
     # will result in the size of the original dataset
-    e = np.array(part_entrop)
+    e = np.array(part_entropy)
     size = np.sum(e[:,1])
 
     # the information needed to identify a class is the weighted average of the entropies
     # that is the weighted average needed to identify the class of an element in each subset
-    information = sum([item[0] / size * item[1] for item in part_entrop])
+    information = sum([item[0] / size * item[1] for item in part_entropy])
 
     return information
 
