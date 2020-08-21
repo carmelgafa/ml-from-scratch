@@ -1,7 +1,6 @@
 import numpy as np
 
-
-class NAryTree:
+class RootedDAC:
     '''
     Simple implementation of an n-ary tree structure. The tree uses the following concepts:
 
@@ -21,8 +20,6 @@ class NAryTree:
 
         self.rulebase = []
 
-
-
     def __get_index(self, node) -> int:
         '''
         Gets the index of a node from the nodes list
@@ -37,12 +34,8 @@ class NAryTree:
     def get_order() -> int:
         pass
         
-
-
-
     def __str__(self) -> str:
         return  f'{self.nodes}\n{str(self.tree)}'
-
 
     def add_node(self, node):
         '''
@@ -94,7 +87,11 @@ class NAryTree:
 
         p_idx = self.__get_index(parent_node)
         c_idx = self.__get_index(child_node)
-        self.tree[c_idx][p_idx] = edge_name
+        
+        if self.tree[c_idx][p_idx] == 0:
+            self.tree[c_idx][p_idx] = [edge_name]
+        else:
+            self.tree[c_idx][p_idx].append(edge_name)
         # self.tree[c_idx, p_idx] = edge_name
 
     def set_root_node(self, root):
@@ -162,7 +159,8 @@ class NAryTree:
 
 
     def generate_rules(self):
-        self.__gererate_rule(self.__get_index(self.rootnode), '')
+        self.__gererate_rule(self.__get_index(self.rootnode), [])
+        return self.rulebase
 
 
     def __gererate_rule(self, node_idx, rule):
@@ -176,41 +174,17 @@ class NAryTree:
             child_filter = self.tree[:, child_idx] != 0
             child_filter_idx = np.nonzero(child_filter)
 
+            c_rule = rule.copy()
+
             if len(child_filter_idx[0]) == 0:
                 ante = f'{self.nodes[node_idx]} is  {self.tree[child_idx, node_idx]}'
-                cons = f'output is {self.nodes[child_idx]}''
+                cons = f'output is {self.nodes[child_idx]}'
+                
+                c_rule.append(ante)
+                c_rule.append(cons)
+                self.rulebase.append(c_rule)
 
             else:
-                result = f'{self.nodes[node_idx]} is  {self.tree[child_idx, node_idx]}'
-                print(result)
-                self.__gererate_rule(child_idx, '')
-
-
-
-
-
-    def traverse(self, case):
-        '''
-        recursively go through the case in hand whilst traversing 
-        the tree until the result is found
-
-        Arguments:
-        ----------
-
-        case: dictionary containing the case in hand in the form 'node:branch'
-        '''
-        return self.__traverse_step(case, self.rootnode)
-
-    def __traverse_step(self, case, current_node):
-        current_node_idx = self.__get_index(current_node)
-
-        tree_branch = self.tree[current_node_idx, :]
-
-        if current_node in case:
-            current_value = case[current_node]
-        else:
-            return None
-
-        value_idx = np.where(tree_branch == current_value)[0].squeeze()
-
-        new_node = self.nodes[value_idx]
+                ante = f'{self.nodes[node_idx]} is  {self.tree[child_idx, node_idx]}'
+                c_rule.append(ante)
+                self.__gererate_rule(child_idx, c_rule)

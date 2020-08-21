@@ -178,8 +178,6 @@ class NAryTree:
                 
                 c_rule.append(ante)
                 c_rule.append(cons)
-                print(ante)
-                print(cons)
                 self.rulebase.append(c_rule)
 
             else:

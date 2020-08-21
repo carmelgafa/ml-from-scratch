@@ -123,3 +123,18 @@ class FuzzyRule():
 			ret.append(cons_clause.set_name)
 
 		return ret
+
+
+	def get_csv_line(self, header):
+		
+		row = [None] * len(header)
+
+		for ante in self._antecedent:
+			idx = header.index(ante.variable_name)
+			row[idx] = ante.set_name
+
+		for cons in self._consequent:
+			idx = header.index(cons.variable_name)
+			row[idx] = cons.set_name
+
+		return row

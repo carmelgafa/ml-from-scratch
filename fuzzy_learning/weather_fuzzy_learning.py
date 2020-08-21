@@ -26,6 +26,8 @@ def execute_test(resolution, x_n, y_n):
 
     print(learning_system)
 
+    learning_system.generate_rules_csv('weather_rules.csv')
+
     return score
 
 

@@ -6,8 +6,10 @@ simple example demonstrating the operation of the SimpleTree
 3. appends the second tree to the first tree 
 '''
 from nary_tree import NAryTree
+from rooted_dac import RootedDAC
 
-t = NAryTree()
+
+t = RootedDAC()
 
 t.add_node('a1')
 t.add_node('a2')
@@ -20,4 +22,4 @@ t.add_edge('a1', 'a3', 'ab')
 t.add_edge('a2', 'a4', 'ac')
 t.add_edge('a2', 'a5', 'ad')
 
-t.generate_rules()
+print(t.generate_rules())

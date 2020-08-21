@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 from matplotlib import rc
 from type2fuzzy import cog_defuzzify
 import numpy as np
+import pandas as pd
 
 class FuzzySystem:
 	'''
@@ -248,3 +249,4 @@ class FuzzySystem:
 			self._output_variables[var_name].plot_variable(ax=axs[len(self._input_variables)+idx], show=False)
 
 		plt.show()
+	

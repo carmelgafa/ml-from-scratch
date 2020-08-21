@@ -1,11 +1,7 @@
-from fuzzy_system.fuzzy_learning_helper import load_winequality_red
-from fuzzy_system.fuzzy_learning_helper import load_linear_model
-from fuzzy_system.fuzzy_learning_helper import split_train_test
 from fuzzy_system.fuzzy_learning_helper import load_sensor_data
 from fuzzy_system.fuzzy_learning_system import FuzzyLearningSystem
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn import preprocessing
 import pandas as pd
 
 X, y = load_sensor_data()
@@ -38,10 +34,12 @@ for i in np.arange(0,50,1):
     row_df = pd.DataFrame([a_row])
     df = pd.concat([row_df, df])
 
-
 plt.plot(X, y)
 plt.plot(df[0], df[1])
-plt.show()
+# plt.show()
+
+# learning_system.generate_rules_csv('sensor_rules.csv')
 
 
 print(learning_system)
+

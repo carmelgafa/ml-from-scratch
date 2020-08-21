@@ -234,3 +234,27 @@ class FuzzyLearningSystem(FuzzySystem):
 
 		for _, var in self._output_variables.items():
 			var.plot_variable()
+
+
+	def generate_rules_csv(self, file_path):
+
+
+		
+		input_variables = list(self._input_variables.keys())
+		output_variables = list(self._output_variables.keys())
+
+		header = input_variables + output_variables
+
+		# drop all data, 1 row all none
+		df = pd.DataFrame([[None]*len(header)], columns=header)
+		df= df.iloc[0:0]
+
+
+		for _, rule in self._learned_rules.items():
+
+			line = rule.get_csv_line(header)
+			row = pd.DataFrame([line], columns=header)
+
+			df= df.append(row, ignore_index=True)
+	
+		df.to_csv(file_path)
