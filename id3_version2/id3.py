@@ -123,8 +123,10 @@ def ID3(input_attribs, output_attrib, training_data):
 
 if __name__ == "__main__":
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    dataset_path = os.path.join(current_dir, "weather_rules.csv")
+    # dataset_path = os.path.join(current_dir, "sensor_rules.csv")
+    # dataset_path = os.path.join(current_dir, "weather_rules.csv")
     # dataset_path = os.path.join(current_dir, "data.csv")
+    dataset_path = os.path.join(current_dir, "sample_rules.csv")
 
     training_data = pd.read_csv(dataset_path)
 
@@ -132,9 +134,10 @@ if __name__ == "__main__":
     print(training_len)
 
 
-    output_attrib = 'Temperature'
+    # output_attrib = 'Y'
+    # output_attrib = 'Temperature'
     # output_attrib = 'play'
-
+    output_attrib = 'X'
 
     input_attribs = list(training_data.columns)
     input_attribs.remove(output_attrib)

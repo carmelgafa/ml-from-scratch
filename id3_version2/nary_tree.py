@@ -125,8 +125,10 @@ class NAryTree:
             for i in range(idx, len(new_tree.tree[:, idx])):
                 # if there is an edge in the new tree create that edge in the current tree
                 if new_tree.tree[i, idx] != 0:
-                    self.add_edge(
-                        new_tree.nodes[idx], new_tree.nodes[i], new_tree.tree[i, idx])
+                    for edge in new_tree.tree[i, idx]:
+
+                        self.add_edge(
+                            new_tree.nodes[idx], new_tree.nodes[i], edge)
 
         # create an edge between the receipt node and the root node of the new tree
         self.add_edge(receipt_node, new_tree.rootnode, edge_name)
