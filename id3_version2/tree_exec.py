@@ -25,6 +25,7 @@ t = RootedDAC()
 # print(t.generate_rules())
 
 
+# example for disjuntion in antecedent clause
 t.add_node('A')
 t.add_node('B')
 t.add_node('X_x')
@@ -35,4 +36,3 @@ t.add_edge('A', 'X_y', 'b')
 t.add_edge('A', 'X_x', 'c')
 
 print(t.generate_rules())
-

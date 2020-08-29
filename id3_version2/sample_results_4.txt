@@ -1,0 +1,14 @@
+*  B
+*                 -  ['b1']  -  A
+*                                 -  [['s2']]  -  b14
+*                                 -  [['s1']]  -  b12
+*                 -  ['ce', 'b2']  -  b12
+*                 -  ['s2']  -  b6
+*                 -  ['s1', 'b3', 's4']  -  b2
+
+[
+["B is  ['b1']", "A is  [['s2']]", 'output is b14'], 
+["B is  ['b1']", "A is  [['s1']]", 'output is b12'], 
+["B is  ['ce', 'b2']", 'output is b12'],
+["B is  ['s2']", 'output is b6'], 
+["B is  ['s1', 'b3', 's4']", 'output is b2']]

@@ -126,7 +126,7 @@ if __name__ == "__main__":
     # dataset_path = os.path.join(current_dir, "sensor_rules.csv")
     # dataset_path = os.path.join(current_dir, "weather_rules.csv")
     # dataset_path = os.path.join(current_dir, "data.csv")
-    dataset_path = os.path.join(current_dir, "sample_rules.csv")
+    dataset_path = os.path.join(current_dir, "sample_rules_4.csv")
 
     training_data = pd.read_csv(dataset_path)
 
