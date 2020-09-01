@@ -1,0 +1,25 @@
+*  B
+*                 -  ['b1', 'b3', 's1', 's2', 'b2', 's4']  -  A
+*                                 -  [['s2']]  -  b14
+*                                 -  [['s1'], ['s2']]  -  b12
+*                                 -  [['s1']]  -  ce
+*                                 -  [['s2'], ['s2'], ['s2']]  -  b2
+*                                 -  [['s1'], ['s1']]  -  b5
+*                                 -  [['s2']]  -  b6
+*                                 -  [['s1']]  -  b7
+*                                 -  [['s1']]  -  s2
+*                 -  ['ce']  -  b12
+*                 -  ['s3']  -  s2
+*                 -  ['b4']  -  s1
+[
+["B is  ['b1', 'b3', 's1', 's2', 'b2', 's4']", "A is  [['s2']]", 'output is b14'],                  <--- sample_results_2
+["B is  ['b1', 'b3', 's1', 's2', 'b2', 's4']", "A is  [['s1'], ['s2']]", 'output is b12'], 
+["B is  ['b1', 'b3', 's1', 's2', 'b2', 's4']", "A is  [['s1']]", 'output is ce'], 
+["B is  ['b1', 'b3', 's1', 's2', 'b2', 's4']", "A is  [['s2'], ['s2'], ['s2']]", 'output is b2'],   <--- sample_results_1 [_2]
+["B is  ['b1', 'b3', 's1', 's2', 'b2', 's4']", "A is  [['s1'], ['s1']]", 'output is b5'], 
+["B is  ['b1', 'b3', 's1', 's2', 'b2', 's4']", "A is  [['s2']]", 'output is b6'],                   <--- sample_results_1 [_2]
+["B is  ['b1', 'b3', 's1', 's2', 'b2', 's4']", "A is  [['s1']]", 'output is b7'], 
+["B is  ['b1', 'b3', 's1', 's2', 'b2', 's4']", "A is  [['s1']]", 'output is s2'], 
+["B is  ['ce']", 'output is b12'], 
+["B is  ['s3']", 'output is s2'], 
+["B is  ['b4']", 'output is s1']]

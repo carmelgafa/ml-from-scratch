@@ -103,4 +103,9 @@ venv.bak/
 # mypy
 .mypy_cache/
 .vscode/settings.json
+<<<<<<< HEAD
 h_env
+=======
+h_env
+ml_from_scratch_env/pyvenv.cfg
+>>>>>>> 4a046d93b87c09eb1647d4161a049de2a3b7baf6
