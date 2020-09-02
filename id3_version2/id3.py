@@ -29,6 +29,7 @@ def calculate_entropy(df_set, output_attrib, output_classes):
     prob_dist = list(filter(lambda p: p != 0, prob_dist))
     entropy =  sum(list(- p * math.log2(p)  for p in prob_dist))
 
+
     return [entropy, set_size]
 
 
@@ -59,6 +60,8 @@ def calculate_gain(df_set, set_entropy, partition_name, output_attrib, output_cl
     information = calculate_information(part_entropy)
 
     gain = set_entropy - information
+
+    print(gain)
 
     return gain
 
