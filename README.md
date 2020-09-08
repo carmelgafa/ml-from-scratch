@@ -10,3 +10,7 @@ Algorithms:
 
 Utilities:
 - Tree structure
+
+## Change log
+
+**08092020** : Added id3_v2 class to compute ID3.
