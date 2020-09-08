@@ -1,4 +1,5 @@
-from collections import OrderedDict 
+from collections import OrderedDict
+from typing import List 
 
 class TreeNode:
     
@@ -36,9 +37,13 @@ class TreeBuilderHelper:
     
     def __init__(self):
         self.node_definitions = {}
+        self.leaf_node_definitions = {}
 
-    def add_node_definition(self, node_name:str, edges:[]):
+    def add_node_definition(self, node_name:str, edges:List[str]):
         self.node_definitions[node_name] = edges
+
+    def add_leafnode_definition(self, node_name:str, value:str):
+        self.node_definitions[node_name] = value
 
     def __str__(self):
         return f'{self.node_definitions}'
