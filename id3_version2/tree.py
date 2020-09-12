@@ -7,7 +7,7 @@ import pandas as pd
 
 class TreeNode:
     
-    def __init__(self, node_name:str, edges:[]):
+    def __init__(self, node_name:str, edges:list):
         self.parent = None
         self.node_name = node_name
         self.node_edges = OrderedDict()
@@ -56,10 +56,10 @@ class TreeLeafNode(TreeNode):
 
 class Tree:
     
-    def __init__(self):
+    def __init__(self) -> None:
         self.root_node:TreeNode = None
 
-    def set_root_node(self, node):
+    def set_root_node(self, node:TreeNode) -> None:
         self.root_node = node
     
     def __str__(self) -> str:

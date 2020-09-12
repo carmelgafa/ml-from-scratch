@@ -17,7 +17,7 @@ class NAryTree:
         self.tree = self.tree.reshape((1, 1))
         
         self.rootnode = None
-
+        
         self.rulebase = []
 
     def __get_index(self, node) -> int:
