@@ -1,9 +1,9 @@
 from collections import OrderedDict
+from tkinter.constants import N
 from typing import List 
 import os
 from unicodedata import name
 import pandas as pd
-from sklearn import tree
 
 class TreeNode:
     
@@ -11,13 +11,19 @@ class TreeNode:
         self.parent = None
         self.node_name = node_name
         self.node_edges = OrderedDict()
+        for edge in edges:
+            self.node_edges[edge] = None
+
+    def set_parent(self, parent_node) -> None:
+        self.parent=parent_node
 
 
     def get_node_name(self) -> str:
         return self.node_name
 
     def connect_node(self, edge_name, node):
-        self.node_edges[edge_name] = node#.append(node)
+        self.node_edges[edge_name] = node
+        node.set_parent(self)
 
     def __str__(self):
         str = self.node_name + ':\n'
@@ -28,26 +34,25 @@ class TreeNode:
 
     def display_branch(self, tab_idx=0):
         '''
-        '''        
-        if self.parent == None:
-            print('*', self.node_name)
+        '''
+        # if self.parent == None:
+        print('*', ('\t'*tab_idx*2), self.node_name)
 
         for edge_name, connected_node in self.node_edges.items():
 
-            print('*',  ('\t'*tab_idx*2), ' - ', edge_name, ' - ', connected_node.get_node_name())
-            connected_node.__display_branch( tab_idx+1)
-
-
-
-
+            if connected_node != None:
+                print('*',  ('\t'*tab_idx*3), ' - ', edge_name, ' - ')
+                connected_node.display_branch( tab_idx+1)
 
 class TreeLeafNode(TreeNode):
 
     def __init__(self, node_name:str) -> None:
-        self.node_name = node_name
+        super(TreeLeafNode, self).__init__(node_name, [])
 
-    # def __str__(self) -> str:
-    #     return self.node_name + '*'
+
+    def display_branch(self, tab_idx=0):
+        print('*',  ('\t'*tab_idx*3),  self.node_name)
+
 
 class Tree:
     
