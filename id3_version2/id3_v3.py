@@ -163,7 +163,10 @@ class ID3:
 
 if __name__ == "__main__":
 
-    id3 = ID3("data.csv", 'play')
+    # id3 = ID3("data.csv", 'play')
+    id3 = ID3("sensor_rules.csv", 'Y')
+    
+    
     tree = id3.ID3_exec()
 
     tree.display()
