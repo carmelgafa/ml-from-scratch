@@ -18,7 +18,7 @@ class Food ():
         return f'{self.name} : <{self.value}, {self.calories}>'
 
 
-def build_menu(names:[str], values:[int], calories:[int]) -> [Food]:
+def build_menu(names, values, calories):
     
     menu = []
     for i in range(len(values)):
@@ -26,7 +26,7 @@ def build_menu(names:[str], values:[int], calories:[int]) -> [Food]:
     
     return menu
 
-def greedy(items:[Food], max_cost:int, key_function) -> ([Food], int):
+def greedy(items, max_cost:int, key_function):
 
     # sort according to key_function, ascending order
     items_copy = sorted(items, key=key_function, reverse=True)
