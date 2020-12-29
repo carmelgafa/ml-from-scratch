@@ -43,7 +43,7 @@ def greedy(items, max_cost:int, key_function):
     
     return (result, total_value)
 
-def test_greedy(items:[Food], constraint:int, key_function) -> None:
+def test_greedy(items, constraint:int, key_function) -> None:
     
     taken, val = greedy(items, constraint, key_function)
 
@@ -51,7 +51,7 @@ def test_greedy(items:[Food], constraint:int, key_function) -> None:
     for item in taken:
         print('\t',item)
 
-def test_greedy_functions(foods:[Food], max_units:int) -> None:
+def test_greedy_functions(foods, max_units:int) -> None:
     
     # greedy using food value 
     print(f'Use greedy by value to allocate {max_units} calories')
