@@ -63,8 +63,13 @@ class Digraph():
                 result = result + f'{src.get_name()} -> {dest.get_name()}\n'
         return result[:-1]
 
+class Graph(Digraph):
+    def add_edge(self, edge: Edge):
+        Digraph.add_edge(self,edge)
+        rev_edge = Edge(edge.get_destination(), edge.get_source())
+        Digraph.add_edge(self, rev_edge)
 
-def build_city_graph():
+def build_city_graph(graph_type):
     providence = Node('providence')
     boston = Node('boston')
     new_york = Node('new york')
@@ -85,7 +90,7 @@ def build_city_graph():
     edges.append(Edge(boston, new_york))
     edges.append(Edge(los_angeles, boston))
 
-    graph = Digraph()
+    graph = graph_type()
     graph.add_node(providence)
     graph.add_node(boston)
     graph.add_node(new_york)
@@ -101,5 +106,5 @@ def build_city_graph():
 
 
 if __name__ == "__main__":
-    graph = build_city_graph()
+    graph = build_city_graph(Digraph)
     print(graph)
