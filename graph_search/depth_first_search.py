@@ -44,7 +44,8 @@ def print_path(path):
 
 def dfs(graph:Digraph, start, end, path, shortest, to_print=False):
     
-    path.append(start)
+    path = path + [start
+    ]
 
     if to_print:
         print(f'Current dfs path: {print_path(path)}')
@@ -55,11 +56,12 @@ def dfs(graph:Digraph, start, end, path, shortest, to_print=False):
     for node in graph.get_children(start):
         # no cycles
         if node not in path:
-            new_path = dfs(graph, node, end, path, shortest, to_print)
-            if new_path != None:
-                shortest = new_path
-            elif to_print:
-                print(f'{node} already visited')
+            if shortest == None or len(path) < len(shortest):
+                new_path = dfs(graph, node, end, path, shortest, to_print)
+                if new_path != None:
+                    shortest = new_path
+        elif to_print:
+            print(f'{node} already visited')
 
     return shortest
 
@@ -79,4 +81,4 @@ def test_dfs(source, dest):
 if __name__ == "__main__":
     graph = build_city_graph(Digraph)
     # print(graph)
-    test_dfs('boston', 'chicago')
+    test_dfs('boston', 'phoenix')
