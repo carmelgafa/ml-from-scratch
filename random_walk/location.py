@@ -20,7 +20,7 @@ class Location():
         x_dist = self._x - other.x
         y_dist = self._y - other.y
 
-        return math.sqrt(x_dist**2 + y_dist**2)
+        return (x_dist**2 + y_dist**2)**0.5
 
     def __str__(self):
         return f'<{self._x}, {self._y}>'

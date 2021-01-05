@@ -33,4 +33,4 @@ def drunk_test(walk_lengths, num_trials,dClass):
         print(f'Min={min(distances)}')
 
 if __name__ == "__main__":
-    drunk_test((10,100,1000,10000), 100, BiasedDrunk)
+    drunk_test((0,1,2), 100, UsualDrunk)

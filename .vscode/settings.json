@@ -2,6 +2,6 @@
     "cSpell.words": [
         "discretize"
     ],
-    "python.pythonPath": "C:\\Program Files (x86)\\Python36-32\\python.exe",
+    "python.pythonPath": "d:\\ProgramData\\Anaconda3\\envs\\ai100\\python.exe",
     "compile-hero.disable-compile-files-on-did-save-code": false
 }
