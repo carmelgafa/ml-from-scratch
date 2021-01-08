@@ -1,6 +1,6 @@
 # ml_from_scratch
 
-Implementation of ML argorithms from scratch
+Implementation of ML algorithms from scratch
 
 ### Algorithms
 
@@ -8,7 +8,15 @@ Implementation of ML argorithms from scratch
 - SVM
 - Fuzzy Inference (Madani)
 - Fuzzy Rule Generation (Wang-Mendel)
-- Greedy algorithms (John Guttag example)
+
+### John Guttag MIT worked examples
+
+- Brute force resolution
+- Graph Theory (BFS, DFS)
+- Greedy algorithms
+- Stochastic Techniques
+- MOnte Carlo Simulation
+- Random Walk
 
 ### Utilities
 
@@ -18,3 +26,4 @@ Implementation of ML argorithms from scratch
 
 - **08092020** : Added id3_v2 class to compute ID3.
 - **28122020** : Added Greedy algorithm
+- **08012021** : Added Graphs, Monte Carlo, Stochastic, Random walk
