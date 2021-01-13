@@ -9,15 +9,21 @@ class FairRoulette():
         self.ball=None
 
         self.pocket_odds = len(self.pockets) - 1
-    
+
+        random.seed(0)
+
     def spin(self):
         self.ball = random.choice(self.pockets)
 
-    def bet_pocket(self, pocket, ammt):
+    def bet_pocket(self, pocket, amount):
+        '''
+        pocket: pocket placing bet
+        amount: sum being bet
+        '''
         if str(pocket) == str(self.ball):
-            return ammt * self.pocket_odds
+            return amount * self.pocket_odds
         else:
-            return -ammt
+            return -amount
     def __str__(self) -> str:
         return 'fair roulette'
 
@@ -37,6 +43,13 @@ class USRoulette(EURoulette):
 
 
 def play_roulette(game, num_spins, pocket, bet):
+    '''
+    Arguments:
+    game: Roulette game being played
+    num_spins: number of spins for the simulation
+    pocket: pocket placing bet
+    bet: amount of bet
+    '''
     total_pocket = 0
     for i in range(num_spins):
         game.spin()
@@ -48,9 +61,10 @@ def play_roulette(game, num_spins, pocket, bet):
     return total_pocket/num_spins
 
 if __name__ == "__main__":
-    game = USRoulette()
+    game = FairRoulette()
     for num_spins in (100, 1000000):
         for i in range(3):
+            # betting 1 dollar on number 2 for num-spins trials
             play_roulette(game, num_spins, 2, 1)
 
 
