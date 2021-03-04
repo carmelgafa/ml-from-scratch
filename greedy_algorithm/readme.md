@@ -3,7 +3,7 @@
 Resolution of 0/1 knapsack problem by using a greedy algorithm.
 
 - each value represented by < value, weight > pair
-- total weight possible is w
+- total weight possible is wk
 - vector L of length n representing each set of available items
 - boolean vector V of length n indicates whether item is taken
 

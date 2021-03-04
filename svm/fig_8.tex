@@ -1,0 +1,32 @@
+\usetikzlibrary{arrows}
+\begin{tikzpicture}
+
+\draw[->] (0,0)--(5,0) node[right]{$x$};
+\draw[->] (0,0)--(0,5) node[above]{$y$};
+
+\node [text=blue] at (2,2) {\Huge -};
+\node [text=blue] at (0,0) {\Huge -};
+\node [text=red] at (2,0) {\huge +};
+\node [text=red] at (0,2) {\huge +};
+
+\draw[->] (0,-6)--(5,-6) node[right]{$x$};
+\draw[->] (0,-6)--(0,-1) node[above]{$y$};
+\draw[->] (0,-6)--(3,-3) node[above]{$z$};
+
+\draw[dashed, gray] (1.5,-4.5)--(4,-4.5);
+\draw[dashed, gray] (4,-4.5)--(2.5,-6);
+\draw[dashed, gray] (4,-4.5)--(4,-3);
+\draw[dashed, gray] (4,-3)--(1.5,-3);
+\draw[dashed, gray] (1.5,-4.5)--(1.5,-3);
+\draw[dashed, gray] (2.5,-4.5)--(2.5,-6);
+\draw[dashed, gray] (2.5,-4.5)--(4,-3);
+
+\node [text=red] at (1.5,-3) {\huge +};
+\node [text=red] at (2.5,-4.5) {\huge +};
+\node [text=blue] at (4,-4.5) {\Huge -};
+\node [text=blue] at (0,-6) {\Huge -};
+
+\node at (2.5,3) {linearly inseparable samples};
+\node at (2.5,-2) {separable after transformation};
+
+\end{tikzpicture}
