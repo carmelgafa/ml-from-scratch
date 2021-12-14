@@ -8,6 +8,10 @@ Implementation of ML algorithms from scratch
 - SVM
 - Fuzzy Inference (Madani)
 - Fuzzy Rule Generation (Wang-Mendel)
+- k-means
+- weiszfeld algorithm
+- linear regression
+- logistic regression
 
 ### John Guttag MIT worked examples
 
