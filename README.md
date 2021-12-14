@@ -27,3 +27,4 @@ Implementation of ML algorithms from scratch
 - **08092020** : Added id3_v2 class to compute ID3.
 - **28122020** : Added Greedy algorithm
 - **08012021** : Added Graphs, Monte Carlo, Stochastic, Random walk
+- **14122021** : Added k-means in Excel
