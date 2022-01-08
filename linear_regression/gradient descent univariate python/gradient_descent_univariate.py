@@ -1,6 +1,8 @@
 
 import os
 import numpy
+import matplotlib.pyplot as plt
+
 
 class UnivariateGradientDescent:
     '''
@@ -8,7 +10,7 @@ class UnivariateGradientDescent:
     '''
 
     def __init__(self, alpha):
-        self.__a0 = 5
+        self.__a0 = -5
         self.__a1 = -3
         self.__training_data = []
         self.__alpha = alpha
@@ -35,14 +37,25 @@ class UnivariateGradientDescent:
         """
         self.__load_training_data(file)
         counter = 1
-        cost_function = 0
+        cost_function = 0 
+        
+        cost_functions = []
+        a_1s = []
+        
         while True:
             cost_function = self.__calculate_cost_function()
             counter += 1
+            
+            cost_functions.append(cost_function)
+            a_1s.append(self.__a1)
+            
             if cost_function < self.__threshold_cost_function or counter > self.__threshold_iterations:
                 print(f'Cost Function: {cost_function}')
                 print(f'Iterations: {counter}')
                 break
+            
+        plt.plot(a_1s[:], cost_functions[:])
+        plt.show()
 
     def __calculate_cost_function(self):
         """
@@ -85,6 +98,6 @@ class UnivariateGradientDescent:
 
 
 if __name__ == '__main__':
-    gradient_descent = UnivariateGradientDescent(0.0003)
+    gradient_descent = UnivariateGradientDescent(0.00055)
     gradient_descent.train('data.csv')
     gradient_descent.print_hypothesis()
