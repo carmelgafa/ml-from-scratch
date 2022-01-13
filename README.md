@@ -11,6 +11,9 @@ Implementation of ML algorithms from scratch
 - k-means
 - weiszfeld algorithm
 - linear regression
+    - Linear Regression Univariate
+    - Linear Regression Multivariate
+    - Gradient Descent Univariate
 - logistic regression
 
 ### John Guttag MIT worked examples
