@@ -1,7 +1,10 @@
 import pandas as pd
+import os
 
 # import data from csv
-data = pd.read_csv("data.csv")
+full_filename = os.path.join(os.path.dirname(__file__), "data.csv")
+
+data = pd.read_csv(full_filename)
 
 data['x1_sq'] = data['x1']**2
 data['x2_sq'] = data['x2']**2
