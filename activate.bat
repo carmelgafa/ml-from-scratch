@@ -1,1 +1,0 @@
-ml_from_scratch_env\Scripts\activate.bat

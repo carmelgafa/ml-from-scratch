@@ -19,7 +19,7 @@ Implementation of ML algorithms from scratch
 - Graph Theory (BFS, DFS)
 - Greedy algorithms
 - Stochastic Techniques
-- MOnte Carlo Simulation
+- Monte Carlo Simulation
 - Random Walk
 
 ### Utilities
