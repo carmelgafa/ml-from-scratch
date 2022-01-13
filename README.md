@@ -31,6 +31,8 @@ Implementation of ML algorithms from scratch
 
 ## Change log
 
+- **13012022** : Linear Regression 
+- **13012022** : Reorganization of the code
 - **08092020** : Added id3_v2 class to compute ID3.
 - **28122020** : Added Greedy algorithm
 - **08012021** : Added Graphs, Monte Carlo, Stochastic, Random walk
