@@ -15,7 +15,7 @@ class MultivariateGradientDescent:
         self.__a0 = 5
         self.__a1 = 3
         self.__a2 = 1
-        self.__training_data = []
+        self.__training_data = None
         
         self.__alpha = alpha
         self.__threshold_iterations = 100000
