@@ -27,6 +27,7 @@ class MultivariateGradientDescent:
 
         self.__y = training_data['y']
         self.__X = training_data.drop(['y'], axis=1)
+        self.__diffyx = self.__X.copy()
         self.__Beta = np.random.rand(self.__X.shape[1]+1)
         
         print(self.__X)
