@@ -48,10 +48,10 @@ class MultivariateGradientDescent:
         starts the training procedure
         '''
         self.__load_training_data(file)
-        # m = len(self.__training_data)
-        # iterations = 0
+        m = len(self.__training_data)
+        iterations = 0
 
-        # previous_cost = sys.float_info.max
+        previous_cost = sys.float_info.max
         
         # costs = []
         # a_1s = []
