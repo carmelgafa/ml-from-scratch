@@ -9,16 +9,20 @@ import numpy as np
 
 class MultivariateGradientDescent:
     '''
-    Gradient Descent Univariate utilizing pandas
+    Generic Gradient Descent Univariate utilizing pandas
+    Assumption that the name of the label is 'y'
     '''
 
-    def __init__(self, alpha):
+    def __init__(self, alpha=0.0023, threshold_iterations=100000, costdifference_threshold=0.00001):
+        '''
+        Initializes the class
+        '''
+        self.__alpha = alpha
+        self.__threshold_iterations = threshold_iterations
+        self.__costdifference_threshold = costdifference_threshold
         self.__X = None
         self.__y = None
-        self.__Beta = None
-        
-        self.__alpha = alpha
-        self.__threshold_iterations = 100000
+        self.__beta = None
 
 
     def __load_training_data(self, file):
@@ -39,27 +43,8 @@ class MultivariateGradientDescent:
         
         # beta will hold the values of the coefficients, hence it will be  the size 
         # of a row of the X matrix
-        # self.__Beta = np.random.random(len(self.__X[0]))
-        self.__Beta = np.array([5.0, 3.0, 1.0])
+        self.__beta = np.random.random(len(self.__X[0]))
 
-        self.__deltas = np.zeros(len(self.__X[0]))
-
-
-        # self.__diffyx = self.__X.copy()
-        # self.__Beta = np.random.rand(self.__X.shape[1]+1)
-        
-        # print(self.__X)
-        # print(self.__y)
-        # print(self.__Beta)
-
-
-
-
-    def get_y_value(self, x_value):
-        '''
-        return an estimated y value given an x value based on the training results
-        '''
-        return self.__calculate_hypothesis(x_value)
 
     def train(self, file):
         '''
@@ -69,36 +54,35 @@ class MultivariateGradientDescent:
         # m = len(self.__training_data)
         iterations = 0
 
+        # initialize the previous cost function value to a large number
         previous_cost = sys.float_info.max
         
+        # store the cost function and a2 values for plotting
         costs = []
         a_2s = []
         
         while True:
             # calculate the hypothesis function for all training data
-            self.__y_hat = np.dot(self.__Beta, self.__X.T)
+            self.__y_hat = np.dot(self.__beta, self.__X.T)
 
-            #  calculate the difference between the hypothesis and the actual y values
-            diff = self.__y_hat - self.__y
-
-            # calculate the value of (y_hat - y).x, call it deltas
-            self.__deltas = np.dot(diff, self.__X)
+            #  calculate the residuals
+            residuals = self.__y_hat - self.__y
             
             # calculate the new value of beta
-            self.__Beta -= (self.__alpha/self.__m) * self.__deltas
+            self.__beta -= (self.__alpha/self.__m) * np.dot(residuals, self.__X)
 
             # calculate the cost function
-            cost = np.dot(diff, diff)/(2 * self.__m)
+            cost = np.dot(residuals, residuals)/(2 * self.__m)
 
             # increase the number of iterations
             iterations += 1
 
-        #     # record the cost and a1 values for plotting
+            # record the cost and a1 values for plotting
             costs.append(cost)
-            a_2s.append(self.__Beta[2])
+            a_2s.append(self.__beta[2])
             
             cost_difference = previous_cost - cost
-            print(f'Iteration: {iterations}, cost: {cost:.3f}, beta: {self.__Beta}')
+            print(f'Iteration: {iterations}, cost: {cost:.3f}, beta: {self.__beta}')
             previous_cost = cost
 
             # check if the cost function is diverging, if so, break
@@ -108,11 +92,11 @@ class MultivariateGradientDescent:
             
             # check if the cost function is close enough to 0, if so, break or if the number of 
             # iterations is greater than the threshold, break
-            if abs(cost_difference) < 0.0001 or iterations > self.__threshold_iterations:
+            if abs(cost_difference) < self.__costdifference_threshold or iterations > self.__threshold_iterations:
                 break
 
         # plot the cost function and a1 values
-        plt.plot(a_2s[:], costs[:], '--bx', color='lightblue', mec='red')
+        plt.plot(a_2s[3:], costs[3:], '--bx', color='lightblue', mec='red')
         plt.xlabel('a2')
         plt.ylabel('cost')
         plt.title(r'Cost Function vs. a1, with $\alpha$ =' + str(self.__alpha))
@@ -121,5 +105,5 @@ class MultivariateGradientDescent:
 
 
 if __name__ == '__main__':
-    gradient_descent = MultivariateGradientDescent(0.0001)
+    gradient_descent = MultivariateGradientDescent()
     gradient_descent.train('data.csv')
