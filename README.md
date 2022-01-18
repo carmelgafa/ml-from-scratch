@@ -14,6 +14,7 @@ Implementation of ML algorithms from scratch
   - Linear Regression Univariate
   - Linear Regression Multivariate
   - Gradient Descent Univariate
+  - Gradient Descent Multivariate
 - logistic regression
 
 ### John Guttag MIT worked examples
@@ -31,7 +32,8 @@ Implementation of ML algorithms from scratch
 
 ## Change log
 
-- **13012022** : Linear Regression
+- **18012022** : Gradient Descent Generic multivariate. [Notes here](https://carmelgafa.com/post/ml_linearreg_multivariatedescent/)
+- **13012022** : Linear Regression. [Notes here](https://carmelgafa.com/tags/linear-regression/)
 - **13012022** : Reorganization of the code
 - **08092020** : Added id3_v2 class to compute ID3.
 - **28122020** : Added Greedy algorithm
