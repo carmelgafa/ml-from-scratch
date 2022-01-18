@@ -11,10 +11,10 @@ Implementation of ML algorithms from scratch
 - k-means
 - weiszfeld algorithm
 - linear regression
-  - Linear Regression Univariate
-  - Linear Regression Multivariate
-  - Gradient Descent Univariate
-  - Gradient Descent Multivariate
+  - Linear Regression Univariate [Notes here](https://carmelgafa.com/tags/linear-regression/) and [here](https://carmelgafa.com/post/ml_linearreg_univariatepython/)
+  - Linear Regression Multivariate. [Notes here](https://carmelgafa.com/post/ml_linearreg_multivariate/) and [here](https://carmelgafa.com/post/ml_linearreg_multivariatepython/)
+  - Gradient Descent Univariate. [Notes here](https://carmelgafa.com/post/ml_linearreg_gradientdescent/)
+  - Gradient Descent Multivariate. [Notes here](https://carmelgafa.com/post/ml_linearreg_multivariatedescent/)
 - logistic regression
 
 ### John Guttag MIT worked examples
@@ -32,10 +32,10 @@ Implementation of ML algorithms from scratch
 
 ## Change log
 
-- **18012022** : Gradient Descent Generic multivariate. [Notes here](https://carmelgafa.com/post/ml_linearreg_multivariatedescent/)
-- **13012022** : Linear Regression. [Notes here](https://carmelgafa.com/tags/linear-regression/)
-- **13012022** : Reorganization of the code
+- **18012022** : Gradient Descent Generic multivariate.
+- **13012022** : Linear Regression.
+- **13012022** : Reorganization of the code.
 - **08092020** : Added id3_v2 class to compute ID3.
-- **28122020** : Added Greedy algorithm
-- **08012021** : Added Graphs, Monte Carlo, Stochastic, Random walk
-- **14122021** : Added k-means in Excel
+- **28122020** : Added Greedy algorithm.
+- **08012021** : Added Graphs, Monte Carlo, Stochastic, Random walk.
+- **14122021** : Added k-means in Excel.
