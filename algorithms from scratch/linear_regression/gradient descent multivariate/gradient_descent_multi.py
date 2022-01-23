@@ -1,4 +1,3 @@
-
 import os
 import matplotlib
 matplotlib.rcParams['text.usetex'] = True
@@ -99,7 +98,6 @@ class MultivariateGradientDescent:
         prints the hypothesis equation
         '''
         print(f'y = {self.__a0} + {self.__a1}x1 + {self.__a2}x2')
-
 
 if __name__ == '__main__':
     gradient_descent = MultivariateGradientDescent(0.001)

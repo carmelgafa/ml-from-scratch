@@ -24,7 +24,6 @@ class MultivariateGradientDescent:
         self.__y = None
         self.__beta = None
 
-
     def __load_training_data(self, file):
         full_filename = os.path.join(os.path.dirname(__file__), file)
         training_data = pd.read_csv(full_filename, delimiter=',', header=0, index_col=False)
@@ -101,8 +100,6 @@ class MultivariateGradientDescent:
         plt.ylabel('cost')
         plt.title(r'Cost Function vs. a1, with $\alpha$ =' + str(self.__alpha))
         plt.show()
-
-
 
 if __name__ == '__main__':
     gradient_descent = MultivariateGradientDescent()
