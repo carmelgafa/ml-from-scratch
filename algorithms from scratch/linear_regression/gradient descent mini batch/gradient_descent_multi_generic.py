@@ -44,11 +44,18 @@ class MultivariateGradientDescent:
         # of a row of the X matrix
         self.__beta = np.random.random(len(self.__X[0]))
 
-        minibatch_size = int(self.__m/10)
+        self.__minibatches_number = 10
         
-        for i in range(10):
-            minibatch = self.__X[i*minibatch_size:(i+1)*minibatch_size]
-            print(f'Minibatch {i}: {minibatch}')
+        self.__minibatch_size = int(self.__m/self.__minibatches_number)
+        
+
+
+
+
+
+
+
+
 
 
 
@@ -60,52 +67,67 @@ class MultivariateGradientDescent:
 
 
 
+        iterations = 0
 
-
-
-
-        # iterations = 0
-
-        # # initialize the previous cost function value to a large number
-        # previous_cost = sys.float_info.max
+        # initialize the previous cost function value to a large number
+        previous_cost = sys.float_info.max
         
-        # # store the cost function and a2 values for plotting
-        # costs = []
-        # a_2s = []
+        # store the cost function and a2 values for plotting
+        costs = []
+        a_2s = []
         
-        # while True:
-        #     # calculate the hypothesis function for all training data
-        #     self.__y_hat = np.dot(self.__beta, self.__X.T)
-
-        #     #  calculate the residuals
-        #     residuals = self.__y_hat - self.__y
+        while True:
             
-        #     # calculate the new value of beta
-        #     self.__beta -= (self.__alpha/self.__m) * np.dot(residuals, self.__X)
+            print(f'Epoch: {iterations}')
 
-        #     # calculate the cost function
-        #     cost = np.dot(residuals, residuals)/(2 * self.__m)
+            for i in range(self.__minibatches_number):
 
-        #     # increase the number of iterations
-        #     iterations += 1
+                print(f'Minibatch: {i}')
+                
+                # minibatch_X = self.__X[i*self.__minibatch_size:(i+1)*self.__minibatch_size]
+                # minibatch_Y = self.__Y[i*self.__minibatch_size:(i+1)*self.__minibatch_size]
 
-        #     # record the cost and a1 values for plotting
-        #     costs.append(cost)
-        #     a_2s.append(self.__beta[2])
-            
-        #     cost_difference = previous_cost - cost
-        #     print(f'Iteration: {iterations}, cost: {cost:.3f}, beta: {self.__beta}')
-        #     previous_cost = cost
+                # calculate the hypothesis function for all training data
+                self.__y_hat[i*self.__minibatch_size:(i+1)*self.__minibatch_size] = np.dot(
+                        self.__beta[i*self.__minibatch_size:(i+1)*self.__minibatch_size],
+                        self.__X[i*self.__minibatch_size:(i+1)*self.__minibatch_size].T)
 
-        #     # check if the cost function is diverging, if so, break
-        #     if cost_difference < 0:
-        #         print(f'Cost function is diverging. Stopping training.')
-        #         break
-            
-        #     # check if the cost function is close enough to 0, if so, break or if the number of 
-        #     # iterations is greater than the threshold, break
-        #     if abs(cost_difference) < self.__costdifference_threshold or iterations > self.__threshold_iterations:
-        #         break
+                #  calculate the residuals
+                residuals = self.__y_hat[i*self.__minibatch_size:(i+1)*self.__minibatch_size] 
+                - self.__y[i*self.__minibatch_size:(i+1)*self.__minibatch_size]
+                
+                # calculate the new value of beta
+                self.__beta[i*self.__minibatch_size:(i+1)*self.__minibatch_size] -= (
+                    self.__alpha[i*self.__minibatch_size:(i+1)*self.__minibatch_size] / 
+                    self.__minibatch_size  * np.dot(
+                        residuals[i*self.__minibatch_size:(i+1)*self.__minibatch_size], 
+                        self.__X[i*self.__minibatch_size:(i+1)*self.__minibatch_size]))
+
+                # calculate the cost function
+                cost = np.dot(residuals[i*self.__minibatch_size:(i+1)*self.__minibatch_size], 
+                            residuals[i*self.__minibatch_size:(i+1)*self.__minibatch_size]) / (
+                                2 * self.__minibatch_size)
+
+                # increase the number of iterations
+                iterations += 1
+
+                # record the cost and a1 values for plotting
+                #     costs.append(cost)
+                #     a_2s.append(self.__beta[2])
+                    
+                cost_difference = previous_cost - cost
+                #     print(f'Iteration: {iterations}, cost: {cost:.3f}, beta: {self.__beta}')
+                previous_cost = cost
+
+                #     # check if the cost function is diverging, if so, break
+                if cost_difference < 0:
+                    print(f'Cost function is diverging. Stopping training.')
+                    break
+                
+                # check if the cost function is close enough to 0, if so, break or if the number of 
+                # iterations is greater than the threshold, break
+                if abs(cost_difference) < self.__costdifference_threshold or iterations > self.__threshold_iterations:
+                    break
 
         # # plot the cost function and a1 values
         # plt.plot(a_2s[3:], costs[3:], '--bx', color='lightblue', mec='red')

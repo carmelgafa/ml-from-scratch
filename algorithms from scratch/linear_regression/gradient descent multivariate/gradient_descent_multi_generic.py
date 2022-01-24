@@ -62,10 +62,10 @@ class MultivariateGradientDescent:
         
         while True:
             # calculate the hypothesis function for all training data
-            self.__y_hat = np.dot(self.__beta, self.__X.T)
+            y_hat = np.dot(self.__beta, self.__X.T)
 
             #  calculate the residuals
-            residuals = self.__y_hat - self.__y
+            residuals = y_hat - self.__y
             
             # calculate the new value of beta
             self.__beta -= (self.__alpha/self.__m) * np.dot(residuals, self.__X)
