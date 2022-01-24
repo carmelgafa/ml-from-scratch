@@ -13,7 +13,7 @@ class MultivariateGradientDescent:
     Assumption that the name of the label is 'y'
     '''
 
-    def __init__(self, alpha=0.0023, threshold_iterations=100000, costdifference_threshold=0.00001):
+    def __init__(self, alpha=0.0001, threshold_iterations=100000, costdifference_threshold=0.00001):
         '''
         Initializes the class
         '''
@@ -82,31 +82,28 @@ class MultivariateGradientDescent:
 
             for i in range(self.__minibatches_number):
 
-                print(f'Minibatch: {i}')
+                # print(f'Minibatch: {i}')
                 
-                # minibatch_X = self.__X[i*self.__minibatch_size:(i+1)*self.__minibatch_size]
-                # minibatch_Y = self.__Y[i*self.__minibatch_size:(i+1)*self.__minibatch_size]
+                minibatch_X = self.__X[i*self.__minibatch_size:(i+1)*self.__minibatch_size]
+                minibatch_Y = self.__Y[i*self.__minibatch_size:(i+1)*self.__minibatch_size]
+                minibatch_beta = self.__beta[i*self.__minibatch_size:(i+1)*self.__minibatch_size]
+
+                # print(f'Minibatch X: {minibatch_X.shape}, minimatch Y: {minibatch_Y.shape}, minibatch beta: {minibatch_beta.shape}')
+
 
                 # calculate the hypothesis function for all training data
-                self.__y_hat[i*self.__minibatch_size:(i+1)*self.__minibatch_size] = np.dot(
-                        self.__beta[i*self.__minibatch_size:(i+1)*self.__minibatch_size],
-                        self.__X[i*self.__minibatch_size:(i+1)*self.__minibatch_size].T)
+                y_hat = np.dot( self.__beta, minibatch_X.T)
 
                 #  calculate the residuals
-                residuals = self.__y_hat[i*self.__minibatch_size:(i+1)*self.__minibatch_size] 
-                - self.__y[i*self.__minibatch_size:(i+1)*self.__minibatch_size]
+                residuals = y_hat - minibatch_Y
                 
                 # calculate the new value of beta
-                self.__beta[i*self.__minibatch_size:(i+1)*self.__minibatch_size] -= (
-                    self.__alpha[i*self.__minibatch_size:(i+1)*self.__minibatch_size] / 
-                    self.__minibatch_size  * np.dot(
-                        residuals[i*self.__minibatch_size:(i+1)*self.__minibatch_size], 
-                        self.__X[i*self.__minibatch_size:(i+1)*self.__minibatch_size]))
+                self.__beta -= (
+                    self.__alpha / self.__minibatch_size)  * np.dot(
+                        residuals, minibatch_X)
 
                 # calculate the cost function
-                cost = np.dot(residuals[i*self.__minibatch_size:(i+1)*self.__minibatch_size], 
-                            residuals[i*self.__minibatch_size:(i+1)*self.__minibatch_size]) / (
-                                2 * self.__minibatch_size)
+                cost = np.dot(residuals, residuals) / ( 2 * self.__minibatch_size)
 
                 # increase the number of iterations
                 iterations += 1
@@ -115,19 +112,19 @@ class MultivariateGradientDescent:
                 #     costs.append(cost)
                 #     a_2s.append(self.__beta[2])
                     
-                cost_difference = previous_cost - cost
-                #     print(f'Iteration: {iterations}, cost: {cost:.3f}, beta: {self.__beta}')
+                cost_difference = (previous_cost - cost)
+                print(f'Epoch: {iterations}, Minibatch: {i}, Cost Difference: {cost_difference}, beta: {self.__beta}')
                 previous_cost = cost
 
                 #     # check if the cost function is diverging, if so, break
                 if cost_difference < 0:
                     print(f'Cost function is diverging. Stopping training.')
-                    break
+                    exit()
                 
                 # check if the cost function is close enough to 0, if so, break or if the number of 
                 # iterations is greater than the threshold, break
                 if abs(cost_difference) < self.__costdifference_threshold or iterations > self.__threshold_iterations:
-                    break
+                    exit()
 
         # # plot the cost function and a1 values
         # plt.plot(a_2s[3:], costs[3:], '--bx', color='lightblue', mec='red')
