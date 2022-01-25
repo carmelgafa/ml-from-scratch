@@ -13,7 +13,7 @@ class MultivariateGradientDescent:
     Assumption that the name of the label is 'y'
     '''
 
-    def __init__(self, alpha=0.0001, threshold_iterations=100000, costdifference_threshold=0.00001):
+    def __init__(self, alpha=0.0003, threshold_iterations=100000, costdifference_threshold=0.000000001):
         '''
         Initializes the class
         '''
@@ -27,6 +27,9 @@ class MultivariateGradientDescent:
     def __load_training_data(self, file):
         full_filename = os.path.join(os.path.dirname(__file__), file)
         training_data = pd.read_csv(full_filename, delimiter=',', header=0, index_col=False)
+
+        training_data = training_data.sample(frac=1).reset_index(drop=True)
+
 
         self.__Y = training_data['y'].to_numpy()
         
@@ -44,20 +47,9 @@ class MultivariateGradientDescent:
         # of a row of the X matrix
         self.__beta = np.random.random(len(self.__X[0]))
 
-        self.__minibatches_number = 10
+        self.__minibatches_number = 2
         
         self.__minibatch_size = int(self.__m/self.__minibatches_number)
-        
-
-
-
-
-
-
-
-
-
-
 
     def train(self, file):
         '''
@@ -65,20 +57,22 @@ class MultivariateGradientDescent:
         '''
         self.__load_training_data(file)
 
-
-
         iterations = 0
 
         # initialize the previous cost function value to a large number
-        previous_cost = sys.float_info.max
+        # previous_cost = sys.float_info.max
         
         # store the cost function and a2 values for plotting
         costs = []
         a_2s = []
         
+        previous_cumulative_cost = sys.float_info.max
+        
         while True:
             
-            print(f'Epoch: {iterations}')
+            # print(f'Epoch: {iterations}')
+
+            cumulative_cost = 0
 
             for i in range(self.__minibatches_number):
 
@@ -86,7 +80,6 @@ class MultivariateGradientDescent:
                 
                 minibatch_X = self.__X[i*self.__minibatch_size:(i+1)*self.__minibatch_size]
                 minibatch_Y = self.__Y[i*self.__minibatch_size:(i+1)*self.__minibatch_size]
-                minibatch_beta = self.__beta[i*self.__minibatch_size:(i+1)*self.__minibatch_size]
 
                 # print(f'Minibatch X: {minibatch_X.shape}, minimatch Y: {minibatch_Y.shape}, minibatch beta: {minibatch_beta.shape}')
 
@@ -105,26 +98,29 @@ class MultivariateGradientDescent:
                 # calculate the cost function
                 cost = np.dot(residuals, residuals) / ( 2 * self.__minibatch_size)
 
-                # increase the number of iterations
-                iterations += 1
+                cumulative_cost += cost
 
-                # record the cost and a1 values for plotting
-                #     costs.append(cost)
-                #     a_2s.append(self.__beta[2])
-                    
-                cost_difference = (previous_cost - cost)
-                print(f'Epoch: {iterations}, Minibatch: {i}, Cost Difference: {cost_difference}, beta: {self.__beta}')
-                previous_cost = cost
+            # increase the number of iterations
+            iterations += 1
 
-                #     # check if the cost function is diverging, if so, break
-                if cost_difference < 0:
-                    print(f'Cost function is diverging. Stopping training.')
-                    exit()
+
+            # record the cost and a1 values for plotting
+            #     costs.append(cost)
+            #     a_2s.append(self.__beta[2])
+
+            cost_difference = previous_cumulative_cost - cumulative_cost
+            print(f'Epoch: {iterations}, average cost: {(cumulative_cost/self.__minibatches_number):.3f}, beta: {self.__beta}')
+            previous_cumulative_cost = cumulative_cost
+
+            # check if the cost function is diverging, if so, break
+            if cost_difference < 0:
+                print(f'Cost function is diverging. Stopping training.')
+                break
                 
-                # check if the cost function is close enough to 0, if so, break or if the number of 
-                # iterations is greater than the threshold, break
-                if abs(cost_difference) < self.__costdifference_threshold or iterations > self.__threshold_iterations:
-                    exit()
+            # check if the cost function is close enough to 0, if so, break or if the number of 
+            # iterations is greater than the threshold, break
+            if abs(cost_difference) < self.__costdifference_threshold or iterations > self.__threshold_iterations:
+                break
 
         # # plot the cost function and a1 values
         # plt.plot(a_2s[3:], costs[3:], '--bx', color='lightblue', mec='red')

@@ -1,4 +1,3 @@
-
 import os
 import matplotlib
 matplotlib.rcParams['text.usetex'] = True
@@ -81,7 +80,7 @@ class MultivariateGradientDescent:
             a_2s.append(self.__beta[2])
             
             cost_difference = previous_cost - cost
-            print(f'Iteration: {iterations}, cost: {cost:.3f}, beta: {self.__beta}')
+            print(f'Epoch: {iterations}, cost: {cost:.3f}, beta: {self.__beta}')
             previous_cost = cost
 
             # check if the cost function is diverging, if so, break
