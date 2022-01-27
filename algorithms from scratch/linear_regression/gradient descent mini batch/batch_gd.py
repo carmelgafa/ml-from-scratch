@@ -122,9 +122,30 @@ def LinearRegression(a, cd, batch_size):
     
 
 if __name__ == '__main__':
+
+    from timeit import default_timer as timer
+
+    start = timer()
+    print(LinearRegression(0.0023, 0.0001, 1))
+    end = timer()
+    print(f'Time: {end - start}')
     
-    print(LinearRegression(0.0023, 0.00001, 1))
+    start = timer()
     print(LinearRegression(0.0015, 0.001, 2))
-    print(LinearRegression(0.0007, 0.001, 20))
-    print(LinearRegression(0.0001, 0.001, 200))
-    print(LinearRegression(0.0001, 0.001, 1000))
+    end = timer()
+    print(f'Time: {end - start}')
+    
+    start = timer()
+    print(LinearRegression(0.0010, 0.001, 20))
+    end = timer()
+    print(f'Time: {end - start}')
+
+    start = timer()
+    print(LinearRegression(0.001, 0.001, 200))
+    end = timer()
+    print(f'Time: {end - start}')
+    
+    start = timer()
+    print(LinearRegression(0.001, 0.001, 1000))
+    end = timer()
+    print(f'Time: {end - start}')
