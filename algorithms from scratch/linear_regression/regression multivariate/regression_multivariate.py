@@ -42,3 +42,14 @@ a2 = (sum_X1_sq*sum_X2y - sum_X1X2*sum_X1y)/(sum_X1_sq*sum_X2_sq - sum_X1X2**2)
 a0 = mean_y - a1*mean_x1 - a2*mean_x2
 
 print(f'a0: {a0}, a1: {a1}, a2: {a2}')
+
+
+import numpy as np
+
+y_hat = a0 + a1*data['x1'] + a2*data['x2']
+
+residuals = y_hat - data['y']
+
+cost = np.dot(residuals, residuals)/(2*n)
+
+print(f'cost: {cost}')

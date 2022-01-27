@@ -10,13 +10,10 @@ import numpy as np
 from random import seed
 from random import random
 
-def LinearRegression(a, cd):
+def LinearRegression(a):
 
     file = 'data.csv'
-    
     alpha = a
-    threshold_iterations = 90000
-    costdifference_threshold = cd
 
     # load the training data
     full_filename = os.path.join(os.path.dirname(__file__), file)
@@ -46,14 +43,9 @@ def LinearRegression(a, cd):
     # initialize the number of epochs
     epochs = 0
 
-
-    
-    previous_cumulative_cost = sys.float_info.max
-    
     # loop until exit condition is met
     while True:
 
-        cumulative_cost = 0
 
         i = (int)(random()*m)
 
@@ -71,17 +63,21 @@ def LinearRegression(a, cd):
         # calculate the new value of beta
         beta -= (alpha * residuals * x)
 
-        # calculate the cost function
-        cost = (residuals**2)/(2*m)
-
-        cumulative_cost += cost
 
         epochs += 1
 
+        # y_hat = np.dot(beta, X.T)
+        # residuals = y_hat - Y
+        # cost = np.dot(residuals, residuals) / ( 2 * m)
 
+        # print(f'Epochs: {epochs}, Cost: {cost} a[0]: {beta[0]}, a[1]: {beta[1]}, a[2]: {beta[2]}')
+
+ 
+
+  
         # check if the cost function is close enough to 0, if so, break or if the number of 
         # iterations is greater than the threshold, break
-        if epochs > threshold_iterations:
+        if epochs > (m*250):
             break
 
 
@@ -101,6 +97,6 @@ if __name__ == '__main__':
 
    
     start = timer()
-    print(LinearRegression(0.0001, 0.0000000001))
+    print(LinearRegression(0.00005))
     end = timer()
     print(f'Time: {end - start}')
