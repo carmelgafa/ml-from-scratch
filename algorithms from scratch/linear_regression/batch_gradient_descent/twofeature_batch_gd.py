@@ -5,8 +5,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import sys
 
-
-def two_feature_gradient_descent(alpha, file):
+def two_feature_gradient_descent(file, alpha=0.0023, threshold_iterations=100000, costdifference_threshold=0.00001, plot=False):
     a0 = 5
     a1 = 3
     a2 = 1
@@ -19,7 +18,7 @@ def two_feature_gradient_descent(alpha, file):
     data_set = pd.read_csv(full_filename, delimiter=',', header=0, index_col=False)
 
     m = len(data_set)
-    iterations = 0
+    epoch = 0
 
     previous_cost = sys.float_info.max
     
@@ -48,14 +47,14 @@ def two_feature_gradient_descent(alpha, file):
         
         # calculate the cost function
         cost = sum(data_set['y-hat-y_sq']) / (2 * m)
-        iterations += 1
+        epoch += 1
 
         # record the cost and a1 values for plotting
         costs.append(cost)
         a_1s.append(a1)
         
         cost_difference = previous_cost - cost
-        print(f'Iteration: {iterations}, cost: {cost:.3f}, difference: {cost_difference:.6f}')
+        print(f'Epoch: {epoch}, cost: {cost:.3f}, difference: {cost_difference:.6f}')
         previous_cost = cost
 
         # check if the cost function is diverging, if so, break
@@ -65,22 +64,25 @@ def two_feature_gradient_descent(alpha, file):
         
         # check if the cost function is close enough to 0, if so, break or if the number of 
         # iterations is greater than the threshold, break
-        if abs(cost_difference) < 0.000005 or iterations > threshold_iterations:
+        if abs(cost_difference) < 0.000005 or epoch > threshold_iterations:
             break
-
-    # # plot the cost function and a1 values
-    # plt.plot(a_1s[:], costs[:], '--bx', color='lightblue', mec='red')
-    # plt.xlabel('a1')
-    # plt.ylabel('cost')
-    # plt.title(r'Cost Function vs. a1, with $\alpha$ =' + str(__alpha))
-    # plt.show()
+    if plot:
+        # plot the cost function and a1 values
+        plt.plot(a_1s[:], costs[:], '--bx', color='lightblue', mec='red')
+        plt.xlabel('a1')
+        plt.ylabel('cost')
+        plt.title(r'Cost Function vs. a1, with $\alpha$ =' + str(__alpha))
+        plt.show()
 
     return a0, a1, a2
 
-
-
 if __name__ == '__main__':
+
+    file = 'data.csv'
+    alpha = 0.0023
+    threshold_iterations = 100000
+    costdifference_threshold = 0.00001
+    plot = False
     
-    a0, a1, a2 = two_feature_gradient_descent(0.0023, 'data.csv')
+    a0, a1, a2 = two_feature_gradient_descent(file, alpha, threshold_iterations, costdifference_threshold, plot)
     print(f'a0: {a0}, a1: {a1}, a2: {a2}')
-    
