@@ -15,6 +15,8 @@ Implementation of ML algorithms from scratch
   - Linear Regression Multivariate. [Notes here](https://carmelgafa.com/post/ml_linearreg_multivariate/) and [here](https://carmelgafa.com/post/ml_linearreg_multivariatepython/)
   - Gradient Descent Univariate. [Notes here](https://carmelgafa.com/post/ml_linearreg_gradientdescent/)
   - Gradient Descent Multivariate. [Notes here](https://carmelgafa.com/post/ml_linearreg_multivariatedescent/)
+  - Stochastic Gradient Descent.
+  - Mini-batch Gradient Descent. 
 - logistic regression
 
 ### John Guttag MIT worked examples
