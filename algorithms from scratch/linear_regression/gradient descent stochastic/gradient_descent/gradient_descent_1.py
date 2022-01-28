@@ -54,7 +54,7 @@ def gradient_descent(file, alpha=0.0023, threshold_iterations=100000, costdiffer
         
         if cost < threshold_cost or epoch > threshold_iterations:
             print(f'Cost Function: {cost}')
-            print(f'Iterations: {epoch}')
+            print(f'Epoch: {epoch}')
             break
     
     if plot:
