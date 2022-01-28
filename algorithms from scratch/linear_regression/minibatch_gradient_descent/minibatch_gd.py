@@ -7,13 +7,7 @@ import pandas as pd
 import sys
 import numpy as np
 
-def LinearRegression(a, cd, batch_size):
-
-    file = 'data.csv'
-    
-    alpha = a
-    threshold_iterations = 100000
-    costdifference_threshold = cd
+def minibatch_gradient_descent(file, alpha=0.0023, batch_size=100, maximum_epochs=100000, costdifference_threshold=0.00001, plot=False):
 
     # load the training data
     full_filename = os.path.join(os.path.dirname(__file__), file)
@@ -45,8 +39,10 @@ def LinearRegression(a, cd, batch_size):
     minibatches_number = batch_size
     minibatch_size = int(m/minibatches_number)
 
+    print(f'Minibatch size: {minibatch_size}')
+
     # initialize the number of epochs
-    epochs = 0
+    count = 0
 
     # initialize the previous cost function value to a large number
     # previous_cost = sys.float_info.max
@@ -75,9 +71,7 @@ def LinearRegression(a, cd, batch_size):
             residuals = y_hat - minibatch_Y
 
             # calculate the new value of beta
-            beta -= (
-                alpha / minibatch_size)  * np.dot(
-                    residuals, minibatch_X)
+            beta -= ( alpha / minibatch_size)  * np.dot(residuals, minibatch_X)
 
             # calculate the cost function
             cost = np.dot(residuals, residuals) / ( 2 * minibatch_size)
@@ -85,7 +79,7 @@ def LinearRegression(a, cd, batch_size):
             cumulative_cost += cost
 
         # increase the number of iterations
-        epochs += 1
+        count += 1
 
         # record the cost and a1 values for plotting
         #     costs.append(cost)
@@ -102,7 +96,7 @@ def LinearRegression(a, cd, batch_size):
             
         # check if the cost function is close enough to 0, if so, break or if the number of 
         # iterations is greater than the threshold, break
-        if abs(cost_difference) < costdifference_threshold or epochs > threshold_iterations:
+        if abs(cost_difference) < costdifference_threshold or count > threshold_iterations:
             break
 
     # # plot the cost function and a1 values
@@ -118,34 +112,23 @@ def LinearRegression(a, cd, batch_size):
     residuals = y_hat - Y
     cost = np.dot(residuals, residuals) / ( 2 * m)
     
-    return beta, epochs, cost
+    return beta, count, cost
     
 
 if __name__ == '__main__':
 
     from timeit import default_timer as timer
 
-    start = timer()
-    print(LinearRegression(0.0023, 0.0001, 1))
-    end = timer()
-    print(f'Time: {end - start}')
-    
-    start = timer()
-    print(LinearRegression(0.0015, 0.001, 2))
-    end = timer()
-    print(f'Time: {end - start}')
-    
-    start = timer()
-    print(LinearRegression(0.0010, 0.001, 20))
-    end = timer()
-    print(f'Time: {end - start}')
+    file = 'data.csv'
+    alpha = 0.00023
+    threshold_iterations = 100000
+    costdifference_threshold = 0.00001
+    plot = False
+    batch_size = 100
+
 
     start = timer()
-    print(LinearRegression(0.001, 0.001, 200))
+    beta, count, cost = minibatch_gradient_descent(file, alpha, threshold_iterations, costdifference_threshold, plot, batch_size)
     end = timer()
-    print(f'Time: {end - start}')
+    print(f'Time: {end - start} beta: {beta}, count: {count}, cost: {cost}')
     
-    start = timer()
-    print(LinearRegression(0.001, 0.001, 1000))
-    end = timer()
-    print(f'Time: {end - start}')
