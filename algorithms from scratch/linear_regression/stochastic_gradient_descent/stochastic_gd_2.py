@@ -5,15 +5,16 @@ matplotlib.rcParams['text.usetex'] = True
 import pandas as pd
 import sys
 import numpy as np
-from random import random
+
 
 def stochastic_gradient_descent(file, alpha=0.0023, maximum_epochs=100000, costdifference_threshold=0.00001, plot=False):
     '''
     Implementation of Stochastic Gradient Descent
     
-    Exit condition: 250 epochs
     '''
 
+    np.random.seed(42)
+    
     # load the training data
     full_filename = os.path.join(os.path.dirname(__file__), file)
     data_set = pd.read_csv(full_filename, delimiter=',', header=0, index_col=False)
@@ -57,7 +58,7 @@ def stochastic_gradient_descent(file, alpha=0.0023, maximum_epochs=100000, costd
     # loop until exit condition is met
     while True:
         
-        i = (int)(random()*m)
+        i = np.random.randint(0, m)
 
         # print(f'Minibatch: {i}')
         x = X_train[i]
@@ -83,7 +84,9 @@ def stochastic_gradient_descent(file, alpha=0.0023, maximum_epochs=100000, costd
                 break
             else:
                 previous_validation_cost = cost_validation
-  
+            
+            print(f'Epoch: {count/m} Cost: {cost_validation} beta: {beta}')
+                    
         # check if the cost function is close enough to 0, if so, break or if the number of 
         # iterations is greater than the threshold, break
         if (count/m) > (maximum_epochs):
@@ -104,7 +107,7 @@ if __name__ == '__main__':
 
     file = 'data.csv'
     alpha = 0.00033
-    maximum_epochs = 100
+    maximum_epochs = 250
     costdifference_threshold = 0.001
     plot = False
 
