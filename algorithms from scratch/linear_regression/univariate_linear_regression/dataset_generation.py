@@ -6,8 +6,10 @@ import pandas as pd
 x = np.arange(0, 101, 1)
 
 # generate a noisy line
-l = (2*x) + 15
 
+np.random.seed(42)
+
+l = (2*x) + 15
 random_multiplier = 5
 e = np.random.randn(len(x))*random_multiplier
 y = l + e

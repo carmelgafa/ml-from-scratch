@@ -21,6 +21,7 @@ xx1, xx2 = np.meshgrid(x1, x2)
 y = 12 + (5 * xx1) + (-3 * xx2)
 
 # add random_multiplier to y
+np.random.seed(42)
 random_multiplier = 5
 e = np.random.randn(len(xx1), len(xx2) )*random_multiplier
 yy = y + e

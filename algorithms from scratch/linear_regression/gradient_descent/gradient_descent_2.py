@@ -6,9 +6,9 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import sys
 
-def gradient_descent(file, alpha=0.0023, maximum_epochs=100000, costdifference_threshold=0.00001, plot=False):
+def gradient_descent(file, alpha=0.0023, maximum_epochs=100000,
+                costdifference_threshold=0.00001, plot=False):
 
-    
     a0 = 5
     a1 = 3
     

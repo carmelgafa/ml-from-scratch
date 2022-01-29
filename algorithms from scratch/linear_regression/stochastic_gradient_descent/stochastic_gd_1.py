@@ -7,8 +7,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import sys
 import numpy as np
-from random import seed
-from random import random
+
 
 def stochastic_gradient_descent(file, alpha):
     '''
@@ -16,6 +15,8 @@ def stochastic_gradient_descent(file, alpha):
     
     Exit condition: 250 epochs
     '''
+    
+    np.random.seed(42)
 
     # load the training data
     full_filename = os.path.join(os.path.dirname(__file__), file)
@@ -48,7 +49,7 @@ def stochastic_gradient_descent(file, alpha):
     # loop until exit condition is met
     while True:
         
-        i = (int)(random()*m)
+        i = np.random.randint(0, m)
 
         # print(f'Minibatch: {i}')
         x = X[i]
