@@ -75,7 +75,7 @@ def stochastic_gradient_descent(file, alpha=0.0023, maximum_epochs=100000, costd
 
         count += 1
 
-        if count % m == 0:
+        if count % 1000 == 0:
             y_hat_validation = np.dot(beta, X_validation.T)
             residuals_validation = y_hat_validation - Y_validation
             cost_validation = np.dot(residuals_validation, residuals_validation) / ( 2 * len(Y_validation))
