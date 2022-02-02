@@ -7,7 +7,7 @@ import sys
 import numpy as np
 
 
-def stochastic_gradient_descent(file, alpha=0.0023, maximum_epochs=100000, costdifference_threshold=0.00001, plot=False):
+def stochastic_gradient_descent(file, alpha=0.0023, epochs_threshold=100, costdifference_threshold=0.00001, plot=False):
     '''
     Implementation of Stochastic Gradient Descent
     
@@ -23,10 +23,6 @@ def stochastic_gradient_descent(file, alpha=0.0023, maximum_epochs=100000, costd
     mask = np.random.rand(len(data_set)) < 0.8
     training_data = data_set[mask]
     validation_data = data_set[~mask]
-
-    print(f'Training data: {len(training_data)}')
-    print(f'Testing data: {len(validation_data)}')
-
 
     # divide the data into features and labels
     X_train = data_set.drop(['y'], axis=1).to_numpy()
@@ -85,11 +81,12 @@ def stochastic_gradient_descent(file, alpha=0.0023, maximum_epochs=100000, costd
             else:
                 previous_validation_cost = cost_validation
             
-            print(f'Epoch: {count/m} Cost: {cost_validation} beta: {beta}')
+            # uncomment this line to see details
+            # print(f'Epoch: {count/m} Cost: {cost_validation} beta: {beta}')
                     
         # check if the cost function is close enough to 0, if so, break or if the number of 
         # iterations is greater than the threshold, break
-        if (count/m) > (maximum_epochs):
+        if (count/m) > (epochs_threshold):
             break
     
     # calculate the cost for the training data and return the beta values and 
@@ -107,12 +104,12 @@ if __name__ == '__main__':
 
     file = 'data.csv'
     alpha = 0.00033
-    maximum_epochs = 250
-    costdifference_threshold = 0.001
+    epochs_threshold = 100
+    costdifference_threshold = 0.005
     plot = False
 
 
     start = timer()
-    beta, count, cost = stochastic_gradient_descent(file, alpha, maximum_epochs, costdifference_threshold, plot)
+    beta, count, cost = stochastic_gradient_descent(file, alpha, epochs_threshold, costdifference_threshold, plot)
     end = timer()
     print(f'Time: {end - start}, beta: {beta}, count: {count}, cost: {cost}')

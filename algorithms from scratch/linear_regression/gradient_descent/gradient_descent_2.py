@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import sys
 
-def gradient_descent(file, alpha=0.0023, maximum_epochs=100000,
+def gradient_descent(file, alpha=0.0023, epochs_threshold=100000,
                 costdifference_threshold=0.00001, plot=False):
 
     a0 = 5
@@ -60,7 +60,7 @@ def gradient_descent(file, alpha=0.0023, maximum_epochs=100000,
         
         # check if the cost function is close enough to 0, if so, break or if the number of 
         # iterations is greater than the threshold, break
-        if abs(cost_difference) < 0.00001 or epoch > maximum_epochs:
+        if abs(cost_difference) < 0.00001 or epoch > epochs_threshold:
             break
     
     if plot:
@@ -77,9 +77,9 @@ if __name__ == '__main__':
 
     file = 'data.csv'
     alpha = 0.0005
-    threshold_iterations = 100000
+    epochs_threshold = 100000
     costdifference_threshold = 0.00001
     plot = False
     
-    a0, a1 = gradient_descent(file, alpha, threshold_iterations, costdifference_threshold, plot)
+    a0, a1 = gradient_descent(file, alpha, epochs_threshold, costdifference_threshold, plot)
     print(f'a0: {a0:.3f}, a1: {a1:.3f}')

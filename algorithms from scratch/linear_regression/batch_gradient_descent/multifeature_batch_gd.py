@@ -24,7 +24,6 @@ def multifeature_gradient_descent(file, alpha=0.0023, epochs_threshold=100000, c
     
     # add a column of ones to the X matrix to account for the intercept, a0
     X = np.insert(X, 0, 1, axis=1)
-    print(X)
     
     y_hat = np.zeros(len(Y))
     
@@ -62,7 +61,9 @@ def multifeature_gradient_descent(file, alpha=0.0023, epochs_threshold=100000, c
         a_2s.append(beta[2])
         
         cost_difference = previous_cost - cost
-        print(f'Epoch: {iterations}, cost: {cost:.3f}, beta: {beta}')
+
+        # undelete this line to see details
+        # print(f'Epoch: {iterations}, cost: {cost:.3f}, beta: {beta}')
         previous_cost = cost
 
         # check if the cost function is diverging, if so, break
@@ -86,12 +87,16 @@ def multifeature_gradient_descent(file, alpha=0.0023, epochs_threshold=100000, c
     return beta
 
 if __name__ == '__main__':
-    
+
+    from timeit import default_timer as timer
+
     file = 'data.csv'
     alpha = 0.0023
     epochs_threshold = 100000
     costdifference_threshold = 0.00001
     plot = False
 
+    start = timer()
     beta = multifeature_gradient_descent(file, alpha, epochs_threshold, costdifference_threshold, plot)
-    print(f'Final beta: {beta}')
+    end = timer()
+    print(f'Time: {end - start}, beta: {beta}')
