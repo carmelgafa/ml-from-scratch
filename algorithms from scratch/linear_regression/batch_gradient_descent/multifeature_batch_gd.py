@@ -7,7 +7,7 @@ import sys
 import numpy as np
 
 
-def multifeature_gradient_descent(file, alpha=0.0023, threshold_iterations=100000, costdifference_threshold=0.00001, plot=False):
+def multifeature_gradient_descent(file, alpha=0.0023, epochs_threshold=100000, costdifference_threshold=0.00001, plot=False):
 
     X = None
     Y = None
@@ -72,7 +72,7 @@ def multifeature_gradient_descent(file, alpha=0.0023, threshold_iterations=10000
         
         # check if the cost function is close enough to 0, if so, break or if the number of 
         # iterations is greater than the threshold, break
-        if abs(cost_difference) < costdifference_threshold or iterations > threshold_iterations:
+        if abs(cost_difference) < costdifference_threshold or iterations > epochs_threshold:
             break
     
     if plot:
@@ -89,9 +89,9 @@ if __name__ == '__main__':
     
     file = 'data.csv'
     alpha = 0.0023
-    threshold_iterations = 100000
+    epochs_threshold = 100000
     costdifference_threshold = 0.00001
     plot = False
 
-    beta = multifeature_gradient_descent(file, alpha, threshold_iterations, costdifference_threshold, plot)
+    beta = multifeature_gradient_descent(file, alpha, epochs_threshold, costdifference_threshold, plot)
     print(f'Final beta: {beta}')

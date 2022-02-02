@@ -1,7 +1,6 @@
 
 import os
 import matplotlib
-from torch import rand
 matplotlib.rcParams['text.usetex'] = True
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -13,7 +12,7 @@ def stochastic_gradient_descent(file, alpha):
     '''
     Implementation of Stochastic Gradient Descent
     
-    Exit condition: 250 epochs
+    Exit condition: 5 epochs
     '''
     
     np.random.seed(42)
@@ -68,7 +67,7 @@ def stochastic_gradient_descent(file, alpha):
   
         # check if the cost function is close enough to 0, if so, break or if the number of 
         # iterations is greater than the threshold, break
-        if epochs > (m*250):
+        if epochs > (m*5):
             break
     
     # calculate the cost for the training data and return the beta values and 
@@ -77,7 +76,7 @@ def stochastic_gradient_descent(file, alpha):
     residuals = y_hat - Y
     cost = np.dot(residuals, residuals) / ( 2 * m)
     
-    return beta, epochs, cost
+    return beta, cost
 
 
 if __name__ == '__main__':
@@ -87,6 +86,6 @@ if __name__ == '__main__':
     file = 'data.csv'
     alpha = 0.0001
     start = timer()
-    beta, epochs, cost = stochastic_gradient_descent(file, alpha) 
+    beta, cost = stochastic_gradient_descent(file, alpha) 
     end = timer()
-    print(f'Time: {end - start}, beta: {beta}, epochs: {epochs}, cost: {cost}')
+    print(f'Time: {end - start}, beta: {beta}, cost: {cost}')
