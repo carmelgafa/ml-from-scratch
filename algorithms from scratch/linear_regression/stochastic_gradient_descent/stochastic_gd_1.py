@@ -8,11 +8,11 @@ import sys
 import numpy as np
 
 
-def stochastic_gradient_descent(file, alpha):
+def stochastic_gradient_descent(file, alpha, max_epochs = 5):
     '''
     Implementation of Stochastic Gradient Descent
     
-    Exit condition: 5 epochs
+    Exit condition: max_epochs epochs
     '''
     
     np.random.seed(42)
@@ -67,7 +67,7 @@ def stochastic_gradient_descent(file, alpha):
   
         # check if the cost function is close enough to 0, if so, break or if the number of 
         # iterations is greater than the threshold, break
-        if epochs > (m*5):
+        if epochs > (m*max_epochs):
             break
     
     # calculate the cost for the training data and return the beta values and 
@@ -85,7 +85,8 @@ if __name__ == '__main__':
 
     file = 'data.csv'
     alpha = 0.0001
+    max_epochs = 5
     start = timer()
-    beta, cost = stochastic_gradient_descent(file, alpha) 
+    beta, cost = stochastic_gradient_descent(file, alpha, max_epochs) 
     end = timer()
     print(f'Time: {end - start}, beta: {beta}, cost: {cost}')
