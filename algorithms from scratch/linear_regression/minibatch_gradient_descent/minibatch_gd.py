@@ -7,7 +7,7 @@ import pandas as pd
 import sys
 import numpy as np
 
-def minibatch_gradient_descent(file, alpha=0.0023, batch_size=100, maximum_epochs=100000, costdifference_threshold=0.00001, plot=False):
+def minibatch_gradient_descent(file, alpha=0.0023, batch_size=100, epochs_threshold=100000, costdifference_threshold=0.00001, plot=False):
 
     # load the training data
     full_filename = os.path.join(os.path.dirname(__file__), file)
@@ -24,6 +24,7 @@ def minibatch_gradient_descent(file, alpha=0.0023, batch_size=100, maximum_epoch
     
     # length of the training data
     m = len(Y)
+    print(f'Length of the training data: {m}')
 
     # initialize the y_hat vector to 0
     y_hat = np.zeros(len(Y))
@@ -36,10 +37,7 @@ def minibatch_gradient_descent(file, alpha=0.0023, batch_size=100, maximum_epoch
     # minibatches setting
     # number of minibatches = m => stochastic gradient descent
     # number of minibatches = 1 => batch gradient descent
-    minibatches_number = batch_size
-    minibatch_size = int(m/minibatches_number)
-
-    print(f'Minibatch size: {minibatch_size}')
+    minibatch_size = int(m/batch_size)
 
     # initialize the number of epochs
     count = 0
@@ -58,7 +56,7 @@ def minibatch_gradient_descent(file, alpha=0.0023, batch_size=100, maximum_epoch
 
         cumulative_cost = 0
 
-        for i in range(minibatches_number):
+        for i in range(batch_size):
 
             # print(f'Minibatch: {i}')
             minibatch_X = X[i*minibatch_size:(i+1)*minibatch_size]
@@ -66,10 +64,10 @@ def minibatch_gradient_descent(file, alpha=0.0023, batch_size=100, maximum_epoch
 
             # calculate the hypothesis function for all training data
             y_hat = np.dot(beta, minibatch_X.T)
-
             #  calculate the residuals
             residuals = y_hat - minibatch_Y
-
+            
+            
             # calculate the new value of beta
             beta -= ( alpha / minibatch_size)  * np.dot(residuals, minibatch_X)
 
@@ -96,7 +94,7 @@ def minibatch_gradient_descent(file, alpha=0.0023, batch_size=100, maximum_epoch
             
         # check if the cost function is close enough to 0, if so, break or if the number of 
         # iterations is greater than the threshold, break
-        if abs(cost_difference) < costdifference_threshold or count > threshold_iterations:
+        if abs(cost_difference) < costdifference_threshold or count > epochs_threshold:
             break
 
     # # plot the cost function and a1 values
@@ -121,14 +119,14 @@ if __name__ == '__main__':
 
     file = 'data.csv'
     alpha = 0.00023
-    threshold_iterations = 100000
+    epochs_threshold = 100000
     costdifference_threshold = 0.00001
     plot = False
     batch_size = 100
 
 
     start = timer()
-    beta, count, cost = minibatch_gradient_descent(file, alpha, threshold_iterations, costdifference_threshold, plot, batch_size)
+    beta, count, cost = minibatch_gradient_descent(file, alpha, batch_size, epochs_threshold, costdifference_threshold, plot)
     end = timer()
     print(f'Time: {end - start} beta: {beta}, count: {count}, cost: {cost}')
     
