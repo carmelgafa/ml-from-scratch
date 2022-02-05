@@ -7,11 +7,30 @@ import sys
 import numpy as np
 
 
-def stochastic_gradient_descent(file, alpha=0.0023, epochs_threshold=100, costdifference_threshold=0.00001, plot=False):
+def stochastic_gradient_descent(file:str, alpha:float=0.0023, epochs_threshold:int=100, costdifference_threshold:float=0.00001, plot:bool=False):
     '''
-    Implementation of Stochastic Gradient Descent
+    The function takes a training data set, a learning rate, a number of epochs and a cost difference
+    threshold. 
+    It then calculates the beta values for the training data set and returns the beta values, the number
+    of iterations and the cost
     
+    :param file: the name of the file that contains the data set
+    :type file: str
+    :param alpha: The learning rate
+    :type alpha: float
+    :param epochs_threshold: The number of epochs to run before stopping. An epoch is defined as the
+    number of times all of the training data is used once to update the weights, defaults to 100
+    :type epochs_threshold: int (optional)
+    :param costdifference_threshold: This is the threshold for the difference between the cost of the
+    previous validation set and the current validation set. If the difference is less than this
+    threshold, then the algorithm will stop
+    :type costdifference_threshold: float
+    :param plot: If True, a plot will be displayed showing the cost function as a function of the number
+    of iterations, defaults to False
+    :type plot: bool (optional)
+    :return: the beta values, the number of iterations and the cost.
     '''
+
 
     np.random.seed(42)
     

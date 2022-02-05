@@ -8,11 +8,19 @@ import sys
 import numpy as np
 
 
-def stochastic_gradient_descent(file, alpha, max_epochs = 5):
+def stochastic_gradient_descent(file:str, alpha:float, max_epochs:int = 5):
     '''
-    Implementation of Stochastic Gradient Descent
+    The stochastic gradient descent function takes a dataset, a learning rate, and a maximum number of
+    epochs. 
+    It returns the beta values and the cost.
     
-    Exit condition: max_epochs epochs
+    :param file: the name of the file that contains the training data
+    :type file: str
+    :param alpha: the learning rate
+    :type alpha: float
+    :param max_epochs: The maximum number of epochs to run, defaults to 5
+    :type max_epochs: int (optional)
+    :return: the beta values and the cost.
     '''
     
     np.random.seed(42)

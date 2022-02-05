@@ -1,3 +1,5 @@
+# We generate a random dataset of points in a plane, and then add some noise to the y-values. We then
+# save the data to a csv file.
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd

@@ -7,7 +7,28 @@ import pandas as pd
 import sys
 import numpy as np
 
-def minibatch_gradient_descent(file, alpha=0.0023, batch_size=100, epochs_threshold=100000, costdifference_threshold=0.00001, plot=False):
+def minibatch_gradient_descent(file:str, alpha:float=0.0023, batch_size:int=100, epochs_threshold:int=100000, costdifference_threshold:float=0.00001, plot:bool=False):
+    '''
+    The function calculates the beta values for the linear regression model using the gradient descent
+    algorithm
+    
+    :param file: the name of the file that contains the training data
+    :type file: str
+    :param alpha: the learning rate
+    :type alpha: float
+    :param batch_size: the number of rows in the training data that will be used to calculate the
+    gradient, defaults to 100
+    :type batch_size: int (optional)
+    :param epochs_threshold: the number of epochs to run before stopping, defaults to 100000
+    :type epochs_threshold: int (optional)
+    :param costdifference_threshold: The threshold for the difference in the cost function between the
+    current and previous iterations. If the difference is less than this threshold, the training will
+    stop
+    :type costdifference_threshold: float
+    :param plot: If you want to plot the cost function vs. the number of iterations, defaults to False
+    :type plot: bool (optional)
+    :return: the beta values, the number of iterations and the cost.
+    '''
 
     # load the training data
     full_filename = os.path.join(os.path.dirname(__file__), file)

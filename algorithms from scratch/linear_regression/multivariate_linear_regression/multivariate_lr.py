@@ -1,3 +1,19 @@
+# The above code is a simple linear regression model. 
+# 
+# The model is: 
+# 
+# y = a0 + a1*x1 + a2*x2 
+# 
+# The model is fit using the least squares method. 
+# 
+# The model is tested by computing the cost of the model. 
+# 
+# The cost is the sum of the squared residuals. 
+# 
+# The cost is a measure of how good the model is. 
+# 
+# The lower the cost, the better the model. 
+
 import pandas as pd
 import os
 
