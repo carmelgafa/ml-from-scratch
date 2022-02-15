@@ -13,6 +13,9 @@ m = len(data_set)
 #
 # normalize data_set
 
+data_set['x'] = data_set['x'] / np.max(data_set['x'])
+data_set['y'] = data_set['y'] / np.max(data_set['y'])
+
 
 a0, a1  = np.meshgrid(np.arange(-1000,1000,100), np.arange(-3,5,1))
 
