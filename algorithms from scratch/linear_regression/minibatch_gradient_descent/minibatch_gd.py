@@ -61,7 +61,7 @@ def minibatch_gradient_descent(file:str, alpha:float=0.0023, batch_size:int=100,
     minibatch_size = int(m/batch_size)
 
     # initialize the number of epochs
-    count = 0
+    epoch_count = 0
 
     # initialize the previous cost function value to a large number
     # previous_cost = sys.float_info.max
@@ -98,7 +98,7 @@ def minibatch_gradient_descent(file:str, alpha:float=0.0023, batch_size:int=100,
             cumulative_cost += cost
 
         # increase the number of iterations
-        count += 1
+        epoch_count += 1
 
         # record the cost and a1 values for plotting
         #     costs.append(cost)
@@ -115,7 +115,7 @@ def minibatch_gradient_descent(file:str, alpha:float=0.0023, batch_size:int=100,
             
         # check if the cost function is close enough to 0, if so, break or if the number of 
         # iterations is greater than the threshold, break
-        if abs(cost_difference) < costdifference_threshold or count > epochs_threshold:
+        if abs(cost_difference) < costdifference_threshold or epoch_count > epochs_threshold:
             break
 
     # # plot the cost function and a1 values
@@ -131,7 +131,7 @@ def minibatch_gradient_descent(file:str, alpha:float=0.0023, batch_size:int=100,
     residuals = y_hat - Y
     cost = np.dot(residuals, residuals) / ( 2 * m)
     
-    return beta, count, cost
+    return beta, epoch_count, cost
     
 
 if __name__ == '__main__':
@@ -140,14 +140,14 @@ if __name__ == '__main__':
 
     file = 'data.csv'
     alpha = 0.00023
-    epochs_threshold = 100000
+    epochs_threshold = 1000
     costdifference_threshold = 0.00001
     plot = False
     batch_size = 100
 
 
     start = timer()
-    beta, count, cost = minibatch_gradient_descent(file, alpha, batch_size, epochs_threshold, costdifference_threshold, plot)
+    beta, epoch_count, cost = minibatch_gradient_descent(file, alpha, batch_size, epochs_threshold, costdifference_threshold, plot)
     end = timer()
-    print(f'Time: {end - start} beta: {beta}, count: {count}, cost: {cost}')
+    print(f'Time: {end - start} beta: {beta}, epoch_count: {epoch_count}, cost: {cost}')
     

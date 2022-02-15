@@ -8,10 +8,12 @@ import matplotlib.pyplot as plt
 
 def gradient_descent(file, alpha=0.0023, epochs_threshold=100000, costdifference_threshold=0.00001, plot=False):
 
+    # initialize coefficient values
     a0 = -5
     a1 = -3
     previous_cost = sys.float_info.max
 
+    # load training data
     current_directory = os.path.dirname(__file__)
     full_filename = os.path.join(current_directory, file)
     data_set = numpy.loadtxt(full_filename, delimiter=',', skiprows=1)
@@ -21,10 +23,8 @@ def gradient_descent(file, alpha=0.0023, epochs_threshold=100000, costdifference
     
     costs = []
     a_1s = []
-    
 
     data_count = len(data_set)
-
 
     while True:
 

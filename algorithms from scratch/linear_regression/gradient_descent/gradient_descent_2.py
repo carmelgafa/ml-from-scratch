@@ -27,7 +27,7 @@ def gradient_descent(file, alpha=0.0023, epochs_threshold=100000,
         # calculate the hypothesis function for all training data
         data_set['y_hat'] = a0 + (a1 * data_set['x'])
         
-        # calculate the difference between the hypothesis function and the
+         # calculate the difference between the hypothesis function and the
         # actual y value for all training data
         data_set['y_hat-y'] = data_set['y_hat'] - data_set['y']
         
