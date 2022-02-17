@@ -2,38 +2,17 @@
 import os
 import matplotlib
 matplotlib.rcParams['text.usetex'] = True
+import matplotlib.pyplot as plt
 import pandas as pd
 import sys
 import numpy as np
 
-
-def stochastic_gradient_descent(file:str, alpha:float=0.0023, epochs_threshold:int=100, costdifference_threshold:float=0.00001, plot:bool=False):
+def minibatch_gradient_descent(file:str, alpha:float=0.0023, batch_size:int=100, epochs_threshold:int=100000, costdifference_threshold:float=0.00001, plot:bool=False):
     '''
-    The function takes a training data set, a learning rate, a number of epochs and a cost difference
-    threshold. 
-    It then calculates the beta values for the training data set and returns the beta values, the number
-    of iterations and the cost
-    
-    :param file: the name of the file that contains the data set
-    :type file: str
-    :param alpha: The learning rate
-    :type alpha: float
-    :param epochs_threshold: The number of epochs to run before stopping. An epoch is defined as the
-    number of times all of the training data is used once to update the weights, defaults to 100
-    :type epochs_threshold: int (optional)
-    :param costdifference_threshold: This is the threshold for the difference between the cost of the
-    previous validation set and the current validation set. If the difference is less than this
-    threshold, then the algorithm will stop
-    :type costdifference_threshold: float
-    :param plot: If True, a plot will be displayed showing the cost function as a function of the number
-    of iterations, defaults to False
-    :type plot: bool (optional)
-    :return: the beta values, the number of iterations and the cost.
+    The function calculates the beta values for the linear regression model using the gradient descent
+    algorithm
     '''
 
-
-    np.random.seed(42)
-    
     # load the training data
     full_filename = os.path.join(os.path.dirname(__file__), file)
     data_set = pd.read_csv(full_filename, delimiter=',', header=0, index_col=False)
@@ -53,9 +32,9 @@ def stochastic_gradient_descent(file:str, alpha:float=0.0023, epochs_threshold:i
     X_validation = np.insert(X_validation, 0, 1, axis=1)
     Y_validation = validation_data['y'].to_numpy()
 
-
     # length of the training data
     m = len(Y_train)
+    print(f'Length of the training data: {m}')
 
     # initialize the y_hat vector to 0
     y_hat = np.zeros(len(Y_train))
@@ -65,70 +44,84 @@ def stochastic_gradient_descent(file:str, alpha:float=0.0023, epochs_threshold:i
     # initialize beta to random values
     beta = np.random.random(len(X_train[0]))
 
+    # minibatches setting
+    # number of minibatches = m => stochastic gradient descent
+    # number of minibatches = 1 => batch gradient descent
+    minibatch_size = int(m/batch_size)
+
     # initialize the number of epochs
-    count = 0
+    epoch_count = 0
+
+    # initialize the previous cost function value to a large number
+    # previous_cost = sys.float_info.max
 
     previous_validation_cost = sys.float_info.max
-
+    
     # loop until exit condition is met
     while True:
-        
-        i = np.random.randint(0, m)
 
-        # print(f'Minibatch: {i}')
-        x = X_train[i]
-        y = Y_train[i]
+        for i in range(batch_size):
 
-        # calculate the hypothesis function for all training data
-        y_hat = np.dot(beta, x.T)
+            # print(f'Minibatch: {i}')
+            minibatch_X = X_train[i*minibatch_size:(i+1)*minibatch_size]
+            minibatch_Y = Y_train[i*minibatch_size:(i+1)*minibatch_size]
 
-        #  calculate the residuals
-        residuals = y_hat - y
+            # calculate the hypothesis function for all training data
+            y_hat = np.dot(beta, minibatch_X.T)
+            #  calculate the residuals
+            residuals = y_hat - minibatch_Y
+            
+            
+            # calculate the new value of beta
+            beta -= ( alpha / minibatch_size)  * np.dot(residuals, minibatch_X)
 
-        # calculate the new value of beta
-        beta -= (alpha * residuals * x)
+            # calculate the cost function
+            cost = np.dot(residuals, residuals) / ( 2 * minibatch_size)
 
-        count += 1
+        # increase the number of iterations
+        epoch_count += 1
 
-        if count % 1000 == 0:
+        if epoch_count % 10 == 0:
             y_hat_validation = np.dot(beta, X_validation.T)
             residuals_validation = y_hat_validation - Y_validation
             cost_validation = np.dot(residuals_validation, residuals_validation) / ( 2 * len(Y_validation))
             
             if abs(previous_validation_cost - cost_validation) < costdifference_threshold:
+                print(f'Cost difference is {cost_validation} less than {costdifference_threshold} in epoch {epoch_count}')
                 break
             else:
                 previous_validation_cost = cost_validation
+
             
-            # uncomment this line to see details
-            # print(f'Epoch: {count/m} Cost: {cost_validation} beta: {beta}')
-                    
         # check if the cost function is close enough to 0, if so, break or if the number of 
         # iterations is greater than the threshold, break
-        if (count/m) > (epochs_threshold):
+        if epoch_count > epochs_threshold:
+            print(f'Number of iterations exceeded {epochs_threshold}')
             break
-    
+
     # calculate the cost for the training data and return the beta values and 
     # the number of iterations and the cost
     y_hat = np.dot(beta, X_train.T)
     residuals = y_hat - Y_train
     cost = np.dot(residuals, residuals) / ( 2 * m)
     
-    return beta, count, cost
-
+    return beta, epoch_count, cost
+    
 
 if __name__ == '__main__':
 
     from timeit import default_timer as timer
 
     file = 'data.csv'
-    alpha = 0.00033
-    epochs_threshold = 100
-    costdifference_threshold = 0.005
+    alpha = 0.00023
+    epochs_threshold = 10000
+    costdifference_threshold = 0.0001
     plot = False
+    batch_size = 64
 
 
     start = timer()
-    beta, count, cost = stochastic_gradient_descent(file, alpha, epochs_threshold, costdifference_threshold, plot)
+    beta, epoch_count, cost = minibatch_gradient_descent(file, alpha, batch_size, epochs_threshold, costdifference_threshold, plot)
     end = timer()
-    print(f'Time: {end - start}, beta: {beta}, count: {count}, cost: {cost}')
+    print(f'Time: {end - start} beta: {beta}, epoch_count: {epoch_count}, cost: {cost}')
+    

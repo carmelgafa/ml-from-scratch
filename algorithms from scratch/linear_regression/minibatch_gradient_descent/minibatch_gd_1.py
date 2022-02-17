@@ -11,36 +11,16 @@ def minibatch_gradient_descent(file:str, alpha:float=0.0023, batch_size:int=100,
     '''
     The function calculates the beta values for the linear regression model using the gradient descent
     algorithm
-    
-    :param file: the name of the file that contains the training data
-    :type file: str
-    :param alpha: the learning rate
-    :type alpha: float
-    :param batch_size: the number of rows in the training data that will be used to calculate the
-    gradient, defaults to 100
-    :type batch_size: int (optional)
-    :param epochs_threshold: the number of epochs to run before stopping, defaults to 100000
-    :type epochs_threshold: int (optional)
-    :param costdifference_threshold: The threshold for the difference in the cost function between the
-    current and previous iterations. If the difference is less than this threshold, the training will
-    stop
-    :type costdifference_threshold: float
-    :param plot: If you want to plot the cost function vs. the number of iterations, defaults to False
-    :type plot: bool (optional)
-    :return: the beta values, the number of iterations and the cost.
     '''
 
     # load the training data
     full_filename = os.path.join(os.path.dirname(__file__), file)
     training_data = pd.read_csv(full_filename, delimiter=',', header=0, index_col=False)
 
-    # training_data = training_data.sample(frac=1).reset_index(drop=True)
-
     # divide the data into features and labels
     X = training_data.drop(['y'], axis=1).to_numpy()
     # add a column of ones to the features matrix to account for the intercept, a0
     X = np.insert(X, 0, 1, axis=1)
-
     Y = training_data['y'].to_numpy()
     
     # length of the training data
@@ -143,7 +123,7 @@ if __name__ == '__main__':
     epochs_threshold = 1000
     costdifference_threshold = 0.00001
     plot = False
-    batch_size = 100
+    batch_size = 64
 
 
     start = timer()
