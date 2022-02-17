@@ -16,7 +16,12 @@ Implementation of ML algorithms from scratch
   - Gradient Descent Univariate. [Notes here](https://carmelgafa.com/post/ml_linearreg_gradientdescent/)
   - Gradient Descent Multivariate. [Notes here](https://carmelgafa.com/post/ml_linearreg_multivariatedescent/)
   - Stochastic Gradient Descent.
-  - Mini-batch Gradient Descent. 
+    - Converge after a fixed number of epochs.
+    - Converge after the cost of a validation set converges.
+    - Converge after the cost of a validation set converges and using learning rate decay.
+  - Mini-batch Gradient Descent.
+    - Converge after a fixed number of epochs.
+    - Converge after the cost of a validation set converges.
 - logistic regression
 
 ### John Guttag MIT worked examples
