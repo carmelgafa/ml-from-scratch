@@ -7,11 +7,19 @@ import pandas as pd
 import sys
 import numpy as np
 
-def minibatch_gradient_descent(file:str, alpha:float=0.0023, batch_size:int=100, epochs_threshold:int=100000, costdifference_threshold:float=0.00001, plot:bool=False):
+def minibatch_gradient_descent(
+    file:str, 
+    alpha:float=0.0023, 
+    batch_size:int=100, 
+    epochs_threshold:int=100000, 
+    costdifference_threshold:float=0.00001, 
+    plot:bool=False):
     '''
-    The function calculates the beta values for the linear regression model using the gradient descent
-    algorithm
+    The function calculates the beta values for the linear regression model using the mini batch gradient descent
+    algorithm.
+    This variation contains a validation set to detect convergence
     '''
+
 
     # load the training data
     full_filename = os.path.join(os.path.dirname(__file__), file)
