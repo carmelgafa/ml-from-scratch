@@ -6,11 +6,17 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import sys
 
+from univariate_gd_analysis import plot_univariate_gd_analysis
+
+
 def gradient_descent(file, alpha=0.0023, epochs_threshold=100000,
                 costdifference_threshold=0.00001, plot=False):
 
-    a0 = 5
-    a1 = 3
+    a0 = 130
+    a1 = 19
+    
+    a0_prev = a0
+    a1_prev = a1
     
     full_filename = os.path.join(os.path.dirname(__file__), file)
     data_set = pd.read_csv(full_filename, delimiter=',', names=['x', 'y'], index_col=False)
@@ -19,6 +25,8 @@ def gradient_descent(file, alpha=0.0023, epochs_threshold=100000,
     epoch = 0
 
     previous_cost = sys.float_info.max
+    
+    gd_data = []
     
     costs = []
     a_1s = []
@@ -37,6 +45,8 @@ def gradient_descent(file, alpha=0.0023, epochs_threshold=100000,
         # square the difference for all training data
         data_set['y-hat-y_sq'] = data_set['y_hat-y'] ** 2
         
+
+        
         # update the a0 and a1 values
         a0 -= (alpha * (1/m) * sum(data_set['y_hat-y']))
         a1 -= (alpha * (1/m) * sum(data_set['y-hat-y.x']))
@@ -48,6 +58,11 @@ def gradient_descent(file, alpha=0.0023, epochs_threshold=100000,
         # record the cost and a1 values for plotting
         costs.append(cost)
         a_1s.append(a1)
+        
+        if abs(a0_prev - a0) > 0.01 and abs(a1_prev - a1) > 0.01:
+            a0_prev = a0
+            a1_prev = a1
+            gd_data.append((a0_prev, a1_prev, cost))
         
         cost_difference = previous_cost - cost
         print(f'Epoch: {epoch}, cost: {cost:.3f}, difference: {cost_difference:.6f}')
@@ -62,6 +77,13 @@ def gradient_descent(file, alpha=0.0023, epochs_threshold=100000,
         # iterations is greater than the threshold, break
         if abs(cost_difference) < 0.00001 or epoch > epochs_threshold:
             break
+        
+    plot_univariate_gd_analysis(
+        filename=file, 
+        a0_range=(125,175,0.5), 
+        a1_range=(18,22,0.5), 
+        gd_points = gd_data
+        )
     
     if plot:
         # plot the cost function and a1 values
@@ -76,9 +98,9 @@ def gradient_descent(file, alpha=0.0023, epochs_threshold=100000,
 if __name__ == '__main__':
 
     file = 'data.csv'
-    alpha = 0.0005
+    alpha = 0.00056
     epochs_threshold = 100000
-    costdifference_threshold = 0.00001
+    costdifference_threshold = 0.001
     plot = False
     
     a0, a1 = gradient_descent(file, alpha, epochs_threshold, costdifference_threshold, plot)
