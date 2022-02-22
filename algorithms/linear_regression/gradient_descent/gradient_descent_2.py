@@ -6,8 +6,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import sys
 
-from univariate_gd_analysis import plot_univariate_gd_analysis
-
+from algorithms.linear_regression.univariate_gd_analysis import plot_univariate_gd_analysis
 
 def gradient_descent(file, alpha=0.0023, epochs_threshold=100000,
                 costdifference_threshold=0.0001, plot=False):
@@ -71,7 +70,7 @@ def gradient_descent(file, alpha=0.0023, epochs_threshold=100000,
 
     if plot:
         plot_univariate_gd_analysis(
-            filename=file,
+            file=full_filename,
             a0_range=(125,175,0.5),
             a1_range=(18,22,0.5),
             gd_points = gd_data

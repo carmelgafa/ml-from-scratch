@@ -5,15 +5,11 @@ import os
 import matplotlib.pyplot as plt
 import pandas as pd
 
-
-
-def plot_univariate_gd_analysis(filename:str, a0_range:tuple, a1_range:tuple, gd_points:list):
+def plot_univariate_gd_analysis(file:str, a0_range:tuple, a1_range:tuple, gd_points:list):
     '''
     '''
 
-    # load training data
-    full_filename = os.path.join(os.path.dirname(__file__), filename)
-    data_set = pd.read_csv(full_filename, delimiter=',', names=['x', 'y'], index_col=False)
+    data_set = pd.read_csv(file, delimiter=',', names=['x', 'y'], index_col=False)
 
     m = len(data_set)
 
