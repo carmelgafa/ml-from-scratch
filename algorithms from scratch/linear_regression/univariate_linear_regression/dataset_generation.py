@@ -1,25 +1,30 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
+import os
 
-# x between 0 and 100 in steps of 1
-x = np.arange(0, 101, 1)
+def generate_data(m, b, noise_sigma, plot=False):
 
-# generate a noisy line
+    # x between 0 and 100 in steps of 1
+    x = np.arange(0, 101, 1)
 
-np.random.seed(42)
+    # generate a noisy line
+    np.random.seed(42)
+    l = (m*x) + b
+    e = np.random.randn(len(x))*noise_sigma
+    y = l + e
 
-l = (2*x) + 15
-random_multiplier = 5
-e = np.random.randn(len(x))*random_multiplier
-y = l + e
+    file_path = os.path.join(os.path.dirname(__file__), 'data.csv')
+    # save the data to a csv file
+    pd.DataFrame(y).to_csv(file_path, header=False, index=True)
 
-# plot the data
-plt.plot(x, y)
-plt.plot(x, l, '--')
-plt.xlim([0, 101])
-plt.ylim([0, 200])
-plt.show()
+    # plot the data
+    if plot:
+        plt.plot(x, y)
+        plt.plot(x, l, '--')
+        plt.xlim([0, max(x)])
+        plt.ylim([0, max(y)])
+        plt.show()
 
-# save the data to a csv file
-pd.DataFrame(y).to_csv("data.csv", header=False, index=True)
+if __name__=='__main__':
+    generate_data(m=20, b=150, noise_sigma=0)

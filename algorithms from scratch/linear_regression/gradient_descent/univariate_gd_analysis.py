@@ -1,3 +1,4 @@
+from operator import index
 from typing_extensions import _AnnotatedAlias
 import numpy as np
 import os
@@ -10,19 +11,11 @@ data_set = pd.read_csv(full_filename, delimiter=',', names=['x', 'y'], index_col
 
 m = len(data_set)
 
-#
-# normalize data_set
-
-data_set['x'] = data_set['x'] / np.max(data_set['x'])
-data_set['y'] = data_set['y'] / np.max(data_set['y'])
-
-
-a0, a1  = np.meshgrid(np.arange(-1000,1000,100), np.arange(-3,5,1))
+a0, a1  = np.meshgrid(np.arange(125,175,0.5), np.arange(18,22,0.5))
 
 ii, jj = np.shape(a0)
 
 y = []
-
 for i in range(ii):
     y_row = []
     for j in range(jj):
@@ -30,31 +23,33 @@ for i in range(ii):
         y_diff = y_hat - data_set['y']
         y_diff_sq = y_diff ** 2
         cost = sum(y_diff_sq) / (2 * m)
-        # print(f'a0: {a0[i,j]:.2f}, a1: {a1[i,j]:.2f}, cost: {cost:.2f}')
         y_row.append(cost)
     y.append(y_row)
-    
-print(y)
+
+min_idx = np.unravel_index(np.argmin(y), np.shape(y))
+
+print(min_idx)
+
+print(a0[min_idx])
+print(a1[min_idx])
 
 fig = plt.figure()
 ax = plt.axes(projection='3d')
-# ax.contour3D(a0, a1, np.array(y), 50, cmap='binary')
-# ax.plot_wireframe(a0, a1, np.array(y), color='black')
-ax.plot_surface(a0, a1, np.array(y), rstride=1, cstride=1, cmap='viridis', edgecolor='none')
+
+
+
+xx = a0[min_idx]
+yy = a1[min_idx]
+zz = y[min_idx[0]][min_idx[1]]
+
+
+ax.plot_surface(a0, a1, np.array(y), rstride=1, cstride=1, cmap='cividis', edgecolor='none', alpha=0.5)
+
+ax.plot(xx, yy, zz, 'ro', alpha=1)
+
+
+
+
+
+
 plt.show()
-
-
-# df = pd.DataFrame(data=[a0.ravel(), a1.ravel(), cost.ravel()]).T
-# df = df.sample(frac=0.1)
-# df.columns = ['a0', 'a1', 'J']
-
-# # plot the data
-# y = df.iloc[:,1]
-# x = df.iloc[:,0]
-# z = df.iloc[:,2]
-
-
-# fig = plt.figure(figsize=(12, 12))
-# ax = fig.add_subplot(projection='3d')
-# ax.scatter(x,y,z, cmap='coolwarm')
-# plt.show()
