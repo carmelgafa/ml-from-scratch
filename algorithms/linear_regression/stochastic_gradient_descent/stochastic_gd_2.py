@@ -7,30 +7,18 @@ import sys
 import numpy as np
 
 
-def stochastic_gradient_descent(file:str, alpha:float=0.0023, epochs_threshold:int=100, costdifference_threshold:float=0.00001, plot:bool=False):
+def stochastic_gradient_descent(
+    file:str, 
+    alpha:float=0.0023, 
+    epochs_threshold:int=100, 
+    costdifference_threshold:float=0.00001, 
+    plot:bool=False):
     '''
     The function takes a training data set, a learning rate, a number of epochs and a cost difference
     threshold. 
     It then calculates the beta values for the training data set and returns the beta values, the number
     of iterations and the cost
-    
-    :param file: the name of the file that contains the data set
-    :type file: str
-    :param alpha: The learning rate
-    :type alpha: float
-    :param epochs_threshold: The number of epochs to run before stopping. An epoch is defined as the
-    number of times all of the training data is used once to update the weights, defaults to 100
-    :type epochs_threshold: int (optional)
-    :param costdifference_threshold: This is the threshold for the difference between the cost of the
-    previous validation set and the current validation set. If the difference is less than this
-    threshold, then the algorithm will stop
-    :type costdifference_threshold: float
-    :param plot: If True, a plot will be displayed showing the cost function as a function of the number
-    of iterations, defaults to False
-    :type plot: bool (optional)
-    :return: the beta values, the number of iterations and the cost.
     '''
-
 
     np.random.seed(42)
     
@@ -93,16 +81,18 @@ def stochastic_gradient_descent(file:str, alpha:float=0.0023, epochs_threshold:i
         if count % 1000 == 0:
             y_hat_validation = np.dot(beta, X_validation.T)
             residuals_validation = y_hat_validation - Y_validation
-            cost_validation = np.dot(residuals_validation, residuals_validation) / ( 2 * len(Y_validation))
-            
+            cost_validation = np.dot(
+                residuals_validation, residuals_validation) / (
+                    2 * len(Y_validation))
+
             if abs(previous_validation_cost - cost_validation) < costdifference_threshold:
                 break
             else:
                 previous_validation_cost = cost_validation
-            
+
             # uncomment this line to see details
             # print(f'Epoch: {count/m} Cost: {cost_validation} beta: {beta}')
-                    
+
         # check if the cost function is close enough to 0, if so, break or if the number of 
         # iterations is greater than the threshold, break
         if (count/m) > (epochs_threshold):
@@ -126,7 +116,6 @@ if __name__ == '__main__':
     epochs_threshold = 100
     costdifference_threshold = 0.005
     plot = False
-
 
     start = timer()
     beta, count, cost = stochastic_gradient_descent(file, alpha, epochs_threshold, costdifference_threshold, plot)

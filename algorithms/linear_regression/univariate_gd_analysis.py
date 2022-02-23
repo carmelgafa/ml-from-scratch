@@ -47,9 +47,9 @@ def plot_univariate_gd_analysis(file:str, a0_range:tuple, a1_range:tuple, gd_poi
 
     plt.show()
 
-if __name__=='__main__':
-    plot_univariate_gd_analysis(
-        filename='data.csv', 
-        a0_range=(125,175,0.2), 
-        a1_range=(18,22,0.2), 
-        gd_points= [(150, 20, 200), (140, 21, 200)])
+# if __name__=='__main__':
+#     plot_univariate_gd_analysis(
+#         file='data.csv', 
+#         a0_range=(125,175,0.2), 
+#         a1_range=(18,22,0.2), 
+#         gd_points= [(150, 20, 200), (140, 21, 200)])
