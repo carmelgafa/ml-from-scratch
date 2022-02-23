@@ -1,15 +1,14 @@
 
 import os
-import matplotlib
-matplotlib.rcParams['text.usetex'] = True
-import matplotlib.pyplot as plt
 import pandas as pd
 import sys
-
 from algorithms.linear_regression.univariate_gd_analysis import plot_univariate_gd_analysis
 
-def gradient_descent(file, alpha=0.0023, epochs_threshold=100000,
-                costdifference_threshold=0.0001, plot=False):
+def gradient_descent(
+    file, alpha=0.0023,
+    epochs_threshold=100000,
+    costdifference_threshold=0.0001,
+    plot=False):
 
     a0 = 130
     a1 = 19
@@ -22,9 +21,10 @@ def gradient_descent(file, alpha=0.0023, epochs_threshold=100000,
 
     m = len(data_set)
     epoch = 0
-
+ 
     previous_cost = sys.float_info.max
-    gd_data = []
+    gd_data = []# Used to split the code into multiple cells.
+    
 
     while True:
         # calculate the hypothesis function for all training data
@@ -48,10 +48,12 @@ def gradient_descent(file, alpha=0.0023, epochs_threshold=100000,
         cost = sum(data_set['y-hat-y_sq']) / (2 * m)
         epoch += 1
 
-        if abs(a0_prev - a0) > 0.01 and abs(a1_prev - a1) > 0.01:
+        plot_threshold = 0.001
+        if abs(a0_prev - a0) > plot_threshold and abs(a1_prev - a1) > plot_threshold:
+            gd_data.append((a0_prev, a1_prev, cost))
             a0_prev = a0
             a1_prev = a1
-            gd_data.append((a0_prev, a1_prev, cost))
+
 
         cost_difference = previous_cost - cost
         print(f'Epoch: {epoch}, cost: {cost:.3f}, difference: {cost_difference:.6f}')
@@ -81,7 +83,8 @@ def gradient_descent(file, alpha=0.0023, epochs_threshold=100000,
 if __name__ == '__main__':
 
     file = 'data.csv'
-    alpha = 0.00056
+    alpha = 0.0004
+    # alpha = 0.00056
     epochs_threshold = 100000
     costdifference_threshold = 0.00001
     plot = True
