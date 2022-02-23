@@ -6,17 +6,14 @@ import matplotlib
 matplotlib.rcParams['text.usetex'] = True
 import matplotlib.pyplot as plt
 
-def gradient_descent(file, alpha=0.0023, epochs_threshold=100000, costdifference_threshold=0.00001, plot=False):
+def gradient_descent(filename, alpha=0.0023, epochs_threshold=100000, costdifference_threshold=0.00001, plot=False):
 
     # initialize coefficient values
     a0 = -5
     a1 = -3
     previous_cost = sys.float_info.max
 
-    # load training data
-    current_directory = os.path.dirname(__file__)
-    full_filename = os.path.join(current_directory, file)
-    data_set = numpy.loadtxt(full_filename, delimiter=',', skiprows=1)
+    data_set = numpy.loadtxt(filename, delimiter=',', skiprows=1)
 
     epoch = 1
     cost = 0
@@ -71,11 +68,13 @@ def gradient_descent(file, alpha=0.0023, epochs_threshold=100000, costdifference
 
 
 if __name__ == '__main__':
-    file = 'data.csv'
+    
+    current_directory = os.path.dirname(__file__)
+    filename = os.path.join(current_directory, '..', 'data_generation', 'data_1f.csv')
     alpha = 0.00023
     epochs_threshold = 100000
     costdifference_threshold = 0.00001
-    plot = False
+    plot = True
     
-    a0, a1 = gradient_descent(file, alpha, epochs_threshold, costdifference_threshold, plot)
+    a0, a1 = gradient_descent(filename, alpha, epochs_threshold, costdifference_threshold, plot)
     print(f'a0: {a0}, a1: {a1}')

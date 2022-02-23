@@ -2,7 +2,7 @@ import pandas as pd
 import os
 
 # import data from csv
-full_filename = os.path.join(os.path.dirname(__file__), "data.csv")
+full_filename = os.path.join(os.path.dirname(__file__), '..', 'data_generation', 'data_1f.csv')
 data_set = pd.read_csv(full_filename)
 
 data_set.columns=['x', 'y']

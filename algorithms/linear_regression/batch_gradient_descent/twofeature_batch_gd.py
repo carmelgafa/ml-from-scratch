@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import sys
 
-def two_feature_gradient_descent(file, alpha=0.0023, threshold_iterations=100000, costdifference_threshold=0.00001, plot=False):
+def two_feature_gradient_descent(filename, alpha=0.0023, threshold_iterations=100000, costdifference_threshold=0.00001, plot=False):
     a0 = 5
     a1 = 3
     a2 = 1
@@ -14,8 +14,8 @@ def two_feature_gradient_descent(file, alpha=0.0023, threshold_iterations=100000
     
     threshold_iterations = 100000
 
-    full_filename = os.path.join(os.path.dirname(__file__), file)
-    data_set = pd.read_csv(full_filename, delimiter=',', header=0, index_col=False)
+
+    data_set = pd.read_csv(filename, delimiter=',', header=0, index_col=False)
 
     m = len(data_set)
     epoch = 0
@@ -78,11 +78,11 @@ def two_feature_gradient_descent(file, alpha=0.0023, threshold_iterations=100000
 
 if __name__ == '__main__':
 
-    file = 'data.csv'
+    filename = os.path.join(os.path.dirname(__file__), '..', 'data_generation', 'data_2f.csv')
     alpha = 0.0023
     threshold_iterations = 100000
     costdifference_threshold = 0.00001
     plot = False
     
-    a0, a1, a2 = two_feature_gradient_descent(file, alpha, threshold_iterations, costdifference_threshold, plot)
+    a0, a1, a2 = two_feature_gradient_descent(filename, alpha, threshold_iterations, costdifference_threshold, plot)
     print(f'a0: {a0}, a1: {a1}, a2: {a2}')

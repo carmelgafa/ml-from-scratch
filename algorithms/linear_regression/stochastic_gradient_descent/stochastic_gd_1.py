@@ -8,26 +8,17 @@ import sys
 import numpy as np
 
 
-def stochastic_gradient_descent(file:str, alpha:float, max_epochs:int = 5):
+def stochastic_gradient_descent(filename:str, alpha:float, max_epochs:int = 5):
     '''
     The stochastic gradient descent function takes a dataset, a learning rate, and a maximum number of
     epochs. 
     It returns the beta values and the cost.
-    
-    :param file: the name of the file that contains the training data
-    :type file: str
-    :param alpha: the learning rate
-    :type alpha: float
-    :param max_epochs: The maximum number of epochs to run, defaults to 5
-    :type max_epochs: int (optional)
-    :return: the beta values and the cost.
     '''
     
     np.random.seed(42)
 
     # load the training data
-    full_filename = os.path.join(os.path.dirname(__file__), file)
-    data_set = pd.read_csv(full_filename, delimiter=',', header=0, index_col=False)
+    data_set = pd.read_csv(filename, delimiter=',', header=0, index_col=False)
 
     # training_data = training_data.sample(frac=1).reset_index(drop=True)
 
@@ -91,10 +82,10 @@ if __name__ == '__main__':
 
     from timeit import default_timer as timer
 
-    file = 'data.csv'
+    filename = os.path.join(os.path.dirname(__file__), '..', 'data_generation', 'data_2f.csv')
     alpha = 0.0001
-    max_epochs = 5
+    max_epochs = 10
     start = timer()
-    beta, cost = stochastic_gradient_descent(file, alpha, max_epochs) 
+    beta, cost = stochastic_gradient_descent(filename, alpha, max_epochs) 
     end = timer()
     print(f'Time: {end - start}, beta: {beta}, cost: {cost}')

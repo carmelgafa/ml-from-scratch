@@ -8,7 +8,7 @@ import numpy as np
 
 
 def stochastic_gradient_descent(
-    file:str, 
+    filename:str, 
     alpha:float=0.0023, 
     epochs_threshold:int=100, 
     costdifference_threshold:float=0.00001, 
@@ -23,8 +23,7 @@ def stochastic_gradient_descent(
     np.random.seed(42)
     
     # load the training data
-    full_filename = os.path.join(os.path.dirname(__file__), file)
-    data_set = pd.read_csv(full_filename, delimiter=',', header=0, index_col=False)
+    data_set = pd.read_csv(filename, delimiter=',', header=0, index_col=False)
 
     # create train and test sets
     mask = np.random.rand(len(data_set)) < 0.8
@@ -111,13 +110,13 @@ if __name__ == '__main__':
 
     from timeit import default_timer as timer
 
-    file = 'data.csv'
+    filename = os.path.join(os.path.dirname(__file__), '..', 'data_generation', 'data_2f.csv')
     alpha = 0.00033
     epochs_threshold = 100
-    costdifference_threshold = 0.005
+    costdifference_threshold = 0.0004
     plot = False
 
     start = timer()
-    beta, count, cost = stochastic_gradient_descent(file, alpha, epochs_threshold, costdifference_threshold, plot)
+    beta, count, cost = stochastic_gradient_descent(filename, alpha, epochs_threshold, costdifference_threshold, plot)
     end = timer()
     print(f'Time: {end - start}, beta: {beta}, count: {count}, cost: {cost}')

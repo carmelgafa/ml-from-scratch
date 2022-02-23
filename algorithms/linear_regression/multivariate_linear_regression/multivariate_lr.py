@@ -18,8 +18,8 @@ import pandas as pd
 import os
 
 # import data from csv
-full_filename = os.path.join(os.path.dirname(__file__), "data.csv")
-data_set = pd.read_csv(full_filename)
+filename = os.path.join(os.path.dirname(__file__), '..', 'data_generation', 'data_2f.csv')
+data_set = pd.read_csv(filename)
 
 data_set['x1_sq'] = data_set['x1']**2
 data_set['x2_sq'] = data_set['x2']**2

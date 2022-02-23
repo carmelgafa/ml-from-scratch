@@ -7,14 +7,18 @@ import sys
 import numpy as np
 
 
-def multifeature_gradient_descent(file, alpha=0.0023, epochs_threshold=100000, costdifference_threshold=0.00001, plot=False):
+def multifeature_gradient_descent(
+    filename,
+    alpha=0.0023,
+    epochs_threshold=100000,
+    costdifference_threshold=0.00001,
+    plot=False):
 
     X = None
     Y = None
     beta = None
 
-    full_filename = os.path.join(os.path.dirname(__file__), file)
-    training_data = pd.read_csv(full_filename, delimiter=',', header=0, index_col=False)
+    training_data = pd.read_csv(filename, delimiter=',', header=0, index_col=False)
 
     Y = training_data['y'].to_numpy()
     
@@ -90,13 +94,13 @@ if __name__ == '__main__':
 
     from timeit import default_timer as timer
 
-    file = 'data.csv'
+    filename = os.path.join(os.path.dirname(__file__), '..', 'data_generation', 'data_2f.csv')
     alpha = 0.0023
     epochs_threshold = 100000
     costdifference_threshold = 0.00001
     plot = False
 
     start = timer()
-    beta = multifeature_gradient_descent(file, alpha, epochs_threshold, costdifference_threshold, plot)
+    beta = multifeature_gradient_descent(filename, alpha, epochs_threshold, costdifference_threshold, plot)
     end = timer()
     print(f'Time: {end - start}, beta: {beta}')

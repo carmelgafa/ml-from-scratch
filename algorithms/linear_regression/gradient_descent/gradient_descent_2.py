@@ -5,7 +5,8 @@ import sys
 from algorithms.linear_regression.univariate_gd_analysis import plot_univariate_gd_analysis
 
 def gradient_descent(
-    file, alpha=0.0023,
+    filename,
+    alpha=0.0023,
     epochs_threshold=100000,
     costdifference_threshold=0.0001,
     plot=False):
@@ -15,9 +16,8 @@ def gradient_descent(
     
     a0_prev = a0
     a1_prev = a1
-    
-    full_filename = os.path.join(os.path.dirname(__file__), file)
-    data_set = pd.read_csv(full_filename, delimiter=',', names=['x', 'y'], index_col=False)
+
+    data_set = pd.read_csv(filename, delimiter=',', names=['x', 'y'], index_col=False)
 
     m = len(data_set)
     epoch = 0
@@ -72,7 +72,7 @@ def gradient_descent(
 
     if plot:
         plot_univariate_gd_analysis(
-            file=full_filename,
+            file=filename,
             a0_range=(125,175,0.5),
             a1_range=(18,22,0.5),
             gd_points = gd_data
@@ -82,12 +82,13 @@ def gradient_descent(
 
 if __name__ == '__main__':
 
-    file = 'data.csv'
+    current_directory = os.path.dirname(__file__)
+    filename = os.path.join(current_directory, '..', 'data_generation', 'data_1f.csv')
     alpha = 0.0004
     # alpha = 0.00056
     epochs_threshold = 100000
     costdifference_threshold = 0.00001
     plot = True
     
-    a0, a1 = gradient_descent(file, alpha, epochs_threshold, costdifference_threshold, plot)
+    a0, a1 = gradient_descent(filename, alpha, epochs_threshold, costdifference_threshold, plot)
     print(f'a0: {a0:.3f}, a1: {a1:.3f}')
