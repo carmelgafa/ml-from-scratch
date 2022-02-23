@@ -53,10 +53,18 @@ def stochastic_gradient_descent(
     # beta will hold the values of the coefficients, hence it will be  the size 
     # of a row of the X matrix
     # initialize beta to random values
-    beta = np.random.random(len(X_train[0]))
+    beta = [130,-20]
 
     beta_prev = beta.copy()
     gd_data = []
+    
+    # capture first point for plotting
+    y_hat_plot = np.dot(X_train, beta_prev)
+    residuals_plot = y_hat_plot - Y_train
+    cost_plot = np.dot(residuals_plot, residuals_plot) / (2 * len(Y_train))
+    gd_data.append((beta_prev[0], beta_prev[1], cost_plot))
+    beta_prev = beta.copy()
+    
     
     # initialize the number of epochs
     count = 0
@@ -83,10 +91,12 @@ def stochastic_gradient_descent(
 
         count += 1
 
-        plot_threshold = 0.01
+        plot_threshold = 3
         if abs(beta - beta_prev).max() > plot_threshold:
-            cost = np.dot(residuals, residuals) / (2 * len(Y_train))
-            gd_data.append((beta_prev[0], beta_prev[1], cost))
+            y_hat_plot = np.dot(X_train, beta_prev)
+            residuals_plot = y_hat_plot - Y_train
+            cost_plot = np.dot(residuals_plot, residuals_plot) / (2 * len(Y_train))
+            gd_data.append((beta_prev[0], beta_prev[1], cost_plot))
             beta_prev = beta.copy()
 
 
@@ -119,7 +129,7 @@ def stochastic_gradient_descent(
     plot_univariate_gd_analysis(
         file=filename,
         a0_range=(125,175,0.5),
-        a1_range=(18,22,0.5),
+        a1_range=(-40,100,5),
         gd_points = gd_data
         )
 
@@ -132,7 +142,8 @@ if __name__ == '__main__':
     from timeit import default_timer as timer
 
     filename = os.path.join(os.path.dirname(__file__), '..', 'data_generation', 'data_1f.csv')
-    alpha = 0.00033
+    # alpha = 0.00033
+    alpha = 0.00025
     epochs_threshold = 1000
     costdifference_threshold = 0.004
     plot = False
