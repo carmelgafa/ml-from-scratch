@@ -17,13 +17,13 @@ def gradient_descent(
     a0_prev = a0
     a1_prev = a1
 
-    data_set = pd.read_csv(filename, delimiter=',', names=['x', 'y'], index_col=False)
+    data_set = pd.read_csv(filename, delimiter=',', index_col=False)
 
     m = len(data_set)
     epoch = 0
  
     previous_cost = sys.float_info.max
-    gd_data = []# Used to split the code into multiple cells.
+    gd_data = []
     
 
     while True:
@@ -54,7 +54,6 @@ def gradient_descent(
             a0_prev = a0
             a1_prev = a1
 
-
         cost_difference = previous_cost - cost
         print(f'Epoch: {epoch}, cost: {cost:.3f}, difference: {cost_difference:.6f}')
         previous_cost = cost
@@ -72,12 +71,11 @@ def gradient_descent(
 
     if plot:
         plot_univariate_gd_analysis(
-            file=filename,
-            a0_range=(125,175,0.5),
-            a1_range=(18,22,0.5),
-            gd_points = gd_data
-            )
-
+        file=filename,
+        a0_range=(125,175,0.5),
+        a1_range=(18,22,0.5),
+        gd_points = gd_data
+        )         
     return a0, a1
 
 if __name__ == '__main__':

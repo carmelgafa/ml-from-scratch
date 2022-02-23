@@ -9,7 +9,7 @@ def plot_univariate_gd_analysis(file:str, a0_range:tuple, a1_range:tuple, gd_poi
     '''
     '''
 
-    data_set = pd.read_csv(file, delimiter=',', names=['x', 'y'], index_col=False)
+    data_set = pd.read_csv(file, delimiter=',', index_col=False)
 
     m = len(data_set)
 

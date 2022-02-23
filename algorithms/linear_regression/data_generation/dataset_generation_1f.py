@@ -25,7 +25,7 @@ def generate_data(a0, a1, noise_sigma, plot=False):
     # save the data to a csv file
     df = pd.DataFrame(data=[x, y]).T
     df.columns = ['x', 'y']
-    df.to_csv(file_path, header=False, index=False)
+    df.to_csv(file_path, header=True, index=False)
 
     # plot the data
     if plot:

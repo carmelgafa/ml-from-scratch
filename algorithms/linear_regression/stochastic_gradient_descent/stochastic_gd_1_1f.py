@@ -83,8 +83,8 @@ if __name__ == '__main__':
     from timeit import default_timer as timer
 
     filename = os.path.join(os.path.dirname(__file__), '..', 'data_generation', 'data_1f.csv')
-    alpha = 0.0001
-    max_epochs = 10
+    alpha = 0.0004
+    max_epochs = 4000
     start = timer()
     beta, cost = stochastic_gradient_descent(filename, alpha, max_epochs) 
     end = timer()
