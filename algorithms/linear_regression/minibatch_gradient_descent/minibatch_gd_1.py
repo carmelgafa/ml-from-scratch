@@ -49,15 +49,8 @@ def minibatch_gradient_descent(
     # initialize the number of epochs
     epoch_count = 0
 
-    # initialize the previous cost function value to a large number
-    # previous_cost = sys.float_info.max
-    
-    # store the cost function and a2 values for plotting
-    costs = []
-    a_2s = []
-    
     previous_cumulative_cost = sys.float_info.max
-    
+
     # loop until exit condition is met
     while True:
 
@@ -86,30 +79,14 @@ def minibatch_gradient_descent(
         # increase the number of iterations
         epoch_count += 1
 
-        # record the cost and a1 values for plotting
-        #     costs.append(cost)
-        #     a_2s.append(__beta[2])
-
         cost_difference = previous_cumulative_cost - cumulative_cost
         # print(f'Epoch: {epochs}, average cost: {(cumulative_cost/minibatches_number):.3f}, beta: {beta}')
         previous_cumulative_cost = cumulative_cost
-
-        # check if the cost function is diverging, if so, break
-        # if cost_difference < 0:
-        #     print(f'Cost function is diverging. Stopping training.')
-        #     break
             
-        # check if the cost function is close enough to 0, if so, break or if the number of 
+        # check if the cost function is converged or
         # iterations is greater than the threshold, break
         if abs(cost_difference) < costdifference_threshold or epoch_count > epochs_threshold:
             break
-
-    # # plot the cost function and a1 values
-    # plt.plot(a_2s[3:], costs[3:], '--bx', color='lightblue', mec='red')
-    # plt.xlabel('a2')
-    # plt.ylabel('cost')
-    # plt.title(r'Cost Function vs. a1, with $\alpha$ =' + str(__alpha))
-    # plt.show()
     
     # calculate the cost for the training data and return the beta values and 
     # the number of iterations and the cost

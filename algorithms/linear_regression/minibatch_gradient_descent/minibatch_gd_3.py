@@ -15,7 +15,8 @@ def minibatch_gradient_descent(
     costdifference_threshold:float=0.00001, 
     plot:bool=False):
     '''
-    The function calculates the beta values for the linear regression model using the mini batch gradient descent
+    The function calculates the beta values for the linear regression 
+    model using the mini batch gradient descent
     algorithm.
     contains a validation set to detect convergence
     This variation contains learning rate decay
@@ -79,8 +80,7 @@ def minibatch_gradient_descent(
             y_hat = np.dot(beta, minibatch_X.T)
             #  calculate the residuals
             residuals = y_hat - minibatch_Y
-            
-            
+
             # calculate the new value of beta
             beta -= ( alpha / minibatch_size)  * np.dot(residuals, minibatch_X)
 
@@ -90,6 +90,7 @@ def minibatch_gradient_descent(
         # increase the number of iterations
         epoch_count += 1
 
+        # adjusting alpha with momentum
         alpha = alpha_0 / (1 + (epoch_count / 100))
 
         if epoch_count % 10 == 0:
@@ -103,7 +104,6 @@ def minibatch_gradient_descent(
             else:
                 previous_validation_cost = cost_validation
 
-            
         # check if the cost function is close enough to 0, if so, break or if the number of 
         # iterations is greater than the threshold, break
         if epoch_count > epochs_threshold:

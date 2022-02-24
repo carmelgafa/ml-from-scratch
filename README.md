@@ -10,8 +10,8 @@ Implementation of ML algorithms from scratch
 - Fuzzy Rule Generation (Wang-Mendel)
 - k-means
 - weiszfeld algorithm
-- linear regression
-  - **Gradient DEscent Plotting**. Plots cost as a function of two coefficients in univariate gradient descent and the coefficients of the gd algorithm. (**univariate_gd_analysis.py**)
+- **Linear Regression**
+  - **Gradient Descent Plotting**. Plots cost as a function of two coefficients in univariate gradient descent and the coefficients of the gd algorithm. (**univariate_gd_analysis.py**)
   - **Data Generation**. Generation of:
     - Single feature linear function with error dataset (**dataset_generation_1f.py**)
     - Two feature linear function with error dataset (**dataset_generation_2f.py**)
@@ -29,7 +29,10 @@ Implementation of ML algorithms from scratch
     - Univariate Stochastic Gradient Descent, exits on minimum error reached or convergence of training set cost. Plots cost. (**stochastic_gd_1f_2**)
     - N Feature Stochastic Gradient Descent, exits on maximum epochs reached(**stochastic_gd_nf_1**)
     - N Feature Stochastic Gradient Descent, exits on minimum error reached or convergence of training set cost.(**stochastic_gd_nf_2**)
-
+  - **Mini Batch Gradient Descent**.
+    - Multivariate Mini Batch Gradient Descent, exit when cost converges on max epochs reached(**minibatch_gd_1**)
+    - Multivariate Mini Batch Gradient Descent,  exit when cost converges on max epochs reached. Uses validation set(**minibatch_gd_2**)
+    - Multivariate Mini Batch Gradient Descent,  exit when cost converges on max epochs reached. Uses validation set and momentum(**minibatch_gd_3**)
 - logistic regression
 
 ### John Guttag MIT worked examples

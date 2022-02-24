@@ -15,7 +15,8 @@ def minibatch_gradient_descent(
     costdifference_threshold:float=0.00001, 
     plot:bool=False):
     '''
-    The function calculates the beta values for the linear regression model using the mini batch gradient descent
+    The function calculates the beta values for the linear regression 
+    model using the mini batch gradient descent
     algorithm.
     This variation contains a validation set to detect convergence
     '''
