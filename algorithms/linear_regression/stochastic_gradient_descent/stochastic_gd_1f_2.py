@@ -91,7 +91,7 @@ def stochastic_gradient_descent(
 
         count += 1
 
-        plot_threshold = 3
+        plot_threshold = 2
         if abs(beta - beta_prev).max() > plot_threshold:
             y_hat_plot = np.dot(X_train, beta_prev)
             residuals_plot = y_hat_plot - Y_train
@@ -108,6 +108,10 @@ def stochastic_gradient_descent(
                     2 * len(Y_validation))
 
             if abs(previous_validation_cost - cost_validation) < costdifference_threshold:
+                y_hat_plot = np.dot(X_train, beta)
+                residuals_plot = y_hat_plot - Y_train
+                cost_plot = np.dot(residuals_plot, residuals_plot) / (2 * len(Y_train))
+                gd_data.append((beta[0], beta[1], cost_plot))
                 break
             else:
                 previous_validation_cost = cost_validation
@@ -118,6 +122,10 @@ def stochastic_gradient_descent(
         # check if the cost function is close enough to 0, if so, break or if the number of 
         # iterations is greater than the threshold, break
         if (count/m) > (epochs_threshold):
+            y_hat_plot = np.dot(X_train, beta)
+            residuals_plot = y_hat_plot - Y_train
+            cost_plot = np.dot(residuals_plot, residuals_plot) / (2 * len(Y_train))
+            gd_data.append((beta[0], beta[1], cost_plot))
             break
     
     # calculate the cost for the training data and return the beta values and 
@@ -143,7 +151,7 @@ if __name__ == '__main__':
 
     filename = os.path.join(os.path.dirname(__file__), '..', 'data_generation', 'data_1f.csv')
     # alpha = 0.00033
-    alpha = 0.00025
+    alpha = 0.00023
     epochs_threshold = 1000
     costdifference_threshold = 0.004
     plot = False
