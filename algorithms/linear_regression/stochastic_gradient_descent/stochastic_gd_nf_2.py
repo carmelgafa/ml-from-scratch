@@ -59,7 +59,7 @@ def stochastic_gradient_descent(
 
     # loop until exit condition is met
     while True:
-        
+
         i = np.random.randint(0, m)
 
         # print(f'Minibatch: {i}')
@@ -96,13 +96,13 @@ def stochastic_gradient_descent(
         # iterations is greater than the threshold, break
         if (count/m) > (epochs_threshold):
             break
-    
+
     # calculate the cost for the training data and return the beta values and 
     # the number of iterations and the cost
     y_hat = np.dot(beta, X_train.T)
     residuals = y_hat - Y_train
     cost = np.dot(residuals, residuals) / ( 2 * m)
-    
+
     return beta, count, cost
 
 
