@@ -1,9 +1,9 @@
 from operator import index
 from typing_extensions import _AnnotatedAlias
 import numpy as np
-import os
 import matplotlib.pyplot as plt
 import pandas as pd
+from matplotlib import cm
 
 def plot_univariate_gd_analysis(file:str, a0_range:tuple, a1_range:tuple, gd_points:list):
     '''
@@ -43,6 +43,7 @@ def plot_univariate_gd_analysis(file:str, a0_range:tuple, a1_range:tuple, gd_poi
         zz.append(item[2])
 
     ax.plot_surface(a0, a1, np.array(y), rstride=1, cstride=1, cmap='cividis', edgecolor='none', alpha=0.5)
+    ax.contour(a0, a1, np.array(y), zdir='z', offset=-0.5, cmap=cm.coolwarm)
     ax.plot(xx, yy, zz, 'r.--', alpha=1)
 
     plt.show()
