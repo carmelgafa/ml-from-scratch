@@ -29,7 +29,7 @@ Implementation of ML algorithms from scratch
     - Univariate Stochastic Gradient Descent, exits on minimum error reached or convergence of training set cost. Plots cost. (**stochastic_gd_1f_2**)
     - N Feature Stochastic Gradient Descent, exits on maximum epochs reached(**stochastic_gd_nf_1**)
     - N Feature Stochastic Gradient Descent, exits on minimum error reached or convergence of training set cost.(**stochastic_gd_nf_2**)
-  - **Mini Batch Gradient Descent**.
+  - **Mini Batch Gradient Descent**. Notes [here](https://carmelgafa.com/post/ml_linearreg_minibatchgd/)
     - Multivariate Mini Batch Gradient Descent, exit when cost converges on max epochs reached(**minibatch_gd_1**)
     - Multivariate Mini Batch Gradient Descent,  exit when cost converges on max epochs reached. Uses validation set(**minibatch_gd_2**)
     - Multivariate Mini Batch Gradient Descent,  exit when cost converges on max epochs reached. Uses validation set and momentum(**minibatch_gd_3**)
