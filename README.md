@@ -24,7 +24,7 @@ Implementation of ML algorithms from scratch
     - Univariate Batch Gradient Descent , with Vectorization (**uni_batch_gd_v.py**)
     - Two Feature Batch Gradient Descent , with Vectorization (**twofeature_batch_gd.py**)
     - N Feature Batch Gradient Descent , with Vectorization (**multifeature_batch_gd.py**). Assuming labels name is 'y'
-  - **Stochastic Gradient Descent**.
+  - **Stochastic Gradient Descent**. Notes [here](https://carmelgafa.com/post/ml_linearreg_stochasticgd/)
     - Univariate Stochastic Gradient Descent, exits on maximum epochs reached(**stochastic_gd_1f_1**)
     - Univariate Stochastic Gradient Descent, exits on minimum error reached or convergence of training set cost. Plots cost. (**stochastic_gd_1f_2**)
     - N Feature Stochastic Gradient Descent, exits on maximum epochs reached(**stochastic_gd_nf_1**)
