@@ -100,7 +100,7 @@ if __name__ == '__main__':
 
     from timeit import default_timer as timer
 
-    filename = os.path.join(os.path.dirname(__file__), '..', 'data_generation', 'data_1f.csv')
+    filename = os.path.join(os.path.dirname(__file__), '..', 'data_generation', 'data_2f.csv')
     alpha = 0.00023
     epochs_threshold = 1000
     costdifference_threshold = 0.00001
