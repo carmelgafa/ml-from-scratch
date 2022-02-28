@@ -20,8 +20,7 @@ def minibatch_gradient_descent(
     '''
 
     # load the training data
-    full_filename = os.path.join(os.path.dirname(__file__), file)
-    training_data = pd.read_csv(full_filename, delimiter=',', header=0, index_col=False)
+    training_data = pd.read_csv(filename, delimiter=',', header=0, index_col=False)
 
     # divide the data into features and labels
     X = training_data.drop(['y'], axis=1).to_numpy()
@@ -101,7 +100,7 @@ if __name__ == '__main__':
 
     from timeit import default_timer as timer
 
-    file = 'data.csv'
+    filename = os.path.join(os.path.dirname(__file__), '..', 'data_generation', 'data_1f.csv')
     alpha = 0.00023
     epochs_threshold = 1000
     costdifference_threshold = 0.00001
@@ -110,7 +109,7 @@ if __name__ == '__main__':
 
 
     start = timer()
-    beta, epoch_count, cost = minibatch_gradient_descent(file, alpha, batch_size, epochs_threshold, costdifference_threshold, plot)
+    beta, epoch_count, cost = minibatch_gradient_descent(filename, alpha, batch_size, epochs_threshold, costdifference_threshold, plot)
     end = timer()
     print(f'Time: {end - start} beta: {beta}, epoch_count: {epoch_count}, cost: {cost}')
     
