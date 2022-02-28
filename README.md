@@ -51,6 +51,7 @@ Implementation of ML algorithms from scratch
 
 ## Change log
 
+- **28022022** : Gradient Descent Visualization.
 - **24022022** : Mini Batch and Stochastic Gradient Descent.
 - **18012022** : Gradient Descent Generic multivariate.
 - **13012022** : Linear Regression.
