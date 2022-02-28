@@ -33,6 +33,7 @@ Implementation of ML algorithms from scratch
     - Multivariate Mini Batch Gradient Descent, exit when cost converges on max epochs reached(**minibatch_gd_1**)
     - Multivariate Mini Batch Gradient Descent,  exit when cost converges on max epochs reached. Uses validation set(**minibatch_gd_2**)
     - Multivariate Mini Batch Gradient Descent,  exit when cost converges on max epochs reached. Uses validation set and momentum(**minibatch_gd_3**)
+    - Example of Mini Batch Gradient Descent, plots the gradient descent(**minibatch_gd_2_v.py**)
 - logistic regression
 
 ### John Guttag MIT worked examples
