@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from matplotlib import cm
 
-def plot_univariate_gd_analysis(file:str, a0_range:tuple, a1_range:tuple, gd_points:list):
+def plot_univariate_gd_analysis(file:str, a0_range:tuple, a1_range:tuple, gd_points:list, plot_slices=False):
     '''
     '''
 
@@ -32,23 +32,32 @@ def plot_univariate_gd_analysis(file:str, a0_range:tuple, a1_range:tuple, gd_poi
         costs.append(cost_row)
 
 
-    # a0_mincost_idx = np.where(np.round(a0[0], 1)==150)
-    # print(a0_mincost_idx[0].squeeze())
-    # a1_mincost =  a1[:, a0_mincost_idx].squeeze()
-    
-    # ncosts = np.array(costs)
-    # print(ncosts.shape)
-    # costs_mincosts = ncosts[:,a0_mincost_idx[0].squeeze()]
-    # print(len(costs[:][0]))
-    # # print(costs[a0_mincost_idx[0].squeeze()])
+    if plot_slices:
 
-    # plt.rcParams['text.usetex'] = True
-    # plt.plot(a1_mincost, costs_mincosts)
-    # plt.xlabel(r'$a_1$')
-    # plt.ylabel(r'$J(150,a_1$)')
-    
-    # plt.show()
+        a0_mincost_idx = np.where(np.round(a0[0,:], 1)==150)
+        a1_mincost =  a1[:, a0_mincost_idx].squeeze()
+        ncosts = np.array(costs)
+        costs_mincosts = ncosts[:,a0_mincost_idx[0].squeeze()]
 
+        plt.rcParams['text.usetex'] = True
+        plt.plot(a1_mincost, costs_mincosts)
+        plt.xlabel(r'$a_1$')
+        plt.ylabel(r'$J(150,a_1$)')
+        
+        plt.show()
+
+
+        a1_mincost_idx = np.where(np.round(a1[:,0], 1)==20)
+        a0_mincost =  a0[a1_mincost_idx, :].squeeze()
+        ncosts = np.array(costs)
+        costs_mincosts = ncosts[a1_mincost_idx[0].squeeze(), :]
+
+        plt.rcParams['text.usetex'] = True
+        plt.plot(a0_mincost, costs_mincosts)
+        plt.xlabel(r'$a_1$')
+        plt.ylabel(r'$J(a_0, 20$)')
+
+        plt.show()
 
     # plot the gradient descent points
     xx = []
@@ -77,4 +86,5 @@ if __name__=='__main__':
         file=os.path.join(os.path.dirname(__file__), 'data_generation', 'data_1f.csv'),
         a0_range=(125,175,0.2), 
         a1_range=(18,22,0.2), 
-        gd_points= [])
+        gd_points= [],
+        plot_slices=True)
