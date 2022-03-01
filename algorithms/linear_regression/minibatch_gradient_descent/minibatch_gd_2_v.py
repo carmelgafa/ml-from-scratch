@@ -13,7 +13,7 @@ from algorithms.linear_regression.univariate_gd_analysis import plot_univariate_
 def minibatch_gradient_descent(
     filename:str, 
     alpha:float=0.0023, 
-    batch_size:int=100, 
+    batch_size:int=64, 
     epochs_threshold:int=100000, 
     costdifference_threshold:float=0.00001, 
     plot:bool=False):
@@ -119,6 +119,13 @@ def minibatch_gradient_descent(
             
             if abs(previous_validation_cost - cost_validation) < costdifference_threshold:
                 print(f'Cost difference is {cost_validation} less than {costdifference_threshold} in epoch {epoch_count}')
+                
+                # plot last point
+                y_hat_plot = np.dot(X_train, beta)
+                residuals_plot = y_hat_plot - Y_train
+                cost_plot = np.dot(residuals_plot, residuals_plot) / (2 * len(Y_train))
+                gd_data.append((beta[0], beta[1], cost_plot))
+                
                 break
             else:
                 previous_validation_cost = cost_validation
