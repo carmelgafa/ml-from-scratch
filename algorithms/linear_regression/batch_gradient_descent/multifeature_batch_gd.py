@@ -33,7 +33,10 @@ def multifeature_gradient_descent(
     
     # beta will hold the values of the coefficients, hence it will be  the size 
     # of a row of the X matrix
-    beta = np.random.random(len(X[0]))
+    # Initializing the beta values to random values.
+    # beta = np.random.random(len(X[0]))
+
+    beta = np.array([5.0, 3.0, 1.0])
 
     iterations = 0
 

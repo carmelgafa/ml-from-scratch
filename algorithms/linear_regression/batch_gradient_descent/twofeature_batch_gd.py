@@ -5,14 +5,14 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import sys
 
-def two_feature_gradient_descent(filename, alpha=0.0023, threshold_iterations=100000, costdifference_threshold=0.00001, plot=False):
+def two_feature_gradient_descent(filename, alpha=0.0023, epochs_threshold=100000, costdifference_threshold=0.00001, plot=False):
     a0 = 5
     a1 = 3
     a2 = 1
-    
+
     data_set = None
-    
-    threshold_iterations = 100000
+
+    epochs_threshold = 100000
 
 
     data_set = pd.read_csv(filename, delimiter=',', header=0, index_col=False)
@@ -54,7 +54,7 @@ def two_feature_gradient_descent(filename, alpha=0.0023, threshold_iterations=10
         a_1s.append(a1)
         
         cost_difference = previous_cost - cost
-        print(f'Epoch: {epoch}, cost: {cost:.3f}, difference: {cost_difference:.6f}')
+        # print(f'Epoch: {epoch}, cost: {cost:.3f}, difference: {cost_difference:.6f}')
         previous_cost = cost
 
         # check if the cost function is diverging, if so, break
@@ -64,25 +64,22 @@ def two_feature_gradient_descent(filename, alpha=0.0023, threshold_iterations=10
         
         # check if the cost function is close enough to 0, if so, break or if the number of 
         # iterations is greater than the threshold, break
-        if abs(cost_difference) < 0.000005 or epoch > threshold_iterations:
+        if abs(cost_difference) < 0.000005 or epoch > epochs_threshold:
             break
-    if plot:
-        # plot the cost function and a1 values
-        plt.plot(a_1s[:], costs[:], '--bx', color='lightblue', mec='red')
-        plt.xlabel('a1')
-        plt.ylabel('cost')
-        plt.title(r'Cost Function vs. a1, with $\alpha$ =' + str(__alpha))
-        plt.show()
 
     return a0, a1, a2
 
 if __name__ == '__main__':
 
+    from timeit import default_timer as timer
+
     filename = os.path.join(os.path.dirname(__file__), '..', 'data_generation', 'data_2f.csv')
     alpha = 0.0023
-    threshold_iterations = 100000
+    epochs_threshold = 100000
     costdifference_threshold = 0.00001
     plot = False
-    
-    a0, a1, a2 = two_feature_gradient_descent(filename, alpha, threshold_iterations, costdifference_threshold, plot)
-    print(f'a0: {a0}, a1: {a1}, a2: {a2}')
+
+    start = timer()
+    a0, a1, a2 = two_feature_gradient_descent(filename, alpha, epochs_threshold, costdifference_threshold, plot)
+    end = timer()
+    print(f'Time: {end - start}, a0: {a0}, a1: {a1}, a2: {a2}')
