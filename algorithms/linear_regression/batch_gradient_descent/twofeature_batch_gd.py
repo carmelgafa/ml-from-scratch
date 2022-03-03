@@ -64,7 +64,7 @@ def two_feature_gradient_descent(filename, alpha=0.0023, epochs_threshold=100000
         
         # check if the cost function is close enough to 0, if so, break or if the number of 
         # iterations is greater than the threshold, break
-        if abs(cost_difference) < 0.000005 or epoch > epochs_threshold:
+        if abs(cost_difference) < costdifference_threshold or epoch > epochs_threshold:
             break
 
     return a0, a1, a2
