@@ -53,8 +53,7 @@ def stochastic_gradient_descent(
     beta = np.random.random(len(X_train[0]))
 
     # initialize the number of epochs
-    count = 0
-
+    iterations = 0
     previous_validation_cost = sys.float_info.max
 
     # loop until exit condition is met
@@ -62,7 +61,6 @@ def stochastic_gradient_descent(
 
         i = np.random.randint(0, m)
 
-        # print(f'Minibatch: {i}')
         x = X_train[i]
         y = Y_train[i]
 
@@ -75,9 +73,9 @@ def stochastic_gradient_descent(
         # calculate the new value of beta
         beta -= (alpha * residuals * x)
 
-        count += 1
+        iterations += 1
 
-        if count % 1000 == 0:
+        if iterations % 1000 == 0:
             y_hat_validation = np.dot(beta, X_validation.T)
             residuals_validation = y_hat_validation - Y_validation
             cost_validation = np.dot(
@@ -94,7 +92,7 @@ def stochastic_gradient_descent(
 
         # check if the cost function is close enough to 0, if so, break or if the number of 
         # iterations is greater than the threshold, break
-        if (count/m) > (epochs_threshold):
+        if (iterations/m) > (epochs_threshold):
             break
 
     # calculate the cost for the training data and return the beta values and 
@@ -103,7 +101,7 @@ def stochastic_gradient_descent(
     residuals = y_hat - Y_train
     cost = np.dot(residuals, residuals) / ( 2 * m)
 
-    return beta, count, cost
+    return beta, iterations/m, cost
 
 
 if __name__ == '__main__':

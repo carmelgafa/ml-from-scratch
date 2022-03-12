@@ -10,11 +10,11 @@ import numpy as np
 
 def stochastic_gradient_descent(filename:str, alpha:float, max_epochs:int = 5):
     '''
-    The stochastic gradient descent function takes a dataset, a learning rate, and a maximum number of
-    epochs. 
+    The stochastic gradient descent function takes a dataset,
+    a learning rate, and a maximum number of epochs.
     It returns the beta values and the cost.
     '''
-    
+
     np.random.seed(42)
 
     # load the training data
@@ -39,17 +39,19 @@ def stochastic_gradient_descent(filename:str, alpha:float, max_epochs:int = 5):
     # beta will hold the values of the coefficients, hence it will be  the size 
     # of a row of the X matrix
     # initialize beta to random values
-    beta = np.random.random(len(X[0]))
+    # beta = np.random.random(len(X[0]))
+
+    # beta will hold the values of the coefficients
+    beta = np.array([5.0, 3.0, 1.0])
 
     # initialize the number of epochs
-    epochs = 0
+    iterations = 0
 
     # loop until exit condition is met
     while True:
         
         i = np.random.randint(0, m)
 
-        # print(f'Minibatch: {i}')
         x = X[i]
         y = Y[i]
 
@@ -62,11 +64,11 @@ def stochastic_gradient_descent(filename:str, alpha:float, max_epochs:int = 5):
         # calculate the new value of beta
         beta -= (alpha * residuals * x)
 
-        epochs += 1
+        iterations += 1
   
         # check if the cost function is close enough to 0, if so, break or if the number of 
         # iterations is greater than the threshold, break
-        if epochs > (m*max_epochs):
+        if iterations > (m*max_epochs):
             break
     
     # calculate the cost for the training data and return the beta values and 
@@ -85,6 +87,7 @@ if __name__ == '__main__':
     filename = os.path.join(os.path.dirname(__file__), '..', 'data_generation', 'data_2f.csv')
     alpha = 0.0001
     max_epochs = 10
+
     start = timer()
     beta, cost = stochastic_gradient_descent(filename, alpha, max_epochs) 
     end = timer()
