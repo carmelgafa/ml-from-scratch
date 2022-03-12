@@ -7,7 +7,7 @@ import sys
 
 def two_feature_gradient_descent(filename, alpha=0.0023, epochs_threshold=100000, costdifference_threshold=0.00001, plot=False):
     '''
-    Batched gradient descent for a two feature linear regression problem.
+    Batch gradient descent for a two feature linear regression problem.
     This algorithm does not use any vectorization
     '''
 
