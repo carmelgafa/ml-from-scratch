@@ -21,9 +21,9 @@ def minibatch_gradient_descent(
     The function calculates the beta values for the linear regression 
     model using the mini batch gradient descent
     algorithm.
-    This variation contains a validation set to detect convergence
+    This variation contains a validation set to detect convergence and 
+    plots the convergence analysis.
     '''
-
 
     # load the training data
     data_set = pd.read_csv(filename, delimiter=',', header=0, index_col=False)
@@ -62,13 +62,11 @@ def minibatch_gradient_descent(
     minibatch_size = int(m/batch_size)
 
     # initialize the number of epochs
-    epoch_count = 0
+    minibatch_count = 0
 
     # initialize the previous cost function value to a large number
-    # previous_cost = sys.float_info.max
-
     previous_validation_cost = sys.float_info.max
-    
+
     gd_data = []
     # capture first point for plotting
     y_hat_plot = np.dot(X_train, beta_prev)
@@ -76,8 +74,7 @@ def minibatch_gradient_descent(
     cost_plot = np.dot(residuals_plot, residuals_plot) / (2 * len(Y_train))
     gd_data.append((beta_prev[0], beta_prev[1], cost_plot))
     beta_prev = beta.copy()
-    
-    
+
     # loop until exit condition is met
     while True:
 
@@ -91,8 +88,7 @@ def minibatch_gradient_descent(
             y_hat = np.dot(beta, minibatch_X.T)
             #  calculate the residuals
             residuals = y_hat - minibatch_Y
-            
-            
+
             # calculate the new value of beta
             beta -= ( alpha / minibatch_size)  * np.dot(residuals, minibatch_X)
 
@@ -100,9 +96,10 @@ def minibatch_gradient_descent(
             cost = np.dot(residuals, residuals) / ( 2 * minibatch_size)
 
         # increase the number of iterations
-        epoch_count += 1
+        minibatch_count += 1
 
-        plot_threshold = 2
+        # if coefficients have moved more than threshold, add point to plot data
+        plot_threshold = 0.5
         if abs(beta - beta_prev).max() > plot_threshold:
             y_hat_plot = np.dot(X_train, beta_prev)
             residuals_plot = y_hat_plot - Y_train
@@ -110,30 +107,30 @@ def minibatch_gradient_descent(
             gd_data.append((beta_prev[0], beta_prev[1], cost_plot))
             beta_prev = beta.copy()
 
-
-
-        if epoch_count % 10 == 0:
+        # every 10 mini batches, calculate the cost function for the validation data
+        # and check if the cost function has converged
+        
+        if minibatch_count % 10 == 0:
             y_hat_validation = np.dot(beta, X_validation.T)
             residuals_validation = y_hat_validation - Y_validation
             cost_validation = np.dot(residuals_validation, residuals_validation) / ( 2 * len(Y_validation))
             
             if abs(previous_validation_cost - cost_validation) < costdifference_threshold:
-                print(f'Cost difference is {cost_validation} less than {costdifference_threshold} in epoch {epoch_count}')
-                
+                print(f'Cost difference is {cost_validation} less than {costdifference_threshold} in epoch {minibatch_count}')
+
                 # plot last point
                 y_hat_plot = np.dot(X_train, beta)
                 residuals_plot = y_hat_plot - Y_train
                 cost_plot = np.dot(residuals_plot, residuals_plot) / (2 * len(Y_train))
                 gd_data.append((beta[0], beta[1], cost_plot))
-                
+
                 break
             else:
                 previous_validation_cost = cost_validation
 
-            
         # check if the cost function is close enough to 0, if so, break or if the number of 
         # iterations is greater than the threshold, break
-        if epoch_count > epochs_threshold:
+        if minibatch_count > epochs_threshold:
             # add last point to plot
             y_hat_plot = np.dot(X_train, beta)
             residuals_plot = y_hat_plot - Y_train
@@ -155,24 +152,17 @@ def minibatch_gradient_descent(
         gd_points = gd_data
         )
 
-    
-    return beta, epoch_count, cost
-    
+    return beta, minibatch_count, cost
 
 if __name__ == '__main__':
 
     from timeit import default_timer as timer
 
     filename = os.path.join(os.path.dirname(__file__), '..', 'data_generation', 'data_1f.csv')
-    alpha = 0.00023
+    alpha = 0.00020
     epochs_threshold = 10000
     costdifference_threshold = 0.0001
-    plot = False
+    plot = True
     batch_size = 64
 
-
-    start = timer()
     beta, epoch_count, cost = minibatch_gradient_descent(filename, alpha, batch_size, epochs_threshold, costdifference_threshold, plot)
-    end = timer()
-    print(f'Time: {end - start} beta: {beta}, epoch_count: {epoch_count}, cost: {cost}')
-    

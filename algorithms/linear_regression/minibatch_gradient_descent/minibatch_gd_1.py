@@ -43,10 +43,10 @@ def minibatch_gradient_descent(
     # minibatches setting
     # number of minibatches = m => stochastic gradient descent
     # number of minibatches = 1 => batch gradient descent
-    minibatch_size = int(m/batch_size)
+    minibatches = int(m/batch_size)
 
     # initialize the number of epochs
-    epoch_count = 0
+    minibatch_count = 0
 
     previous_cumulative_cost = sys.float_info.max
 
@@ -58,25 +58,23 @@ def minibatch_gradient_descent(
         for i in range(batch_size):
 
             # print(f'Minibatch: {i}')
-            minibatch_X = X[i*minibatch_size:(i+1)*minibatch_size]
-            minibatch_Y = Y[i*minibatch_size:(i+1)*minibatch_size]
+            minibatch_X = X[i*minibatches:(i+1)*minibatches]
+            minibatch_Y = Y[i*minibatches:(i+1)*minibatches]
 
             # calculate the hypothesis function for all training data
             y_hat = np.dot(beta, minibatch_X.T)
             #  calculate the residuals
             residuals = y_hat - minibatch_Y
-            
-            
+
             # calculate the new value of beta
-            beta -= ( alpha / minibatch_size)  * np.dot(residuals, minibatch_X)
+            beta -= ( alpha / minibatches)  * np.dot(residuals, minibatch_X)
 
             # calculate the cost function
-            cost = np.dot(residuals, residuals) / ( 2 * minibatch_size)
-
+            cost = np.dot(residuals, residuals) / ( 2 * minibatches)
             cumulative_cost += cost
 
         # increase the number of iterations
-        epoch_count += 1
+        minibatch_count += 1
 
         cost_difference = previous_cumulative_cost - cumulative_cost
         # print(f'Epoch: {epochs}, average cost: {(cumulative_cost/minibatches_number):.3f}, beta: {beta}')
@@ -84,7 +82,7 @@ def minibatch_gradient_descent(
             
         # check if the cost function is converged or
         # iterations is greater than the threshold, break
-        if abs(cost_difference) < costdifference_threshold or epoch_count > epochs_threshold:
+        if abs(cost_difference) < costdifference_threshold or minibatch_count > epochs_threshold:
             break
     
     # calculate the cost for the training data and return the beta values and 
@@ -93,7 +91,7 @@ def minibatch_gradient_descent(
     residuals = y_hat - Y
     cost = np.dot(residuals, residuals) / ( 2 * m)
     
-    return beta, epoch_count, cost
+    return beta, minibatch_count, cost
     
 
 if __name__ == '__main__':
@@ -109,7 +107,7 @@ if __name__ == '__main__':
 
 
     start = timer()
-    beta, epoch_count, cost = minibatch_gradient_descent(filename, alpha, batch_size, epochs_threshold, costdifference_threshold, plot)
+    beta, minibatch_count, cost = minibatch_gradient_descent(filename, alpha, batch_size, epochs_threshold, costdifference_threshold, plot)
     end = timer()
-    print(f'Time: {end - start} beta: {beta}, epoch_count: {epoch_count}, cost: {cost}')
+    print(f'Time: {end - start} beta: {beta}, minibatch_count: {minibatch_count}, cost: {cost}')
     
