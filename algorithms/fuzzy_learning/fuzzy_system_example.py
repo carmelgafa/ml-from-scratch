@@ -17,19 +17,15 @@ motor_speed.add_triangular('Slow', 0, 0, 50)
 motor_speed.add_triangular('Moderate', 10, 50, 90)
 motor_speed.add_triangular('Fast', 50, 100, 100)
 
-
-
 system = FuzzySystem()
 system.add_input_variable(temp)
 system.add_input_variable(humidity)
 system.add_output_variable(motor_speed)
 
-
 system.add_rule(
 		{ 'Temperature':'Cold',
 			'Humidity':'Wet' },
 		{ 'Speed':'Slow'})
-
 
 system.add_rule(
 		{ 'Temperature':'Cold',
@@ -40,8 +36,6 @@ system.add_rule(
 		{ 'Temperature':'Medium',
 			'Humidity':'Wet' },
 		{ 'Speed':'Slow'})
-
-
 
 system.add_rule(
 		{ 'Temperature':'Medium',
@@ -58,7 +52,6 @@ system.add_rule(
 			'Humidity':'Wet' },
 		{ 'Speed':'Moderate'})
 
-
 system.add_rule(
 		{ 'Temperature':'Hot',
 			'Humidity':'Normal' },
@@ -73,13 +66,11 @@ system.add_rule(
 		{ 'Temperature':'Medium',
 			'Humidity':'Dry' },
 		{ 'Speed':'Fast'})
-
 
 output = system.evaluate_output({
 				'Temperature':18,
 				'Humidity':60
 		})
-
 
 print(output)
 

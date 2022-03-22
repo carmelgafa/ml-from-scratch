@@ -1,14 +1,8 @@
 from fuzzy_system.fuzzy_rule import FuzzyRule
 from fuzzy_system.fuzzy_clause import FuzzyClause
-from fuzzy_system.type1_fuzzy_variable import Type1FuzzyVariable
 from fuzzy_system.type1_fuzzy_set import Type1FuzzySet
 from fuzzy_system.fuzzy_associative_memory import FuzzyAssociativeMemory
-
 import matplotlib.pyplot as plt
-from matplotlib import rc
-from type2fuzzy import cog_defuzzify
-import numpy as np
-import pandas as pd
 
 class FuzzySystem:
 	'''

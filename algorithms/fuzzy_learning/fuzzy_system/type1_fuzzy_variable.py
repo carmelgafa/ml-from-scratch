@@ -1,6 +1,5 @@
 from fuzzy_system.type1_fuzzy_set import Type1FuzzySet
 import matplotlib.pyplot as plt
-import numpy as np
 import fuzzy_system.system_settings
 
 class Type1FuzzyVariable():

@@ -1,24 +1,15 @@
-from fuzzy_system.fuzzy_learning_helper import load_winequality_red
 from fuzzy_system.fuzzy_learning_helper import load_sample_set
-from fuzzy_system.fuzzy_learning_helper import split_train_test
-from fuzzy_system.fuzzy_learning_helper import load_sbp
 from fuzzy_system.fuzzy_learning_system import FuzzyLearningSystem
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn import preprocessing
 import pandas as pd
 import random
 
 
 def generate_sample_data():
-	
 	random.seed(42)
-
 	df = pd.DataFrame()
-
-
 	r = random.uniform(-1,1)
-
 	print(r)
 
 
@@ -34,10 +25,6 @@ def test_model():
 	learning_system = FuzzyLearningSystem(res=1000)
 
 	learning_system.fit(X_train, y_train, X_n=4, y_n=2)
-
-	# learning_system.plot_variables()
-
-
 	print(learning_system)
 
 	score = learning_system.score(X_test, y_test)
@@ -58,5 +45,5 @@ def test_model():
 	plt.scatter(df[0], df[1])
 	plt.show()
 
-if __name__ == "__main__":1
+if __name__ == "__main__":
 	generate_sample_data()

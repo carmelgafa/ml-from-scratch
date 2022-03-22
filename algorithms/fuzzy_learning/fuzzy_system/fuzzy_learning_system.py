@@ -1,7 +1,5 @@
 import pandas as pd
 from pandas import DataFrame
-import os
-import matplotlib.pyplot as plt
 import numpy as np
 
 from fuzzy_system.fuzzy_system import FuzzySystem
