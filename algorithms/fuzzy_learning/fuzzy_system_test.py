@@ -1,6 +1,5 @@
 from fuzzy_system.type1_fuzzy_variable import Type1FuzzyVariable
 from fuzzy_system.fuzzy_system import FuzzySystem
-from fuzzy_system.fuzzy_clause import FuzzyClause
 
 x1 = Type1FuzzyVariable(0, 100, 100, 'x1')
 x1.add_triangular('S', 0, 25, 50)

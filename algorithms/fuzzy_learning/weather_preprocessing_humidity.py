@@ -1,9 +1,6 @@
 import pandas as pd
-from pandas import DataFrame
 import os
-import matplotlib.pyplot as plt
-import numpy as np
-import math
+
 
 DATA_PATH = os.path.join(os.path.dirname( __file__ ), 'data')
 

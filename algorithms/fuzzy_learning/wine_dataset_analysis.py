@@ -1,9 +1,7 @@
 import pandas as pd
-from pandas import DataFrame
 import os
 import matplotlib.pyplot as plt
 import numpy as np
-import math
 
 DATA_PATH = os.path.join(os.path.dirname( __file__ ), 'data')
 
@@ -61,9 +59,6 @@ if __name__ == "__main__":
 	# Fit your data on the scaler object
 	scaled_df = scaler.fit_transform(data)
 	scaled_df = pd.DataFrame(scaled_df, columns=names)
-
-
-
 
 	inspect_data(scaled_df)
 	# split_data(data)

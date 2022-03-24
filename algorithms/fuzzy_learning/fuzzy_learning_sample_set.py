@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import random
 
-
 def generate_sample_data():
 	random.seed(42)
 	df = pd.DataFrame()

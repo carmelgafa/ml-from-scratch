@@ -1,11 +1,7 @@
-from fuzzy_system.fuzzy_learning_helper import load_winequality_red
-from fuzzy_system.fuzzy_learning_helper import load_linear_model
-from fuzzy_system.fuzzy_learning_helper import split_train_test
 from fuzzy_system.fuzzy_learning_helper import load_sbp
 from fuzzy_system.fuzzy_learning_system import FuzzyLearningSystem
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn import preprocessing
 import pandas as pd
 
 X, y = load_sbp()

@@ -1,14 +1,6 @@
 from fuzzy_system.fuzzy_learning_helper import load_winequality_red
-from fuzzy_system.fuzzy_learning_helper import load_linear_model
-from fuzzy_system.fuzzy_learning_helper import split_train_test
-from fuzzy_system.fuzzy_learning_system import FuzzyLearningSystem
 import numpy as np
 import matplotlib.pyplot as plt
-import pandas as pd
-from sklearn import preprocessing
-from math import log
-
-
 
 X, y = load_winequality_red()
 

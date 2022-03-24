@@ -1,6 +1,5 @@
 from fuzzy_system.type1_fuzzy_variable import Type1FuzzyVariable
 from fuzzy_system.fuzzy_system import FuzzySystem
-from fuzzy_system.fuzzy_clause import FuzzyClause
 
 temp = Type1FuzzyVariable(10, 40, 100, 'Temperature')
 temp.add_triangular('Cold', 10, 10, 25)

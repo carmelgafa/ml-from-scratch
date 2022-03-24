@@ -6,10 +6,8 @@ import pandas as pd
 
 X, y = load_sensor_data()
 
-
 clean_y = y.copy() 
 clean_y['Y'] = 1.1**X['x']
-
 
 X_train = X
 X_test = X
@@ -19,7 +17,6 @@ y_test = y
 learning_system = FuzzyLearningSystem(res=1000)
 
 learning_system.fit(X_train, y_train, X_n=5, y_n=2)
-
 
 score = learning_system.score(X_test, clean_y)
 print(score)
@@ -36,10 +33,6 @@ for i in np.arange(0,50,1):
 
 plt.plot(X, y)
 plt.plot(df[0], df[1])
-# plt.show()
-
-# learning_system.generate_rules_csv('sensor_rules.csv')
-
 
 print(learning_system)
 
