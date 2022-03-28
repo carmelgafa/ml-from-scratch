@@ -1,16 +1,11 @@
 import numpy as np
 
-
 class SimpleTree:
     '''
     Simple implementation of a tree structure. The tree uses the following concepts:
-
     Node: a node in the tree that has edges connecting it to other nodes
-
     Leaf Node: A terminating Node. Does not have child nodes
-
     Tree: the connectivity of the nodes
-
     Root Node: The tree's parent node
     '''
 
@@ -24,7 +19,6 @@ class SimpleTree:
     def __get_index(self, node):
         '''
         Gets the index of a node from the nodes list
-
         Arguments:
         ----------
 
@@ -35,8 +29,7 @@ class SimpleTree:
 
     def add_leafnode(self, node):
         '''
-        Adds a leaf node tp the tree
-
+        Adds a leaf node to the tree
         Arguments:
         ----------
 
@@ -184,3 +177,33 @@ class SimpleTree:
         else:
             del case[current_node]
             return self.__traverse_step(case, new_node)
+
+if __name__=='__main__':
+    a_tree = SimpleTree()
+    a_tree.add_node('One')
+    a_tree.add_node('Two')
+    a_tree.add_node('Three')
+    a_tree.add_node('Four')
+    a_tree.add_edge('One', 'Three', 'No')
+    a_tree.add_node('Five')
+    a_tree.add_edge('One', 'Two', 'Yes')
+    a_tree.add_edge('Two', 'Four', 'Yes')
+    a_tree.add_edge('Four', 'Five', 'Yes')
+    a_tree.add_node('Six')
+    a_tree.add_edge('Four', 'Six', 'No')
+    a_tree.set_root_node('One')
+    a_tree.display()
+
+    b_tree = SimpleTree()
+    b_tree.add_node('Uno')
+    b_tree.add_node('Due')
+    b_tree.add_node('Tre')
+    b_tree.add_node('Quattro')
+    b_tree.add_edge('Uno', 'Due', 'Si')
+    b_tree.add_edge('Uno', 'Tre', 'No')
+    b_tree.add_edge('Tre', 'Quattro', 'Si')
+    b_tree.set_root_node('Uno')
+    b_tree.display()
+
+    a_tree.append_tree('Five', b_tree, 'No')
+    a_tree.display()

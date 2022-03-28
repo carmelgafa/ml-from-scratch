@@ -10,14 +10,13 @@ class NAryTree:
     '''
 
     def __init__(self):
-        self.nodes = []
-        
-        # create tree structure with size (1,1)
-        self.tree = np.array([0], dtype=object)
-        self.tree = self.tree.reshape((1, 1))
-        
-        self.rootnode = None
 
+        self.nodes = []
+        # create tree structure with size (1,1)
+        # so to have a root node
+        self.edges = np.array([0], dtype=object)
+        self.edges = self.edges.reshape((1, 1))
+        self.rootnode = None
         self.rulebase = []
 
     def __get_index(self, node) -> int:
@@ -35,12 +34,12 @@ class NAryTree:
         pass
         
     def __str__(self) -> str:
-        return  f'{self.nodes}\n{str(self.tree)}'
+        return  f'{self.nodes}\n{str(self.edges)}'
 
     def add_node(self, node):
         '''
         Adds a new node to the tree.
-        If this is the first noe, it will be the root node
+        If this is the first node, it will be the root node
 
         Arguments:
         ----------
@@ -55,12 +54,12 @@ class NAryTree:
         if len(self.nodes) > 0:
             # create a bigger tree - extend by one in all dims
             tree_c = np.zeros(
-                (self.tree.shape[0]+1, self.tree.shape[1]+1), dtype=object)
-            
+                (self.edges.shape[0]+1, self.edges.shape[1]+1), dtype=object)
+
             # copy contents of the old tree into the new tree
-            tree_c[0:self.tree.shape[0], 0:self.tree.shape[1]] = self.tree
-            
-            self.tree = tree_c
+            tree_c[0:self.edges.shape[0], 0:self.edges.shape[1]] = self.edges
+
+            self.edges = tree_c
         else:
             self.rootnode = node
 
@@ -69,7 +68,7 @@ class NAryTree:
     def show(self):
         print('nodes:', self.nodes)
         # print('leaf nodes:', self.leafnodes)
-        print('tree:', self.tree)
+        print('tree:', self.edges)
         print('root node:', self.rootnode)
 
     def add_edge(self, parent_node, child_node, edge_name):
@@ -87,7 +86,7 @@ class NAryTree:
 
         p_idx = self.__get_index(parent_node)
         c_idx = self.__get_index(child_node)
-        self.tree[c_idx][p_idx] = edge_name
+        self.edges[c_idx][p_idx] = edge_name
         # self.tree[c_idx, p_idx] = edge_name
 
     def set_root_node(self, root):
@@ -106,14 +105,10 @@ class NAryTree:
 
         Arguments:
         ----------
-
         receipt_node -  node in current tree to which appended_tree is attached. The root
                         node of the new tree is attached to this node
-
         new_tree -      the new tree to be attached to the current tree
-
         edge_name -     the name of the edge connecting the trees
-
         '''
         # go through all nodes of the new tree and add them to the current tree
         for new_node in new_tree.nodes:
@@ -146,9 +141,9 @@ class NAryTree:
             print('*', ('\t'*tab_idx), self.nodes[node_idx])
         else:
             print('*',  ('\t'*tab_idx*2), ' - ',
-                  self.tree[node_idx, parent_idx], ' - ', self.nodes[node_idx])
+                  self.edges[node_idx, parent_idx], ' - ', self.nodes[node_idx])
 
-        tree_filter = self.tree[:, node_idx] != 0
+        tree_filter = self.edges[:, node_idx] != 0
 
         filter_idx = np.nonzero(tree_filter)
 
@@ -163,19 +158,19 @@ class NAryTree:
 
     def __gererate_rule(self, node_idx, rule):
 
-        tree_filter = self.tree[:, node_idx] != 0
+        tree_filter = self.edges[:, node_idx] != 0
         filter_idx = np.nonzero(tree_filter)
 
         for child_idx in filter_idx[0]:
 
             # leaf node detection. is child a leaf
-            child_filter = self.tree[:, child_idx] != 0
+            child_filter = self.edges[:, child_idx] != 0
             child_filter_idx = np.nonzero(child_filter)
 
             c_rule = rule.copy()
 
             if len(child_filter_idx[0]) == 0:
-                ante = f'{self.nodes[node_idx]} is  {self.tree[child_idx, node_idx]}'
+                ante = f'{self.nodes[node_idx]} is  {self.edges[child_idx, node_idx]}'
                 cons = f'output is {self.nodes[child_idx]}'
                 
                 c_rule.append(ante)
@@ -183,6 +178,38 @@ class NAryTree:
                 self.rulebase.append(c_rule)
 
             else:
-                ante = f'{self.nodes[node_idx]} is  {self.tree[child_idx, node_idx]}'
+                ante = f'{self.nodes[node_idx]} is  {self.edges[child_idx, node_idx]}'
                 c_rule.append(ante)
                 self.__gererate_rule(child_idx, c_rule)
+
+
+if __name__=='__main__':
+    a_tree = NAryTree()
+    a_tree.add_node('One')
+    a_tree.add_node('Two')
+    a_tree.add_node('Three')
+    a_tree.add_node('Four')
+    a_tree.add_edge('One', 'Three', 'No')
+    a_tree.add_node('Five')
+    a_tree.add_edge('One', 'Two', 'Yes')
+    a_tree.add_edge('Two', 'Four', 'Yes')
+    a_tree.add_edge('Four', 'Five', 'Yes')
+    a_tree.add_node('Six')
+    a_tree.add_edge('Four', 'Six', 'No')
+
+    a_tree.set_root_node('One')
+    a_tree.display()
+
+    b_tree = NAryTree()
+    b_tree.add_node('Uno')
+    b_tree.add_node('Due')
+    b_tree.add_node('Tre')
+    b_tree.add_node('Quattro')
+    b_tree.add_edge('Uno', 'Due', 'Si')
+    b_tree.add_edge('Uno', 'Tre', 'No')
+    b_tree.add_edge('Tre', 'Quattro', 'Si')
+    b_tree.set_root_node('Uno')
+    b_tree.display()
+
+    a_tree.append_tree('Five', b_tree, 'No')
+    a_tree.display()

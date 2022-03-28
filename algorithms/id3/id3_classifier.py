@@ -4,7 +4,6 @@ classification using ID3 algorithm
 import numpy as np
 from simple_tree import SimpleTree
 
-
 class ID3Classifier:
     '''
     execution of ID3 algorithm to classify data
