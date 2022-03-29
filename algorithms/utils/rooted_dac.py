@@ -2,7 +2,8 @@ import numpy as np
 
 class RootedDAC:
     '''
-    Simple implementation of a rooted directed acyclic tree structure. The tree uses the following concepts:
+    Simple implementation of a rooted directed acyclic tree structure. 
+    The tree uses the following concepts:
 
     Node: a node in the tree that has edges connecting it to other nodes
     Tree: the connectivity of the nodes. connections are unidirectional.

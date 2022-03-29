@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import math
 import os
-from rooted_dac import RootedDAC
+from algorithms.utils.rooted_dac import RootedDAC
 
 class ID3:
 
