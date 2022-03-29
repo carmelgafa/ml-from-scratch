@@ -2,7 +2,7 @@
 classification using ID3 algorithm
 '''
 import numpy as np
-from simple_tree import SimpleTree
+from algorithms.utils.simple_tree import SimpleTree
 
 class ID3Classifier:
     '''
