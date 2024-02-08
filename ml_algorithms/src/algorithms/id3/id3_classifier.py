@@ -2,7 +2,7 @@
 classification using ID3 algorithm
 '''
 import numpy as np
-from algorithms.utils.simple_tree import SimpleTree
+from ml_algorithms.src.algorithms.utils.simple_tree import SimpleTree
 
 class ID3Classifier:
     '''
@@ -143,3 +143,4 @@ class ID3Classifier:
         '''
         result = self.result_tree.traverse(case)
         return result
+    
