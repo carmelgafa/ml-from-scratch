@@ -1,10 +1,10 @@
+import os
 import pandas as pd
 from pandas import DataFrame
-import os
 import matplotlib.pyplot as plt
 
 dirname = os.path.dirname(__file__)
-filename = os.path.join(dirname, 'data\winequality-red.csv')
+filename = os.path.join(dirname, '..\data\winequality-red.csv')
 
 df = pd.read_csv(filename, sep=';')
 # print(df.head())
@@ -35,5 +35,3 @@ df['sulphur_dioxide_difference'] = df['total_sulfur_dioxide'] - df['free_sulfur_
 
 df[['total_sulfur_dioxide','free_sulfur_dioxide','sulphur_dioxide_difference']][200:300].plot()
 # plt.show()
-
-
