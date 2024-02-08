@@ -45,4 +45,4 @@ def create_environment(project_name:str, requirements:list)->None:
 
 
 if __name__ == '__main__':
-    create_environment('algorithms', ['numpy', 'pandas', 'mathplotlib'])
+    create_environment('ml_algorithms', ['numpy', 'pandas', 'mathplotlib'])
