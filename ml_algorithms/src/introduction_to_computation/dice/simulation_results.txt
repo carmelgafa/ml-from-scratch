@@ -1,0 +1,48 @@
+Mean for dishonest casino with p1:0.99 and p2:0.05 is 3.489619392000011
+Mean for dishonest casino with p1:0.95 and p2:0.1 is 3.4474341769999897
+Mean for dishonest casino with p1:0.9 and p2:0.2 is 3.388901595000009
+
+-----------------------------------------------------------------------------
+
+Task 3
+------
+
+Dishonest simulation with p1 = 0.9 and p2 = 0.2
+mean: 3.388901595, variance:3.096003910988601e-05, standard deviation:0.005564174611735869
+
+Fair Simulation
+mean: 3.4999125920000007, variance:2.8043537135249523e-05, standard deviation:0.005295614896803725
+
+Note for next Calculation
+-------------------------
+
+To use the estimated variance to find the sample size required to obtain a RMSE error of 0.001,
+we use the following formula:
+
+n = ( (z * sigma / e)^2 )
+
+Where:
+
+n is the sample size
+z is the standard normal deviate (e.g. for a 95% confidence level, z = 1.96)
+sigma is the estimated population standard deviation
+e is the desired margin of error (e.g. e = 0.001)
+
+This formula states that the sample size required to achieve a certain level of 
+precision (e) is proportional to the square of the ratio of the standard deviation 
+to the margin of error.
+
+It's important to note that this formula assumes that your estimator has a normal 
+distribution and that the true variance is known or has been estimated from a sample.
+
+Also, it's important to know that this is only a rough estimation, 
+and the sample size required for a specific problem may be influenced 
+by other factors like the distribution of the data, the model assumptions, 
+the desired confidence level, etc.
+
+
+
+
+
+-----------------------------------------------------------------------------
+
