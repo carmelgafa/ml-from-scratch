@@ -13,7 +13,7 @@ def gradient_descent(
 
     a0 = 130
     a1 = 19
-    
+
     a0_prev = a0
     a1_prev = a1
 
@@ -21,10 +21,10 @@ def gradient_descent(
 
     m = len(data_set)
     epoch = 0
- 
+
     previous_cost = sys.float_info.max
     gd_data = []
-    
+
 
     while True:
         # calculate the hypothesis function for all training data
@@ -75,7 +75,7 @@ def gradient_descent(
         a0_range=(125,175,0.5),
         a1_range=(18,22,0.5),
         gd_points = gd_data
-        )         
+        )
     return a0, a1
 
 if __name__ == '__main__':
@@ -87,6 +87,7 @@ if __name__ == '__main__':
     epochs_threshold = 100000
     costdifference_threshold = 0.00001
     plot = True
-    
+
     a0, a1 = gradient_descent(filename, alpha, epochs_threshold, costdifference_threshold, plot)
     print(f'a0: {a0:.3f}, a1: {a1:.3f}')
+    

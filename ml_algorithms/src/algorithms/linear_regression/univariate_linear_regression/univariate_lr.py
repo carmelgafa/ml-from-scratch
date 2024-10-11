@@ -26,4 +26,5 @@ a_0 = (sum_x_sq*sum_y - sum_x*sum_xy)/(n*sum_x_sq - sum_x**2)
 
 a_1 = (n*sum_xy - sum_x*sum_y)/(n*sum_x_sq - sum_x**2)
 
+
 print(f'a_0: {a_0}, a_1: {a_1}')

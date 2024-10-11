@@ -1,12 +1,17 @@
 from operator import index
-from typing_extensions import _AnnotatedAlias
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 from matplotlib import cm
 
-def plot_univariate_gd_analysis(file:str, a0_range:tuple, a1_range:tuple, gd_points:list, plot_slices=False):
+def plot_univariate_gd_analysis(
+    file:str,
+    a0_range:tuple,
+    a1_range:tuple,
+    gd_points:list,
+    plot_slices=False):
     '''
+    plot the costs surface and the gradient descent points
     '''
 
     # read the data set
@@ -31,7 +36,6 @@ def plot_univariate_gd_analysis(file:str, a0_range:tuple, a1_range:tuple, gd_poi
             cost_row.append(cost)
         costs.append(cost_row)
 
-
     if plot_slices:
 
         a0_mincost_idx = np.where(np.round(a0[0,:], 1)==150)
@@ -43,7 +47,7 @@ def plot_univariate_gd_analysis(file:str, a0_range:tuple, a1_range:tuple, gd_poi
         plt.plot(a1_mincost, costs_mincosts)
         plt.xlabel(r'$a_1$')
         plt.ylabel(r'$J(150,a_1$)')
-        
+
         plt.show()
 
 
@@ -71,7 +75,15 @@ def plot_univariate_gd_analysis(file:str, a0_range:tuple, a1_range:tuple, gd_poi
     plt.rcParams['text.usetex'] = True
     fig = plt.figure()
     ax = plt.axes(projection='3d')
-    ax.plot_surface(a0, a1, np.array(costs), rstride=1, cstride=1, cmap='cividis', edgecolor='none', alpha=0.5)
+    ax.plot_surface(
+        a0,
+        a1,
+        np.array(costs),
+        rstride=1,
+        cstride=1,
+        cmap='cividis',
+        edgecolor='none',
+        alpha=0.5)
     ax.contour(a0, a1, np.array(costs), zdir='z', offset=-0.5, cmap=cm.coolwarm)
     ax.plot(xx, yy, zz, 'r.--', alpha=1)
     ax.set_xlabel(r'$a_0$')
@@ -84,7 +96,7 @@ if __name__=='__main__':
 
     plot_univariate_gd_analysis(
         file=os.path.join(os.path.dirname(__file__), 'data_generation', 'data_1f.csv'),
-        a0_range=(125,175,0.2), 
-        a1_range=(18,22,0.2), 
+        a0_range=(125,175,0.2),
+        a1_range=(18,22,0.2),
         gd_points= [],
         plot_slices=True)
