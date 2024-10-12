@@ -1,4 +1,4 @@
-from operator import index
+'''script to plot the cost surface and the gradient descent points'''
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd

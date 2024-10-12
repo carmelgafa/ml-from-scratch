@@ -2,7 +2,11 @@
 import os
 import pandas as pd
 import sys
-from algorithms.linear_regression.univariate_gd_analysis import plot_univariate_gd_analysis
+
+from univariate_gd_analysis import plot_univariate_gd_analysis
+
+
+
 
 def gradient_descent(
     filename,
