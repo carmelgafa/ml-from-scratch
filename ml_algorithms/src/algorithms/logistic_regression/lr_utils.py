@@ -1,3 +1,5 @@
+
+#pylint: disable = E0401
 import numpy as np
 import h5py
 import os

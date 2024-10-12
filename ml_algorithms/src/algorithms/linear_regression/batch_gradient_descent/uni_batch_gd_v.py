@@ -1,9 +1,11 @@
 
+
+#pylint: disable = E0401
 import os
 import pandas as pd
 import sys
 
-from univariate_gd_analysis import plot_univariate_gd_analysis
+from algorithms.linear_regression.univariate_gd_analysis import plot_univariate_gd_analysis
 
 
 

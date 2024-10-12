@@ -1,3 +1,5 @@
+
+#pylint: disable = E0401
 import torch
 
 input_list = [[1, 6, 2],

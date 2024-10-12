@@ -1,3 +1,5 @@
+
+#pylint: disable = E0401
 import os
 import pandas as pd
 
@@ -17,6 +19,7 @@ print(df_data['y'].mean())
 print(df_data['y'].std())
 
 
-normalized_data_path = os.path.join(os.path.dirname(__file__),'..', 'data_generation', 'data_1f_norm.csv')
+normalized_data_path = os.path.join(
+    os.path.dirname(__file__),'..', 'data_generation', 'data_1f_norm.csv')
 
 df_data.to_csv(normalized_data_path, header=True, index=False)

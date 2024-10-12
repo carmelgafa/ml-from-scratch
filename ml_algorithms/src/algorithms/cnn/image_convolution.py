@@ -1,5 +1,8 @@
-import matplotlib.pyplot as plt
+
+#pylint: disable = E0401
 import os
+import cv2
+import matplotlib.pyplot as plt
 
 def process_image(image_path):
     '''load and convert image to grayscale'''
@@ -12,12 +15,13 @@ def process_image(image_path):
 
     plt.imshow(image, cmap='gray')
     plt.show()
+    return image
 
 
 
 if __name__ == '__main__':
-    image_path = 'bud.jpg'
-    
-    image = process_image(image_path)
-    cv2.imshow('image', image)
+    bud_path = 'bud.jpg'
+
+    bud_image = process_image(bud_path)
+    cv2.imshow('image', bud_image)
     cv2.waitKey(0)
