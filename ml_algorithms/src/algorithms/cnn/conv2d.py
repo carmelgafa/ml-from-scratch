@@ -5,12 +5,18 @@ import torch
 import numpy as np
 
 
-def conv2d_manual(input_matrix:list, kernel_matrix:list, padding:tuple[int, int]=(0,0))->np.ndarray:
+def conv2d_manual(
+    input_matrix:list,
+    kernel_matrix:list,
+    bias:list=None,
+    padding:tuple[int, int]=(0,0))->np.ndarray:
     '''perform 2D cross-correlation on a 2D input matrix and a 2D kernel matrix'''
 
     # Convert lists to numpy arrays for easier manipulation
     input_matrix = np.array(input_matrix)
     kernel_matrix = np.array(kernel_matrix)
+    if bias is not None:
+        bias_matrix = np.array(bias)
 
     if padding != (0,0):
         input_matrix = pad_matrix(input_matrix, padding)
@@ -34,10 +40,12 @@ def conv2d_manual(input_matrix:list, kernel_matrix:list, padding:tuple[int, int]
 
             # Compute the element-wise multiplication and sum the result
             output_matrix[i, j] = np.sum(sub_matrix * kernel_matrix)
+            if bias is not None:
+                output_matrix[i, j] += bias_matrix[i, j]
 
     return output_matrix
 
-def pad_matrix(matrix:np.ndarray, padding:tuple[int, int]=(0,0))->np.ndarray:
+def pad_matrix(matrix:np.ndarray,padding:tuple[int, int]=(0,0))->np.ndarray:
     '''pads a numpy 2D matrix with zeros'''
 
     rows, cols = matrix.shape
@@ -51,17 +59,25 @@ def pad_matrix(matrix:np.ndarray, padding:tuple[int, int]=(0,0))->np.ndarray:
     return padded_matrix
 
 
-def conv2d_manual_test(input_matrix:list, kernel_matrix:list)->tuple[np.ndarray, np.ndarray]:
+def conv2d_manual_test(
+    input_matrix:list,
+    kernel_matrix:list,
+    bias_valid:list,
+    bias_full:list)->tuple[np.ndarray, np.ndarray]:
     '''tests the manual implementation'''
 
-    output_valid = conv2d_manual(input_matrix, kernel_matrix)
+    output_valid = conv2d_manual(input_matrix, kernel_matrix, bias_valid)
 
-    output_full = conv2d_manual(input_matrix, kernel_matrix, padding=(1,1))
+    output_full = conv2d_manual(input_matrix, kernel_matrix, bias_full, padding=(1,1))
 
     return output_valid, output_full
 
 
-def conv2d_torch_test(input_matrix:list, kernel_matrix:list)->tuple[torch.Tensor, torch.Tensor]:
+def conv2d_torch_test(
+    input_matrix:list,
+    kernel_matrix:list,
+    bias_valid:list,
+    bias_full:list)->tuple[torch.Tensor, torch.Tensor]:
     '''tests pytoch valid and full cross correlation'''
     # Input tensor (1 batch, 1 channel, 3x3 matrix)
     input_tensor = torch.tensor([[input_matrix]], dtype=torch.float32)
@@ -69,10 +85,18 @@ def conv2d_torch_test(input_matrix:list, kernel_matrix:list)->tuple[torch.Tensor
     # Kernel tensor (1 output channel, 1 input channel, 2x2 kernel)
     kernel_tensor = torch.tensor([[kernel_matrix]], dtype=torch.float32)
 
-    # Perform 2D convolution with no padding and stride of 1 (valid correlation)
-    output_valid = torch.conv2d(input_tensor, kernel_tensor, stride=1, padding=0)
+    # Bias valid tensor
+    bias_valid_tensor = torch.tensor([[bias_valid]], dtype=torch.float32)
 
-    output_full = torch.conv2d(input_tensor, kernel_tensor, stride=1, padding=(1,1))
+    # Bias full tensor
+    bias_full_tensor = torch.tensor([[bias_full]], dtype=torch.float32)
+
+    # Perform 2D convolution with no padding and stride of 1 (valid correlation)
+    output_valid = torch.conv2d(
+        input_tensor, kernel_tensor, stride=1, padding=0) + bias_valid_tensor
+
+    output_full = torch.conv2d(
+        input_tensor, kernel_tensor, stride=1, padding=(1,1)) + bias_full_tensor
 
     return output_valid, output_full
 
@@ -88,10 +112,24 @@ if __name__ == '__main__':
         [1, 0],
         [0, -1]]
 
+
+    bias_valid_list = [
+        [1, 2],
+        [3, 4]]
+
+    bias_full_list = [
+        [1, 2, 3 , 4],
+        [4, 5, 6, 7],
+        [7, 8, 9, 10],
+        [10, 11, 12, 13]]
+
+
     # print(cross_correlation(input_list, kernel_list))
-    o_valid_torch, o_full_torch = conv2d_torch_test(input_list, kernel_list)
+    o_valid_torch, o_full_torch = conv2d_torch_test(
+        input_list, kernel_list, bias_valid_list, bias_full_list)
 
-    o_valid_manual, o_full_manual = conv2d_manual_test(input_list, kernel_list)
+    o_valid_manual, o_full_manual = conv2d_manual_test(
+        input_list, kernel_list, bias_valid_list, bias_full_list)
 
-    print(o_valid_torch - o_valid_manual, '\n'
-            , o_full_torch - o_full_manual)
+    print(np.subtract(o_valid_torch.detach().numpy(), o_valid_manual))
+    print(np.subtract(o_full_torch.detach().numpy(), o_full_manual))
