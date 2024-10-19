@@ -77,15 +77,27 @@ def plot_univariate_gd_analysis(
     plt.rcParams['text.usetex'] = True
     fig = plt.figure()
     ax = plt.axes(projection='3d')
+    # ax.plot_surface(
+    #     a0,
+    #     a1,
+    #     np.array(costs),
+    #     rstride=1,
+    #     cstride=1,
+    #     cmap='cividis',
+    #     edgecolor='none',
+    #     alpha=0.5)
     ax.plot_surface(
         a0,
         a1,
         np.array(costs),
         rstride=1,
         cstride=1,
-        cmap='cividis',
+        cmap='viridis',  # or 'plasma'
         edgecolor='none',
-        alpha=0.5)
+        alpha=0.6)
+
+    
+    
     ax.contour(a0, a1, np.array(costs), zdir='z', offset=-0.5, cmap=cm.coolwarm)
     ax.plot(xx, yy, zz, 'r.--', alpha=1)
     ax.set_xlabel(r'$a_0$')
@@ -96,9 +108,18 @@ def plot_univariate_gd_analysis(
 if __name__=='__main__':
     import os
 
+    # plot_univariate_gd_analysis(
+    #     file=os.path.join(os.path.dirname(__file__), 'data_generation', 'data_1f.csv'),
+    #     a0_range=(125,175,0.2),
+    #     a1_range=(18,22,0.2),
+    #     gd_points= [],
+    #     plot_slices=True)
+
+
     plot_univariate_gd_analysis(
         file=os.path.join(os.path.dirname(__file__), 'data_generation', 'data_1f.csv'),
-        a0_range=(125,175,0.2),
-        a1_range=(18,22,0.2),
-        gd_points= [],
-        plot_slices=True)
+        a0_range=(125, 175, 0.1),  # finer grid
+        a1_range=(18, 22, 0.1),    # finer grid
+        gd_points=[],
+        plot_slices=True
+    )

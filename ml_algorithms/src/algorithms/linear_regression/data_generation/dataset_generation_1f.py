@@ -1,12 +1,12 @@
 '''
 single feature data generation
 '''
+import os
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
-import os
 
-def generate_data(a0, a1, noise_sigma, plot=False):
+def generate_data(a0, a1, noise_sigma, file_name, plot=False):
     '''
     Generates 100 points with m slope and c intercept 
     and adds noise with sigma
@@ -21,7 +21,7 @@ def generate_data(a0, a1, noise_sigma, plot=False):
     e = np.random.randn(len(x))*noise_sigma
     y = l + e
 
-    file_path = os.path.join(os.path.dirname(__file__), 'data_1f.csv')
+    file_path = os.path.join(os.path.dirname(__file__), file_name)
     # save the data to a csv file
     df = pd.DataFrame(data=[x, y]).T
     df.columns = ['x', 'y']
@@ -36,4 +36,4 @@ def generate_data(a0, a1, noise_sigma, plot=False):
         plt.show()
 
 if __name__=='__main__':
-    generate_data(a0=150, a1=20, noise_sigma=20, plot=True)
+    generate_data(a0=150, a1=20, noise_sigma=20, file_name="data_1f.csv", plot=True)
