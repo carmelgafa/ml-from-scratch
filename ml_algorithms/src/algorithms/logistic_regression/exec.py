@@ -1,5 +1,6 @@
 from binaryclassification import *
 from lr_utils import *
+import matplotlib.pyplot as plt
 
 def load_data_test():
     train_set_x_orig, train_set_y, test_set_x_orig, test_set_y, classes = load_dataset()
@@ -45,10 +46,15 @@ def optimization_test():
 
     params, grads, costs = optimize(w, b, X, Y, num_iterations=100, learning_rate=0.009, print_cost=True)
 
-    print('w= {}'.format(params['w']))
-    print('b= {}'.format(params['b']))
-    print('dw= {}'.format(grads['dw']))
-    print('db= {}'.format(grads['db']))
+    w = params['w']
+    b = params['b']
+    dw = grads['dw']
+    db = grads['db']
+
+    print(f'w= {w}')
+    print(f'b= {b}')
+    print(f'dw= {dw}')
+    print(f'db= {db}')
 
 def prediction_test():
     w = np.array([[0.1124579],[0.23106775]])
